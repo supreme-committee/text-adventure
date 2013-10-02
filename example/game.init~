@@ -3,12 +3,12 @@ $$					//Section Delimiter
 1 					//Describes tile location
 "Some String Here" 			//Intro Text for this area. Displayed on entering the area
 Plaque 	     				//List things in this tile
-"Text for 'Look Plaque'"		//List Text to display for thing one line after
+Look:Text for 'Look Plaque'		//List Text to display for thing one line after
 Hill
-"Text for 'Look Hill'"
+Look:Text for 'Look Hill'
 House
-"Text for 'Look House'"
+Look:Text for 'Look House'
 Rock
-"Text for 'Look House'"
+Look:Text for 'Look House'
 ...
 
