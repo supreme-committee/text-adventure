@@ -14,10 +14,10 @@ EXECBIN = game
 
 
 debug-mgrijalva:
-	g++ -g -Wall -Wextra -O0 -o Bin\Debug\${EXENAME} -IC:\Libraries\SFML\include ${SOURCEFILES} -LC:\Libraries\SFML\lib -lsfml-system-d -lsfml-graphics-d -lsfml-window-d
+	g++ -g -Wall -Wextra -O0 -std=gnu++0x -o Bin\Debug\${EXENAME} -IC:\Libraries\SFML\include ${SOURCEFILES} -LC:\Libraries\SFML\lib -lsfml-system-d -lsfml-graphics-d -lsfml-window-d
 	
 release-mgrijalva:
-	g++ -O2 -o Bin\Release\${EXENAME} -mwindows -IC:\Libraries\SFML\include ${SOURCEFILES} -LC:\Libraries\SFML\lib -lsfml-system -lsfml-graphics -lsfml-window -lsfml-main
+	g++ -O2 -std=gnu++0x -o Bin\Release\${EXENAME} -mwindows -IC:\Libraries\SFML\include ${SOURCEFILES} -LC:\Libraries\SFML\lib -lsfml-system -lsfml-graphics -lsfml-window -lsfml-main
 
 apple: $(EXECBIN)
 
