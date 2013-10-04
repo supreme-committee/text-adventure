@@ -5,14 +5,19 @@
 #include <utility>
 using namespace std;
 
+typedef struct link
+{
+    string text;
+    string filename;
+}link; 
+
 class tile
 {
     public:
         tile(){}
         ~tile(){}
         vector<string> texts; //Text to display
-        vector<pair<string, string> > links; //first = text second = textfile
-        vector<pair<string, string> > vars; //first = varname second = varvalue
+        vector<link> links; //first = text second = textfile
 };
 
 #endif
