@@ -11,3 +11,6 @@ Members:
 	 Carl LaMaster
 
 	 Our project is to make an interactive story game engine in C++.
+
+A note on the makefile:
+	Feel free to make your own targets. I have my own (debug-mgrijalva & release-mgrijalva) set up for my machine.
