@@ -16,4 +16,9 @@
 # Random stuff
 *.exe
 
+# Visual studio files
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
 *~
