@@ -14,3 +14,6 @@ Members:
 
 A note on the makefile:
 	Feel free to make your own targets. I have my own (debug-mgrijalva & release-mgrijalva) set up for my machine.
+	
+	There is also one for Mac machines. It possibly works in unix, not sure how sfml is installed on those systems
+	If they are the same as Mac, it should work. 
