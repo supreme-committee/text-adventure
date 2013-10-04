@@ -1,6 +1,7 @@
 #include "parser.h"
 #include <iostream>
 #include <cctype>
+#include <cstring>
 
 Parser::Parser(){}
 Parser::~Parser(){}
