@@ -1,9 +1,10 @@
+//Game.h
 #ifndef _GAME_H_
 #define _GAME_H_
 
 #include <string>
 #include <map>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 class Game
 {
