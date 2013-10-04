@@ -19,6 +19,14 @@ void Game::input()
 	while (window.pollEvent(ev))
 	{
 		if (ev.type == sf::Event::Closed) done = true;
+		else if (ev.type == sf::Event::MouseButtonPressed)
+		{
+			if (ev.mouseButton.button == sf::Mouse::Left)
+			{
+				// Figure out what button was pressed, and trigger that button's click() function
+				// when clicked, get the next file, and send it to the parser which will return a new Tile object
+			}
+		}
 	}
 }
 void Game::render()
