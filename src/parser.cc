@@ -2,10 +2,65 @@
 #include <iostream>
 #include <cctype>
 #include <cstring>
+#include <typeinfo>
 
 Parser::Parser(){}
 Parser::~Parser(){}
-bool Parser::isInt(std::string string)
+
+void Parser::grabXmlData(rapidxml::xml_node<char>* node, 
+		tile& tileData,
+		map<string, bool>& boolVars,
+		map<string, int>& intVars,
+		map<string, string>& stringVars)
+{
+	cout << "Node found: " << node->name() << endl;
+	if (strcmp(node->name(), "text") == 0)
+	{
+		tileData.texts.push_back(node->value());
+	}
+	else if (strcmp(node->name(), "var") == 0)
+	{
+		char* varName = node->first_node()->value();
+		char* varValue = node->last_node()->value();
+		if (isInt(varValue))
+		{
+			intVars.insert(pair<string, int>(varName, atoi(varValue)));
+		}
+		else if (strcmp(varValue, "true") == 0 || strcmp(varValue, "false") == 0)
+		{
+			strcmp(varValue, "true") == 0 ? 
+				boolVars.insert(pair<string, bool>(varName, true)) :
+				boolVars.insert(pair<string, bool>(varName, false));
+		}
+		else
+		{
+			stringVars.insert(pair<string, string>(varName, varValue));
+		}
+	}
+	else if (strcmp(node->name(), "link") == 0)
+	{
+		char* filename;
+		char* text;
+
+		if (strcmp(node->first_node()->name(), "file") == 0)
+		{
+			filename = node->first_node()->value();
+			text = node->last_node()->value();
+		}
+		else
+		{
+			filename = node->last_node()->value();
+			text = node->first_node()->value();
+		}
+
+		//Button button(text, filename);
+		link l1;
+		l1.filename = filename;
+		l1.text = text;
+		tileData.links.push_back(l1);
+	}
+}
+bool Parser::isInt(string string)
 {
 	for (auto c : string)
 	{
@@ -15,12 +70,13 @@ bool Parser::isInt(std::string string)
 }
 bool Parser::verify(char* filename)
 {
+	cout << filename << endl;
 	return true;
 }
-tile Parser::parse(char* filename, 
-				   std::map<std::string, bool>& boolVars,
-				   std::map<std::string, int>& intVars,
-				   std::map<std::string, std::string>& stringVars)
+tile Parser::parse(const char* filename, 
+				   map<string, bool>& boolVars,
+				   map<string, int>& intVars,
+				   map<string, string>& stringVars)
 {
 	tile newTile;
 	try
@@ -31,7 +87,7 @@ tile Parser::parse(char* filename,
 
 		if (strcmp(doc.first_node()->name(), "tile") != 0)
 		{
-			std::cout << "tile group missing" << std::endl;
+			cout << "tile group missing" << endl;
 			return tile();
 		}
 
@@ -39,53 +95,79 @@ tile Parser::parse(char* filename,
 			node;
 			node = node->next_sibling())
 		{
-			std::cout << "Node found: " << node->name() << std::endl;
-			if (strcmp(node->name(), "text") == 0)
+			if (strcmp(node->name(), "if") == 0) // Handle conditional statements
 			{
-				newTile.texts.push_back(node->value());
-			}
-			else if (strcmp(node->name(), "var") == 0)
-			{
-				char* varName = node->first_node()->value();
-				char* varValue = node->last_node()->value();
-				if (isInt(varValue))
-				{
-					intVars.insert(std::pair<std::string, int>(varName, atoi(varValue)));
-				}
-				else if (strcmp(varValue, "true") == 0 || strcmp(varValue, "false") == 0)
-				{
-					strcmp(varValue, "true") == 0 ? 
-						boolVars.insert(std::pair<std::string, bool>(varName, true)) :
-						boolVars.insert(std::pair<std::string, bool>(varName, false));
-				}
-				else
-				{
-					stringVars.insert(std::pair<std::string, std::string>(varName, varValue));
-				}
-			}
-			else if (strcmp(node->name(), "link") == 0)
-			{
-				char* filename = node->first_node()->value();
-				char* text = node->last_node()->value();
-			}
-			else if (strcmp(node->name(), "if") == 0)
-			{
+				auto attr = node->first_attribute();
+				char* varName = attr->name();
+				char* checkValue = attr->value();
 
+				cout << "check if " << attr->name() << " equals " << attr->value() << endl;
+					
+				if (boolVars.find(varName) != boolVars.end())
+				{
+					bool expectedValue = strcmp(checkValue, "true") == 0 ? true : false;
+					bool actualValue = boolVars.find(varName)->second;
+					if (expectedValue == actualValue)
+					{
+						cout << varName << " test passed" << endl;
+						for (auto innerNode = node->first_node(); // Iterate through nodes within this conditional
+							innerNode;
+							innerNode = innerNode->next_sibling())
+						{
+							cout << "Found inner node: " << innerNode->name() << endl;
+							grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
+						}
+					}
+				}
+				else if (intVars.find(varName) != intVars.end())
+				{
+					int expectedValue = atoi(checkValue);
+					int actualValue = intVars.find(varName)->second;
+					if (expectedValue == actualValue)
+					{
+						cout << varName << " test passed" << endl;
+						for (auto innerNode = node->first_node(); 
+							innerNode;
+							innerNode = innerNode->next_sibling())
+						{
+							cout << "Found inner node: " << innerNode->name() << endl;
+							grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
+						}
+					}
+				}
+				else if (stringVars.find(varName) != stringVars.end())
+				{
+					if (strcmp(checkValue, stringVars.find(varName)->second.c_str()) == 0)
+					{
+						cout << varName << " test passed" << endl;
+						for (auto innerNode = node->first_node(); 
+							innerNode;
+							innerNode = innerNode->next_sibling())
+						{
+							cout << "Found inner node: " << innerNode->name() << endl;
+							grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
+						}
+					}
+				}
+			}
+			else
+			{
+				grabXmlData(node, newTile, boolVars, intVars, stringVars);
 			}
 		}
 	}
 	catch (rapidxml::parse_error ex)
 	{
-		std::cout << ex.what() << std::endl;
-		std::cout << ex.where<char>() << std::endl;
+		cout << ex.what() << endl;
+		cout << ex.where<char>() << endl;
 		return tile();
 	}
-	catch (std::exception e)
+	catch (exception e)
 	{
-		std::cout << e.what() << std::endl;
+		cout << e.what() << endl;
 		return tile();
 	}
 
-	std::cout << "Parse succeeded!" << std::endl;
+	cout << "Parse succeeded!" << endl;
 	return newTile;
 }

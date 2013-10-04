@@ -4,18 +4,27 @@
 #include "rapidxml-1.13/rapidxml_utils.hpp"
 #include "tile.h"
 #include <map>
+using namespace std;
 
 class Parser
 {
+private:
+	// This will grab all data except for conditionals
+	static void grabXmlData(rapidxml::xml_node<char>* node, 
+		tile& tileData,
+		map<string, bool>& boolVars,
+		map<string, int>& intVars,
+		map<string, string>& stringVars);
+
 public:
 	Parser();
 	~Parser();
-	static bool isInt(std::string string);
+	static bool isInt(string string);
 	static bool verify(char* filename);
-	static tile parse(char* filename, 
-				   std::map<std::string, bool>& boolVars,
-				   std::map<std::string, int>& intVars,
-				   std::map<std::string, std::string>& stringVars);
+	static tile parse(const char* filename, 
+				   map<string, bool>& boolVars,
+				   map<string, int>& intVars,
+				   map<string, string>& stringVars);
 };
 
 #endif
