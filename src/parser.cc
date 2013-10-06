@@ -8,7 +8,7 @@ Parser::Parser(){}
 Parser::~Parser(){}
 
 void Parser::grabXmlData(rapidxml::xml_node<char>* node, 
-		tile& tileData,
+		Tile& tileData,
 		map<string, bool>& boolVars,
 		map<string, int>& intVars,
 		map<string, string>& stringVars)
@@ -54,7 +54,7 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		}
 
 		//Button button(text, filename);
-		link l1;
+		Link l1;
 		l1.filename = filename;
 		l1.text = text;
 		tileData.links.push_back(l1);
@@ -73,12 +73,12 @@ bool Parser::verify(char* filename)
 	cout << filename << endl;
 	return true;
 }
-tile Parser::parse(const char* filename, 
+Tile Parser::parse(const char* filename, 
 				   map<string, bool>& boolVars,
 				   map<string, int>& intVars,
 				   map<string, string>& stringVars)
 {
-	tile newTile;
+	Tile newTile;
 	try
 	{
 		rapidxml::file<> xmlFile(filename);
@@ -88,7 +88,7 @@ tile Parser::parse(const char* filename,
 		if (strcmp(doc.first_node()->name(), "tile") != 0)
 		{
 			cout << "tile group missing" << endl;
-			return tile();
+			return Tile();
 		}
 
 		for (auto node = doc.first_node()->first_node();
@@ -160,12 +160,12 @@ tile Parser::parse(const char* filename,
 	{
 		cout << ex.what() << endl;
 		cout << ex.where<char>() << endl;
-		return tile();
+		return Tile();
 	}
 	catch (exception e)
 	{
 		cout << e.what() << endl;
-		return tile();
+		return Tile();
 	}
 
 	cout << "Parse succeeded!" << endl;

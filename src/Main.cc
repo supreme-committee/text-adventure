@@ -12,7 +12,7 @@ int main()
 	std::map<std::string, int> intVars;
 	std::map<std::string, std::string> stringVars;
 
-	tile t = Parser::parse("../Sample-Game/Concept-michaelg/Start.xml", boolVars, intVars, stringVars);
+	Tile t = Parser::parse("../Sample-Game/Concept-michaelg/Start.xml", boolVars, intVars, stringVars);
 	*/
 
     Game* game = new Game();

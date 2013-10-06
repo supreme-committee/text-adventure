@@ -11,7 +11,7 @@ class Parser
 private:
 	// This will grab all data except for conditionals
 	static void grabXmlData(rapidxml::xml_node<char>* node, 
-		tile& tileData,
+		Tile& tileData,
 		map<string, bool>& boolVars,
 		map<string, int>& intVars,
 		map<string, string>& stringVars);
@@ -21,7 +21,7 @@ public:
 	~Parser();
 	static bool isInt(string string);
 	static bool verify(char* filename);
-	static tile parse(const char* filename, 
+	static Tile parse(const char* filename, 
 				   map<string, bool>& boolVars,
 				   map<string, int>& intVars,
 				   map<string, string>& stringVars);
