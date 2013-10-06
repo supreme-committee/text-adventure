@@ -4,8 +4,10 @@
 
 #include <sstream>
 #include <string>
+#include <iostream>
+using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
 	// This is just some code for testing the parser. It'll be removed eventually. - michaelg
 	/*std::map<std::string, bool> boolVars;
@@ -16,7 +18,11 @@ int main()
 	*/
 
     Game* game = new Game();
-	game->init();
+	if (!game->init()) 
+	{
+		cerr << "Game initialization failed. See previous messages" << endl;
+		return 1;
+	}
 	
 	while (!game->isDone())
 	{
