@@ -15,16 +15,16 @@ Goal: One basic playable game. Ability to start game, do basic interactions with
     -Combine other classes together in a coherent way (time unsure)
 
 (3) As a video game player, I want a GUI so that I can visualize what is happening and interact with the game more easily.
-    -implement SFML GUI elements
-    -functions for button clicks
-    -taking output from parser and creating buttons
+    -implement SFML GUI elements (10hr)
+    -functions for button clicks (5hr)
+    -taking output from parser and creating buttons (10hr)
 
 (1) As a game player, I want a title and logo so that I can easily recognize the game, have brand loyalty, and have a name I can use to recommend it to everyone I know.
 
 (5) As a game developer, I want to be able to define my own variables in order to customize how the user interacts with my game.
-    -implement parser
-    -Tile class implementation for communication with game class
-    -editing variable tables
+    -implement parser (5hr)
+    -Tile class implementation for communication with game class (1hr)
+    -editing variable tables (1hr)
     
 ------------------------------
 TEAM ROLES
