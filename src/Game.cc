@@ -13,7 +13,7 @@ void Game::createButtons()
 	// Create a button for each link in this tile
 	for (auto& link : tile.links)
 	{
-		//Button button(link.text, link.filename);
+		//Button button(font_main, link.text, link.filename);
 		//buttons.push_back(button);
 	}
 }
