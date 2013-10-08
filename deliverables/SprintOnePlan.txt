@@ -43,7 +43,7 @@ Initial Task Assignment
         Assignment - Parser Stuff
    
    Michael Parker
-	 Benjamin Lieu
+   Benjamin Lieu
 	      Assignment - GUI Stuff
 
 	 Justin Tracey
