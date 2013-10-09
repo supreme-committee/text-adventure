@@ -174,6 +174,7 @@ Tile Parser::parse(const char* filename,
 			node;
 			node = node->next_sibling())
 		{
+			bool ifPassed = true;
 			if (strcmp(node->name(), "if") == 0) // Handle conditional statements
 			{
 				auto attr = node->first_attribute();
@@ -197,6 +198,7 @@ Tile Parser::parse(const char* filename,
 							grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
 						}
 					}
+					else ifPassed = false;
 				}
 				else if (intVars.find(varName) != intVars.end())
 				{
@@ -213,6 +215,7 @@ Tile Parser::parse(const char* filename,
 							grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
 						}
 					}
+					else ifPassed = false;
 				}
 				else if (stringVars.find(varName) != stringVars.end())
 				{
@@ -227,11 +230,28 @@ Tile Parser::parse(const char* filename,
 							grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
 						}
 					}
+					else ifPassed = false;
 				}
 			}
-			else
+			else if (strcmp(node->name(), "else") != 0) // Handle all other tags
 			{
 				grabXmlData(node, newTile, boolVars, intVars, stringVars);
+			}
+
+			// If the if statement failed, collect the stuff inside the <else></else> tags
+			if (ifPassed == false && 
+				node->next_sibling() != NULL && 
+				strcmp(node->next_sibling()->name(), "else") == 0)
+			{
+				node = node->next_sibling();
+				cout << "If failed. Using stuff in <else>" << endl;
+				for (auto innerNode = node->first_node(); 
+					innerNode;
+					innerNode = innerNode->next_sibling())
+				{
+					cout << "Found inner node: " << innerNode->name() << endl;
+					grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
+				}
 			}
 		}
 	}
