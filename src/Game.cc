@@ -36,6 +36,12 @@ bool Game::init()
 		return false;
 	}*/
 
+	// Iterate through input files and verify they are formatted correctly
+	if (!Parser::verify("../Sample-Game/Concept-michaelg/Start.xml"))
+	{
+		return false;
+	}
+	
 	tile = Parser::parse("../Sample-Game/Concept-michaelg/Start.xml", boolVars, intVars, stringVars); // Get the starting tile
 	if (tile.links.size() == 0) // No links exist. Parsing failed
 	{
