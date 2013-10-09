@@ -69,13 +69,18 @@ bool Parser::isInt(string string)
 	}
 	return true;
 }
+
+//Returns true if the given xml file conforms to the story file standard
+//Will print out to cerr all debug/test text.
 bool Parser::verify(const char* filename)
 {
+    cout << endl;
 	rapidxml::file<> xmlFile(filename);
 	rapidxml::xml_document<> doc;
 	doc.parse<0>(xmlFile.data());
 	
 	bool verified = true;
+	//tiles allowed in a <tile> tag; to be passed to the recursive helper
 	set<string> tileAllowed({"text", "link", "var", "if", "else"});
 	if(strcmp(doc.first_node()->name(), "tile") == 0)
 	{
@@ -96,12 +101,23 @@ bool Parser::verify(const char* filename)
 	}
     
     if(verified)
-        cout << "\nFILE IS VERIFIED" << endl;
+        cerr << "\nFILE IS VERIFIED" << endl;
     else
-        cout << "\nVERIFICATION ERROR" << endl;
+        cerr << "\nVERIFICATION ERROR" << endl;
     
 	return verified;
 	
+}
+
+//Helper function to cut down on copy pasting or printing new reserved words 
+void Parser::printReserved(set<string> reserved)
+{
+    cerr << "New Reserved words: ";  
+    for(auto x = reserved.begin(); x != reserved.end(); x++)
+    {
+        cerr << *x << ", ";
+    }
+    cerr << endl;
 }
 
 //Given a node, verifyHelper() recursively analyzes the xml file
@@ -110,70 +126,66 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 {
     bool isCorrect = true;
     
-    cout << "\nAnalyzing tag: " << node->name() << endl;
+    cerr << "Analyzing tag: " << node->name() << endl;
     
-    if(reserved.find(node->name()) != reserved.end())
+    if(reserved.find(node->name()) != reserved.end()) //checks if tag is a reserved word
     {
-        cout << node->name() << " is a valid tag" << endl;
+        cerr << node->name() << " is a valid tag" << endl;
     }
-    else
+    else //prints out all valid tags passed into this function
     {
         cerr<<"<"<<node->name()<<"> is an incorrect tag"
             <<"\nMust be one of: ";
         for(auto x = reserved.begin(); x != reserved.end(); x++)
         {
-            cout <<"<"<<*x<<"> ";
+            cerr <<"<"<<*x<<"> ";
         }
-        cout << endl;
+        cerr << endl;
         return false;
     }
     
-    if(strcmp(node->name(), "text") == 0)
+    //Changing the reserved word list to be passed to next level of recursion
+    if(strcmp(node->name(), "text") == 0 || strcmp(node->name(), "file") == 0
+        || strcmp(node->name(), "name") == 0 || strcmp(node->name(), "value") == 0)
     {
         reserved = set<string>();
-        cout << "No more valid reserved words for parent \"text\""<<endl;
+        cerr << "No valid reserved words for \""<<node->name()<<
+            "\""<<endl;
     }
     else if(strcmp(node->name(), "link") == 0)
     {
-        reserved = set<string>({"file", "text"});
-        cout << "New Reserved words: ";
-        for(auto x = reserved.begin(); x != reserved.end(); x++)
-        {
-            cout << *x << ", ";
-        }
-        cout << endl;
+        reserved = set<string>({"file", "text"}); //change reserved words
+        printReserved(reserved);
     }
     else if(strcmp(node->name(), "var") == 0)
     {
         reserved = set<string>({"name", "value"});
-        cout << "New Reserved words: ";
-        for(auto x = reserved.begin(); x != reserved.end(); x++)
-        {
-            cout << *x << " ";
-        }
-        cout << endl;
+        printReserved(reserved);
     }
     else if(strcmp(node->name(), "if") == 0 || strcmp(node->name(), "else") == 0)
     {
         reserved = set<string>({"text", "link", "var"});
-        cout << "New Reserved words: ";
-        for(auto x = reserved.begin(); x != reserved.end(); x++)
-        {
-            cout << *x << " ";
-        }
-        cout << endl;
+        printReserved(reserved);
     }
     
     for(auto newNode = node->first_node();
         newNode;
         newNode = newNode->next_sibling())
     {
-        cout << "\nRecursive call to node named \""<<newNode->name()
+        cerr << "\nRecursive call to node named \""<<newNode->name()
             <<"\" "<< "from node "<< node->name()<< endl;
         if(strcmp(newNode->name(), "") == 0)
         {
-            cout << "Reached Leaf" << endl;
-            return true;
+            if(newNode->type() == rapidxml::node_data)
+            {
+                cerr << "Reached XML value data belonging to: "<<node->name()<<endl;
+                continue;
+            }
+            else
+            {
+                cerr << "Reached Leaf" << endl<<endl;
+                return true;
+            }
         }
         //cout << newNode << endl;
         if(!verifyHelper(newNode, reserved))

@@ -17,6 +17,7 @@ private:
 		map<string, bool>& boolVars,
 		map<string, int>& intVars,
 		map<string, string>& stringVars);
+	static void printReserved(set<string> reserved);
 
 public:
 	Parser();
