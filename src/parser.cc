@@ -3,6 +3,7 @@
 #include <cctype>
 #include <cstring>
 #include <typeinfo>
+#include <set>
 
 Parser::Parser(){}
 Parser::~Parser(){}
@@ -68,11 +69,89 @@ bool Parser::isInt(string string)
 	}
 	return true;
 }
-bool Parser::verify(char* filename)
+bool Parser::verify(const char* filename)
 {
-	cout << filename << endl;
-	return true;
+	/*cout << filename << endl;
+	return true;*/
+	rapidxml::file<> xmlFile(filename);
+	rapidxml::xml_document<> doc;
+	doc.parse<0>(xmlFile.data());
+	
+	bool verified = true;
+	set<string> tileAllowed({"text", "link", "var", "if", "else"});
+	if(strcmp(doc.first_node()->name(), "tile") == 0)
+	{
+        for(auto newNode = doc.first_node()->first_node();
+            newNode;
+            newNode = newNode->next_sibling())
+        {
+            if(!verifyHelper(newNode, tileAllowed))
+            {
+                verified = false;
+            }
+        }
+    }
+	else
+	{
+	    cerr << "Tile Tag Missing!" << endl;
+	    verified = false;
+	}
+	
+	return verified;
+	
 }
+
+//Given a node, verifyHelper() recursively analyzes the xml file
+//Analyzes the given node, then recursively calls its child nodes
+bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
+{
+    bool isCorrect = true;
+
+    if(reserved.find(node->name()) != reserved.end())
+    {}//Everything is fine
+    else
+    {
+        cerr<<"<"<<node->name()<<"> is an incorrect tag -- Must be one of: <text> <link> <var> <if> or <else>\n Or an inner value of one of these" << endl;
+        return false;
+    }
+    
+    if(node->first_node() == NULL)
+    {
+        cout << "EXITCONDITION" << endl;
+        exit(1);
+        return true;
+    }
+    
+    if(strcmp(node->name(), "text"))
+    {
+        reserved = set<string>();
+    }
+    else if(strcmp(node->name(), "link"))
+    {
+        reserved = set<string>({"file", "text"});
+    }
+    else if(strcmp(node->name(), "var"))
+    {
+        reserved = set<string>({"name", "value"});
+    }
+    else if(strcmp(node->name(), "if") || strcmp(node->name(), "else"))
+    {
+        reserved = set<string>({"text", "link", "var"});
+    }
+    
+    for(auto newNode = node->first_node();
+        newNode;
+        newNode = newNode->next_sibling())
+    {
+        cout << newNode << endl;
+        if(!verifyHelper(node, reserved))
+        {
+            isCorrect = false;
+        }
+    }
+    return isCorrect;
+}
+
 Tile Parser::parse(const char* filename, 
 				   map<string, bool>& boolVars,
 				   map<string, int>& intVars,

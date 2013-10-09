@@ -1,0 +1,15 @@
+<tile>
+	<text>You see a window.</text>
+	<if haveRock="true">
+		<link>
+			<file>Throw rock at window.xml</file>
+			<text>Throw your rock at the window</text>
+		</link>
+	</if>
+	<else>
+		<link>
+			<file>Step forward.xml</file>
+			<text>Go back</text>
+		</link>
+	</else>
+</tile>

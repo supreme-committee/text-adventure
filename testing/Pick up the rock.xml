@@ -1,0 +1,11 @@
+<tile>
+	<text>You picked up the rock.</text>
+	<var>
+		<name>haveRock</name>
+		<value>true</value>
+	</var>
+	<link>
+		<file>Step forward.xml</file>
+		<text>Go back</text>
+	</link>
+</tile>

@@ -4,6 +4,7 @@
 #include "rapidxml-1.13/rapidxml_utils.hpp"
 #include "tile.h"
 #include <map>
+#include <set>
 using namespace std;
 
 class Parser
@@ -20,7 +21,8 @@ public:
 	Parser();
 	~Parser();
 	static bool isInt(string string);
-	static bool verify(char* filename);
+	static bool verify(const char* filename);
+	static bool verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved);
 	static Tile parse(const char* filename, 
 				   map<string, bool>& boolVars,
 				   map<string, int>& intVars,

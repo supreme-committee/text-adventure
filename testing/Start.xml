@@ -1,0 +1,7 @@
+<tile>
+	<text>You wake up somewhere.</text>
+	<link>
+		<file>Step forward.xml</file>
+		<text>Move forward</text>
+	</link>
+</tile>
