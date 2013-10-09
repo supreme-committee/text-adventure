@@ -1,0 +1,55 @@
+Sprint One Plan
+MYOAG
+Supreme Committee
+10/18/2013
+
+Goal: One basic playable game. Ability to start game, do basic interactions with story. Begin design of GUI.
+
+(5) As both a player and a game designer, I want a standard input file format so that I can easily create maps/levels quickly.
+    -Prototype file (20min)
+(21) As a game designer, I want a parser so that I can load and test different maps.
+   -Parser.cc/.h class files (5hr)
+   -parse() function(2hr)
+
+(8) As a developer, a game class allows us to do basic game logic and connect the other components.
+    -Combine other classes together in a coherent way (time unsure)
+
+(3) As a video game player, I want a GUI so that I can visualize what is happening and interact with the game more easily.
+    -implement SFML GUI elements (10hr)
+    -functions for button clicks (5hr)
+    -taking output from parser and creating buttons (10hr)
+
+(1) As a game player, I want a title and logo so that I can easily recognize the game, have brand loyalty, and have a name I can use to recommend it to everyone I know.
+
+(5) As a game developer, I want to be able to define my own variables in order to customize how the user interacts with my game.
+    -implement parser (5hr)
+    -Tile class implementation for communication with game class (1hr)
+    -editing variable tables (1hr)
+    
+------------------------------
+TEAM ROLES
+   Thomas White - Product Owner
+	 Michael Grijalva - Developer 
+	 Justin Tracey - Developer
+	 Michael Parker - Developer
+	 Benjamin Lieu - Developer
+	 Carl LaMaster - Scrum Master
+	 
+------------------------------
+Initial Task Assignment
+   Thomas White
+   Carl LaMaster
+   Michael Grijalva
+        Assignment - Parser Stuff
+   
+   Michael Parker
+   Benjamin Lieu
+	 Assignment - GUI Stuff
+
+   Justin Tracey
+	  Assignment - Main Game class
+-----------------------------
+Scrum Times
+-Monday 7:00
+-Tuesday 5:00
+-Friday 12:00
