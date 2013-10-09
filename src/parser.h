@@ -10,7 +10,8 @@ using namespace std;
 class Parser
 {
 private:
-	// This will grab all data except for conditionals
+	// This will extract data (variables, text, etc.) from the given node. 
+	// It'll not handle conditionals
 	static void grabXmlData(rapidxml::xml_node<char>* node, 
 		Tile& tileData,
 		map<string, bool>& boolVars,
