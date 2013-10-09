@@ -81,7 +81,12 @@ bool Parser::verify(const char* filename)
 	
 	bool verified = true;
 	//tiles allowed in a <tile> tag; to be passed to the recursive helper
+#ifdef _MSC_VER // If Visual Studio is being used (it doesn't fully support init. lists yet).
+	string tmp[] = {"text", "link", "var", "if", "else"};
+	set<string> tileAllowed(tmp, tmp + sizeof(tmp)/sizeof(tmp[0]));
+#else
 	set<string> tileAllowed({"text", "link", "var", "if", "else"});
+#endif
 	if(strcmp(doc.first_node()->name(), "tile") == 0)
 	{
         for(auto newNode = doc.first_node()->first_node();
@@ -154,17 +159,32 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
     }
     else if(strcmp(node->name(), "link") == 0)
     {
+#ifdef _MSC_VER
+		string tmp[] = {"file", "text"};
+		reserved = set<string>(tmp, tmp + sizeof(tmp)/sizeof(tmp[0]));
+#else
         reserved = set<string>({"file", "text"}); //change reserved words
+#endif
         printReserved(reserved);
     }
     else if(strcmp(node->name(), "var") == 0)
     {
+#ifdef _MSC_VER
+		string tmp[] = {"name", "value"};
+		reserved = set<string>(tmp, tmp + sizeof(tmp)/sizeof(tmp[0]));
+#else
         reserved = set<string>({"name", "value"});
+#endif
         printReserved(reserved);
     }
     else if(strcmp(node->name(), "if") == 0 || strcmp(node->name(), "else") == 0)
     {
+#ifdef _MSC_VER
+		string tmp[] = {"text", "link", "var"};
+		reserved = set<string>(tmp, tmp + sizeof(tmp)/sizeof(tmp[0]));
+#else
         reserved = set<string>({"text", "link", "var"});
+#endif
         printReserved(reserved);
     }
     
