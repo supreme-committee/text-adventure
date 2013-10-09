@@ -71,8 +71,6 @@ bool Parser::isInt(string string)
 }
 bool Parser::verify(const char* filename)
 {
-	/*cout << filename << endl;
-	return true;*/
 	rapidxml::file<> xmlFile(filename);
 	rapidxml::xml_document<> doc;
 	doc.parse<0>(xmlFile.data());
@@ -96,7 +94,12 @@ bool Parser::verify(const char* filename)
 	    cerr << "Tile Tag Missing!" << endl;
 	    verified = false;
 	}
-	
+    
+    if(verified)
+        cout << "\nFILE IS VERIFIED" << endl;
+    else
+        cout << "\nVERIFICATION ERROR" << endl;
+    
 	return verified;
 	
 }
@@ -106,45 +109,74 @@ bool Parser::verify(const char* filename)
 bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 {
     bool isCorrect = true;
-
+    
+    cout << "\nAnalyzing tag: " << node->name() << endl;
+    
     if(reserved.find(node->name()) != reserved.end())
-    {}//Everything is fine
+    {
+        cout << node->name() << " is a valid tag" << endl;
+    }
     else
     {
-        cerr<<"<"<<node->name()<<"> is an incorrect tag -- Must be one of: <text> <link> <var> <if> or <else>\n Or an inner value of one of these" << endl;
+        cerr<<"<"<<node->name()<<"> is an incorrect tag"
+            <<"\nMust be one of: ";
+        for(auto x = reserved.begin(); x != reserved.end(); x++)
+        {
+            cout <<"<"<<*x<<"> ";
+        }
+        cout << endl;
         return false;
     }
     
-    if(node->first_node() == NULL)
-    {
-        cout << "EXITCONDITION" << endl;
-        exit(1);
-        return true;
-    }
-    
-    if(strcmp(node->name(), "text"))
+    if(strcmp(node->name(), "text") == 0)
     {
         reserved = set<string>();
+        cout << "No more valid reserved words for parent \"text\""<<endl;
     }
-    else if(strcmp(node->name(), "link"))
+    else if(strcmp(node->name(), "link") == 0)
     {
         reserved = set<string>({"file", "text"});
+        cout << "New Reserved words: ";
+        for(auto x = reserved.begin(); x != reserved.end(); x++)
+        {
+            cout << *x << ", ";
+        }
+        cout << endl;
     }
-    else if(strcmp(node->name(), "var"))
+    else if(strcmp(node->name(), "var") == 0)
     {
         reserved = set<string>({"name", "value"});
+        cout << "New Reserved words: ";
+        for(auto x = reserved.begin(); x != reserved.end(); x++)
+        {
+            cout << *x << " ";
+        }
+        cout << endl;
     }
-    else if(strcmp(node->name(), "if") || strcmp(node->name(), "else"))
+    else if(strcmp(node->name(), "if") == 0 || strcmp(node->name(), "else") == 0)
     {
         reserved = set<string>({"text", "link", "var"});
+        cout << "New Reserved words: ";
+        for(auto x = reserved.begin(); x != reserved.end(); x++)
+        {
+            cout << *x << " ";
+        }
+        cout << endl;
     }
     
     for(auto newNode = node->first_node();
         newNode;
         newNode = newNode->next_sibling())
     {
-        cout << newNode << endl;
-        if(!verifyHelper(node, reserved))
+        cout << "\nRecursive call to node named \""<<newNode->name()
+            <<"\" "<< "from node "<< node->name()<< endl;
+        if(strcmp(newNode->name(), "") == 0)
+        {
+            cout << "Reached Leaf" << endl;
+            return true;
+        }
+        //cout << newNode << endl;
+        if(!verifyHelper(newNode, reserved))
         {
             isCorrect = false;
         }
