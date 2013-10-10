@@ -1,5 +1,5 @@
 Sprint One Plan
-MYOAG
+CYOAG
 Supreme Committee
 10/18/2013
 
@@ -28,9 +28,8 @@ Goal: One basic playable game. Ability to start game, do basic interactions with
     
 ------------------------------
 TEAM ROLES
-   Thomas White - Product Owner
+	 Thomas White - Product Owner
 	 Michael Grijalva - Developer 
-	 Justin Tracey - Developer
 	 Michael Parker - Developer
 	 Benjamin Lieu - Developer
 	 Carl LaMaster - Scrum Master
