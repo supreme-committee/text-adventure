@@ -44,9 +44,6 @@ Initial Task Assignment
    Michael Parker
    Benjamin Lieu
 	 Assignment - GUI Stuff
-
-   Justin Tracey
-	  Assignment - Main Game class
 -----------------------------
 Scrum Times
 -Monday 7:00
