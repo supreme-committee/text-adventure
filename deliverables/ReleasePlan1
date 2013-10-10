@@ -7,9 +7,11 @@ High level goals:
 4)	Testing all of the above to make sure we can continue building on it
 5)	Creating a title, logo, and website.
 
-User stories for release: 
-
 Sprint 1
+
+High Level Goals
+-One basic playable map. Essentially the ability to start a game, move around, and perform basic interactions with the world. 
+-Design how our GUI will look and decide exactly what framework/tools to use to build it. A working one is not necessary at this stage but would make demonstration easier/prettier if time allows.
 
 (5) As both a player and a game designer, I want a standard input file format so that I can easily create maps/levels quickly.
 
@@ -21,9 +23,12 @@ Sprint 1
 
 (1) As a game player, I want a title and logo so that I can easily recognize the game, have brand loyalty, and have a name I can use to recommend it to everyone I know.
 
-(5) As a game developer, I want to be able to define my own variables in order to customize how the user interacts with my game.
-
 Sprint 2
+
+High Level Goals
+-Add a manual and documentation for the engine.
+-Finalize the look and functionality of the GUI.
+-Create a fully functioning sample game.
 
 (5) As both a developer and player I want an extensive manual/documentation to troubleshoot issues, allow for modification, and have a basic introduction on how to play the game. 
 
@@ -36,6 +41,11 @@ Sprint 2
 (3) As a product owner, I want a sample game so I can demonstrate the product.
 
 Sprint 3
+
+High Level Goals
+-Extensively test the product.
+-Add graphical polish(background art, extended GUI, and music).
+-Implement a game creation tool to assist content creators 
 
 (13) As a developer I want extensive testing for my game in order to eliminate bugs and get suggestions/feedback on what needs improvement.
 
