@@ -17,6 +17,13 @@ private:
 		map<string, bool>& boolVars,
 		map<string, int>& intVars,
 		map<string, string>& stringVars);
+
+	// Iterates through child nodes of the given node and calls grabXmlData on each one
+	static void grabInnerNodes(rapidxml::xml_node<char>* node, Tile& tileData,
+		map<string, bool>& boolVars,
+		map<string, int>& intVars,
+		map<string, string>& stringVars);
+
 	static void printReserved(set<string> reserved);
 
 public:

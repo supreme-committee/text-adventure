@@ -8,6 +8,8 @@
 Parser::Parser(){}
 Parser::~Parser(){}
 
+// ======================== PRIVATE FUNCTIONS ========================
+
 void Parser::grabXmlData(rapidxml::xml_node<char>* node, 
 		Tile& tileData,
 		map<string, bool>& boolVars,
@@ -54,13 +56,29 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 			text = node->first_node()->value();
 		}
 
-		//Button button(text, filename);
+		// Create a link and add it to the Tile object
 		Link l1;
 		l1.filename = filename;
 		l1.text = text;
 		tileData.links.push_back(l1);
 	}
 }
+
+void Parser::grabInnerNodes(rapidxml::xml_node<char>* node, Tile& tileData,
+		map<string, bool>& boolVars,
+		map<string, int>& intVars,
+		map<string, string>& stringVars)
+{
+	for (auto innerNode = node->first_node(); // Iterate through nodes within this conditional
+		innerNode;
+		innerNode = innerNode->next_sibling())
+	{
+		grabXmlData(innerNode, tileData, boolVars, intVars, stringVars);
+	}
+}
+
+// =================== PUBLIC FUNCTIONS =====================
+
 bool Parser::isInt(string string)
 {
 	for (auto c : string)
@@ -254,13 +272,7 @@ Tile Parser::parse(const char* filename,
 					if (expectedValue == actualValue)
 					{
 						cout << varName << " test passed" << endl;
-						for (auto innerNode = node->first_node(); // Iterate through nodes within this conditional
-							innerNode;
-							innerNode = innerNode->next_sibling())
-						{
-							cout << "Found inner node: " << innerNode->name() << endl;
-							grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
-						}
+						grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
 					}
 					else ifPassed = false;
 				}
@@ -271,13 +283,7 @@ Tile Parser::parse(const char* filename,
 					if (expectedValue == actualValue)
 					{
 						cout << varName << " test passed" << endl;
-						for (auto innerNode = node->first_node(); 
-							innerNode;
-							innerNode = innerNode->next_sibling())
-						{
-							cout << "Found inner node: " << innerNode->name() << endl;
-							grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
-						}
+						grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
 					}
 					else ifPassed = false;
 				}
@@ -286,13 +292,7 @@ Tile Parser::parse(const char* filename,
 					if (strcmp(checkValue, stringVars.find(varName)->second.c_str()) == 0)
 					{
 						cout << varName << " test passed" << endl;
-						for (auto innerNode = node->first_node(); 
-							innerNode;
-							innerNode = innerNode->next_sibling())
-						{
-							cout << "Found inner node: " << innerNode->name() << endl;
-							grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
-						}
+						grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
 					}
 					else ifPassed = false;
 				}
@@ -309,13 +309,7 @@ Tile Parser::parse(const char* filename,
 			{
 				node = node->next_sibling();
 				cout << "If failed. Using stuff in <else>" << endl;
-				for (auto innerNode = node->first_node(); 
-					innerNode;
-					innerNode = innerNode->next_sibling())
-				{
-					cout << "Found inner node: " << innerNode->name() << endl;
-					grabXmlData(innerNode, newTile, boolVars, intVars, stringVars);
-				}
+				grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
 			}
 		}
 	}
