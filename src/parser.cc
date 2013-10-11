@@ -16,7 +16,6 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		map<string, int>& intVars,
 		map<string, string>& stringVars)
 {
-	cout << "Node found: " << node->name() << endl;
 	if (strcmp(node->name(), "text") == 0)
 	{
 		tileData.texts.push_back(node->value());
@@ -239,6 +238,7 @@ Tile Parser::parse(const char* filename,
 				   map<string, int>& intVars,
 				   map<string, string>& stringVars)
 {
+	cout << "Begin parse..." << endl;
 	Tile newTile;
 	try
 	{
@@ -246,9 +246,9 @@ Tile Parser::parse(const char* filename,
 		rapidxml::xml_document<> doc;
 		doc.parse<0>(xmlFile.data());
 
+		// Check if <tile> tag exists. Abort if it doesn't
 		if (strcmp(doc.first_node()->name(), "tile") != 0)
 		{
-			cout << "tile group missing" << endl;
 			return Tile();
 		}
 
@@ -263,15 +263,12 @@ Tile Parser::parse(const char* filename,
 				char* varName = attr->name();
 				char* checkValue = attr->value();
 
-				cout << "check if " << attr->name() << " equals " << attr->value() << endl;
-					
 				if (boolVars.find(varName) != boolVars.end())
 				{
 					bool expectedValue = strcmp(checkValue, "true") == 0 ? true : false;
 					bool actualValue = boolVars.find(varName)->second;
 					if (expectedValue == actualValue)
 					{
-						cout << varName << " test passed" << endl;
 						grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
 					}
 					else ifPassed = false;
@@ -282,7 +279,6 @@ Tile Parser::parse(const char* filename,
 					int actualValue = intVars.find(varName)->second;
 					if (expectedValue == actualValue)
 					{
-						cout << varName << " test passed" << endl;
 						grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
 					}
 					else ifPassed = false;
@@ -291,7 +287,6 @@ Tile Parser::parse(const char* filename,
 				{
 					if (strcmp(checkValue, stringVars.find(varName)->second.c_str()) == 0)
 					{
-						cout << varName << " test passed" << endl;
 						grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
 					}
 					else ifPassed = false;
@@ -308,7 +303,6 @@ Tile Parser::parse(const char* filename,
 				strcmp(node->next_sibling()->name(), "else") == 0)
 			{
 				node = node->next_sibling();
-				cout << "If failed. Using stuff in <else>" << endl;
 				grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
 			}
 		}
