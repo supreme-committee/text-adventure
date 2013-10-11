@@ -1,6 +1,7 @@
 //Main class
 #include "Game.h"
 #include "parser.h"
+#include "Logger.h"
 
 #include <sstream>
 #include <string>
@@ -30,6 +31,7 @@ int main(int argc, char** argv)
 		game->render();
 	}
     
-
+    Logger::log("HELLO\n");
+    Logger::shutdown();
     return 0;
 }
