@@ -2,6 +2,7 @@
 #include <fstream>
 #include <ctime>
 #include <sstream>
+#include <thread>
 #include "Logger.h"
 
 string Logger::filename;
@@ -31,16 +32,31 @@ void Logger::log(string s) //adds to queue
 
 void Logger::write() //writes to .log file
 {
-    ofstream logFile;
-    logFile.open(filename, ios::app);
-
-	if (logFile.is_open())
+	while (true) // Loop indefinitely until queue is emptied
 	{
-		while(!qq.empty())
+		if (!qq.empty())
 		{
-			logFile << qq.front() + "\n";
-			qq.pop();        
+			ofstream logFile;
+			logFile.open(filename, ios::app);
+
+			if (logFile.is_open())
+			{
+				while(!qq.empty())
+				{
+					logFile << qq.front() + "\n";
+					qq.pop();        
+				}
+				logFile.close();
+			}
 		}
-		logFile.close();
+		else 
+		{
+			this_thread::sleep_for(chrono::milliseconds(1000)); // Sleep for 1 second
+		}
 	}
+}
+
+bool Logger::active()
+{
+	return qq.size() != 0;
 }
