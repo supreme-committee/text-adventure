@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <time.h>
+#include <ctime>
 #include <sstream>
 #include "Logger.h"
 
@@ -20,17 +20,28 @@ void Logger::write() //writes to .log file
 {
     ofstream logFile;
     
-    long int i = time(NULL);
-    string file;
-    stringstream strstream;
-    strstream << i;
-    strstream >> file;
-    file += ".txt";
+	time_t rawTime;
+	time(&rawTime);
+	struct tm* timeInfo = localtime(&rawTime);
+	string timeString = asctime(timeInfo);
+	timeString.erase(timeString.end() - 1, timeString.end()); // Erase '\n'
+	
+	while (timeString.find_first_of(':', 0) != string::npos) // Remove invalid character ':'
+	{
+		unsigned int position = timeString.find_first_of(':', 0);
+		timeString.replace(position, 1, ".");
+	}
+
+	string file = "log " + timeString + ".txt";
+
     logFile.open(file, ios::app);
-    while(!qq.empty())
-    {
-        logFile << qq.front();
-        qq.pop();        
-    }
-    logFile.close();
+	if (logFile.is_open())
+	{
+		while(!qq.empty())
+		{
+			logFile << qq.front();
+			qq.pop();        
+		}
+		logFile.close();
+	}
 }

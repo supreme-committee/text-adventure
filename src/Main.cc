@@ -31,7 +31,10 @@ int main(int argc, char** argv)
 		game->render();
 	}
     
+	/* Code for testing Logger
     Logger::log("HELLO\n");
-    Logger::shutdown();
+	Logger::shutdown();
+	*/
+
     return 0;
 }
