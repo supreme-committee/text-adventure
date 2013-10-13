@@ -5,11 +5,14 @@
 #include <thread>
 #include "Logger.h"
 
+bool Logger::exitLoop;
 string Logger::filename;
 queue<string> Logger::qq;
 
 void Logger::init()
 {
+	exitLoop = false;
+
 	time_t rawTime;
 	time(&rawTime);
 	struct tm* timeInfo = localtime(&rawTime);
@@ -51,9 +54,15 @@ void Logger::write() //writes to .log file
 		}
 		else 
 		{
+			if (exitLoop) break; // qq is empty and logger thread needs to close. Exit this loop
 			this_thread::sleep_for(chrono::milliseconds(1000)); // Sleep for 1 second
 		}
 	}
+}
+
+void Logger::shutdown()
+{
+	exitLoop = true;
 }
 
 bool Logger::active()

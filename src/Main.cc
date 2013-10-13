@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 	Tile t = Parser::parse("../Sample-Game/Concept-michaelg/Start.xml", boolVars, intVars, stringVars);
 	*/
 
-    Game game;
+    /*Game game;
 	if (!game.init()) 
 	{
 		cerr << "Game initialization failed. See previous messages" << endl;
@@ -34,17 +34,18 @@ int main(int argc, char** argv)
 	{
 		game.input();
 		game.render();
-	}
+	}*/
     
 	// Code for testing Logger (remove when done)
-    /*Logger::log("HELLO");
+    Logger::log("HELLO");
 	Logger::log("I have been logged!");
-	Logger::log("Ahhhhhhhhhhhhhhhhhhhhh!!!");*/
+	Logger::log("Ahhhhhhhhhhhhhhhhhhhhh!!!");
 	
+	Logger::shutdown(); // Tell the logger it's time to shutdown its thread
 	while (Logger::active()) // Wait until Logger is done emptying the queue
 	{
 		this_thread::sleep_for(chrono::milliseconds(100));
 	}
-
+	
     return 0;
 }
