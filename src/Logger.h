@@ -17,4 +17,5 @@ class Logger
 		static bool exitLoop;   // true if write() needs to kick out of infinite loop
 		static string filename;
         static queue<string> qq;
+		static string getTime(); // Returns the current time "[h:m:s]"
 };

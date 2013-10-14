@@ -46,7 +46,7 @@ void Logger::write() //writes to .log file
 			{
 				while(!qq.empty())
 				{
-					logFile << qq.front() + "\n";
+					logFile << "[" << getTime() << "] " << qq.front() + "\n";
 					qq.pop();        
 				}
 				logFile.close();
@@ -68,4 +68,20 @@ void Logger::shutdown()
 bool Logger::active()
 {
 	return qq.size() != 0;
+}
+
+string Logger::getTime()
+{
+	time_t currentTime;
+	time(&currentTime);
+	struct tm* timeInfo = localtime(&currentTime);
+	
+	ostringstream timeStream;
+	timeStream << timeInfo->tm_hour;
+	timeStream << ":";
+	timeStream << timeInfo->tm_min;
+	timeStream << ":";
+	timeStream << timeInfo->tm_sec;
+
+	return timeStream.str();
 }
