@@ -31,12 +31,13 @@ void Logger::init()
 void Logger::log(string s) //adds to queue
 {
     qq.push(s);
+	write();
 }
 
 void Logger::write() //writes to .log file
 {
-	while (true) // Loop indefinitely until queue is emptied
-	{
+	//while (true) // Loop indefinitely until queue is emptied
+	//{
 		if (!qq.empty())
 		{
 			ofstream logFile;
@@ -52,12 +53,12 @@ void Logger::write() //writes to .log file
 				logFile.close();
 			}
 		}
-		else 
+		/*else 
 		{
 			if (exitLoop) break; // qq is empty and logger thread needs to close. Exit this loop
 			this_thread::sleep_for(chrono::milliseconds(1000)); // Sleep for 1 second
-		}
-	}
+		}*/
+	//}
 }
 
 void Logger::shutdown()

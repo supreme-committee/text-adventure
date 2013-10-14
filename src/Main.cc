@@ -12,8 +12,8 @@ using namespace std;
 int main(int argc, char** argv)
 {
 	Logger::init();
-	thread t(Logger::write); // Create a thread for the writer
-	t.detach(); // Lets thread run in background (also prevents abort() being called when thread is destroyed)
+	//thread t(Logger::write); // Create a thread for the writer
+	//t.detach(); // Lets thread run in background (also prevents abort() being called when thread is destroyed)
 
     Game game;
 	if (!game.init()) 
@@ -28,11 +28,11 @@ int main(int argc, char** argv)
 		game.render();
 	}
     
-	Logger::shutdown(); // Tell the logger it's time to shutdown its thread
-	while (Logger::active()) // Wait until Logger is done emptying the queue
+	//Logger::shutdown(); // Tell the logger it's time to shutdown its thread
+	/*while (Logger::active()) // Wait until Logger is done emptying the queue
 	{
 		this_thread::sleep_for(chrono::milliseconds(100));
-	}
+	}*/
 	
     return 0;
 }
