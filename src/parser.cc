@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "Logger.h"
 #include <iostream>
 #include <cctype>
 #include <cstring>
@@ -91,7 +92,10 @@ bool Parser::isInt(string string)
 //Will print out to cerr all debug/test text.
 bool Parser::verify(const char* filename)
 {
-    cout << endl;
+	string logString = "Starting verication of ";
+	logString.append(filename);
+	Logger::log(logString);
+
 	rapidxml::file<> xmlFile(filename);
 	rapidxml::xml_document<> doc;
 	doc.parse<0>(xmlFile.data());
@@ -118,15 +122,21 @@ bool Parser::verify(const char* filename)
     }
 	else
 	{
-	    cerr << "Tile Tag Missing!" << endl;
+		Logger::log("ERROR: Tile tag missing");
 	    verified = false;
 	}
     
     if(verified)
-        cerr << "\nFILE IS VERIFIED" << endl;
+	{
+		char logString[200] = "Passed verification: ";
+		Logger::log(strcat(logString, filename));
+	}
     else
-        cerr << "\nVERIFICATION ERROR" << endl;
-    
+	{
+		char logString[200] = "ERROR: file failed verification: ";
+		Logger::log(strcat(logString, filename));
+	}
+
 	return verified;
 	
 }
@@ -148,21 +158,27 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 {
     bool isCorrect = true;
     
-    cerr << "Analyzing tag: " << node->name() << endl;
-    
+	string loggerString = "Analyzing tag: ";
+	loggerString.append(node->name());
+	Logger::log(loggerString);
+
     if(reserved.find(node->name()) != reserved.end()) //checks if tag is a reserved word
     {
-        cerr << node->name() << " is a valid tag" << endl;
+		loggerString.clear();
+		loggerString = node->name();
+		loggerString.append(" is a valid tag");
+		Logger::log(loggerString);
     }
     else //prints out all valid tags passed into this function
     {
-        cerr<<"<"<<node->name()<<"> is an incorrect tag"
-            <<"\nMust be one of: ";
+		loggerString.clear();
+		loggerString = node->name();
+		loggerString.append(" is an incorrect tag. Must be one of: ");
+		Logger::log(loggerString);
         for(auto x = reserved.begin(); x != reserved.end(); x++)
         {
-            cerr <<"<"<<*x<<"> ";
+			Logger::log("	" + *x);
         }
-        cerr << endl;
         return false;
     }
     
@@ -171,8 +187,9 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
         || strcmp(node->name(), "name") == 0 || strcmp(node->name(), "value") == 0)
     {
         reserved = set<string>();
-        cerr << "No valid reserved words for \""<<node->name()<<
-            "\""<<endl;
+		loggerString.clear();
+		loggerString = "No valid reserved words for ";
+		loggerString.append(node->name());
     }
     else if(strcmp(node->name(), "link") == 0)
     {
@@ -182,7 +199,7 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 #else
         reserved = set<string>({"file", "text"}); //change reserved words
 #endif
-        printReserved(reserved);
+        //printReserved(reserved);
     }
     else if(strcmp(node->name(), "var") == 0)
     {
@@ -192,7 +209,7 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 #else
         reserved = set<string>({"name", "value"});
 #endif
-        printReserved(reserved);
+        //printReserved(reserved);
     }
     else if(strcmp(node->name(), "if") == 0 || strcmp(node->name(), "else") == 0)
     {
@@ -202,29 +219,25 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 #else
         reserved = set<string>({"text", "link", "var"});
 #endif
-        printReserved(reserved);
+        //printReserved(reserved);
     }
     
     for(auto newNode = node->first_node();
         newNode;
         newNode = newNode->next_sibling())
     {
-        cerr << "\nRecursive call to node named \""<<newNode->name()
-            <<"\" "<< "from node "<< node->name()<< endl;
         if(strcmp(newNode->name(), "") == 0)
         {
             if(newNode->type() == rapidxml::node_data)
             {
-                cerr << "Reached XML value data belonging to: "<<node->name()<<endl;
                 continue;
             }
             else
             {
-                cerr << "Reached Leaf" << endl<<endl;
                 return true;
             }
         }
-        //cout << newNode << endl;
+
         if(!verifyHelper(newNode, reserved))
         {
             isCorrect = false;
@@ -238,7 +251,8 @@ Tile Parser::parse(const char* filename,
 				   map<string, int>& intVars,
 				   map<string, string>& stringVars)
 {
-	cout << "Begin parse..." << endl;
+	char logString[200] = "Started parse on: ";
+	Logger::log(strcat(logString, filename));
 	Tile newTile;
 	try
 	{
@@ -249,6 +263,7 @@ Tile Parser::parse(const char* filename,
 		// Check if <tile> tag exists. Abort if it doesn't
 		if (strcmp(doc.first_node()->name(), "tile") != 0)
 		{
+			Logger::log("ERROR: <tile> tag is missing!");
 			return Tile();
 		}
 
@@ -309,16 +324,17 @@ Tile Parser::parse(const char* filename,
 	}
 	catch (rapidxml::parse_error ex)
 	{
-		cout << ex.what() << endl;
-		cout << ex.where<char>() << endl;
+		Logger::log(ex.what());
+		Logger::log(ex.where<char>());
 		return Tile();
 	}
 	catch (exception e)
 	{
-		cout << e.what() << endl;
+		Logger::log(e.what());
 		return Tile();
 	}
 
-	cout << "Parse succeeded!" << endl;
+	char parseSucceed[200] = "Parsing succeeded: ";
+	Logger::log(strcat(parseSucceed, filename));
 	return newTile;
 }
