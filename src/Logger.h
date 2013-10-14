@@ -1,3 +1,6 @@
+#ifndef _LOGGER_H_
+#define _LOGGER_H_
+
 #include <queue>
 #include <string>
 
@@ -19,3 +22,5 @@ class Logger
         static queue<string> qq;
 		static string getTime(); // Returns the current time "[h:m:s]"
 };
+
+#endif
