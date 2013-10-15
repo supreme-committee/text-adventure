@@ -14,7 +14,20 @@ void Game::buildText()
 	{
 		stringStream << s;
 	}
-	text.setString(stringStream.str());
+	string textString = stringStream.str();
+
+	int charCount = 0; // Now insert line breaks
+	for (int pos = 0; pos < textString.length(); pos++)
+	{
+		if (charCount > 30 && textString[pos] == ' ')
+		{
+			textString.replace(pos, 1, "\n");
+			charCount = 0;
+		}
+		charCount++;
+	}
+
+	text.setString(textString);
 }
 void Game::createButtons()
 {
@@ -24,7 +37,7 @@ void Game::createButtons()
 	{
 		button b(link, font_main, 30.0f, yPos);
 		buttons.push_back(b);
-		yPos += 60.0f;
+		yPos += b.getHeight() + 10.0f;
 	}
 }
 void Game::loadFile(string filename)
