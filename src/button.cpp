@@ -22,20 +22,12 @@ button::button(string c, string l, float x, float y, sf::Font& f)	//Sets up a bu
 		rect.setFillColor(sf::Color(40,40,40,100));			//Set up color, position, and size for the rectangle.
 		rect.setPosition(x,y);
 		rect.setSize(sf::Vector2f(100,50));
-		font.loadFromFile("arial.ttf");						//Set up for text.
 		t.setFont(font);
 		t.setCharacterSize(16);
 		t.setPosition(x+5,y+5);
 		t.setString(text);
 		t.setColor(sf::Color::Black);
 		coords = sf::Rect<int>(x,y,100,50);
-	};
-void button::setTextColor(bool mouseOver)	//Will change the color of text in the box when the mouse is hovering it.
-	{
-		if(mouseOver)
-			t.setColor(sf::Color::Red);
-		else
-			t.setColor(sf::Color::Black);
 	};
 string button::getLink()
 {
@@ -46,9 +38,21 @@ void button::render(sf::RenderWindow& window)
 		window.draw(t);
 		window.draw(rect);
 	};
-void button::removeButton()
+int button::getHeight()
 {
-	t.setString("");
-	rect.setFillColor(sf::Color::Transparent);
-	coords = sf::Rect<int>(0,0,0,0);
+	return coords.height;
+};
+
+bool button::isMouseOver(int x, int y)
+{
+	if(coords.contains(sf::Vector2i(x,y)))
+	{
+		t.setColor(sf::Color::Red);
+		return true;
+	}
+	else
+	{
+		t.setColor(sf::Color::Black);
+		return false;
+	}
 }
