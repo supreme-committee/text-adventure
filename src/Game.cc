@@ -3,6 +3,7 @@
 #include "Logger.h"
 #include <iostream>
 #include <sstream>
+#include <fstream>
 using namespace std;
 
 // ================== PRIVATE FUNCTIONS ==================
@@ -31,7 +32,20 @@ void Game::loadFile(string filename)
 	text.setString("");
 	buttons.clear();
 
-	tile = Parser::parse(filename.c_str(), boolVars, intVars, stringVars);
+	// Get full path to xml file
+	string filePath = fileDirectory + ("/" + filename);
+
+	// Check if file actually exists
+	ifstream file;
+	file.open(filePath, ios::in);
+	if (!file.is_open())
+	{
+		Logger::log("ERROR: cannot find file " + filename);
+		exit(1);
+	}
+	file.close();
+
+	tile = Parser::parse(filePath.c_str(), boolVars, intVars, stringVars);
 	buildText();
 	createButtons();
 }
@@ -46,7 +60,7 @@ Game::Game()
 Game::~Game()
 {
 }
-bool Game::init()
+bool Game::init(string filename)
 {
 	if (!font_main.loadFromFile("arial.ttf")) // Load the font. We need to figure out what kind of font to use - michaelg
 	{
@@ -54,18 +68,20 @@ bool Game::init()
 		return false;
 	}
 
+	fileDirectory = filename.substr(0, filename.find_last_of('/')); // Directory containing xml files
+
 	text.setFont(font_main);
 	text.setCharacterSize(32);
 	text.setColor(sf::Color::Black);
 	text.setPosition(sf::Vector2f(10.0f, 10.0f));
 
 	// Iterate through input files and verify they are formatted correctly
-	if (!Parser::verify("../Sample-Game/Concept-michaelg/Start.xml"))
+	if (!Parser::verify(filename.c_str()))
 	{
 		return false;
 	}
 	
-	tile = Parser::parse("../Sample-Game/Concept-michaelg/Start.xml", boolVars, intVars, stringVars); // Get the starting tile
+	tile = Parser::parse(filename.c_str(), boolVars, intVars, stringVars); // Get the starting tile
 	if (tile.links.size() == 0 && tile.texts.size() == 0) // No links or text exists. wtf
 	{
 		cerr << "Error occurred while parsing start.xml" << endl;
@@ -89,11 +105,11 @@ void Game::input()
 			{
 				for (auto& b : buttons)
 				{
-					/*if (b.isMouseOver(ev.mouseButton.x, ev.mouseButton.y))
+					if (b.isMouseOver(ev.mouseButton.x, ev.mouseButton.y))
 					{
 						loadFile(b.getLink()); // Load the next xml file
 						break;
-					}*/
+					}
 				}
 			}
 		}

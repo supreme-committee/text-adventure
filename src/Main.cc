@@ -15,8 +15,16 @@ int main(int argc, char** argv)
 	//thread t(Logger::write); // Create a thread for the writer
 	//t.detach(); // Lets thread run in background (also prevents abort() being called when thread is destroyed)
 
+	if (argc != 2)
+	{
+		Logger::log("ERROR: you must specify the starting file on the command line");
+		Logger::log("Usage: game-engine.exe [starting xml file]");
+		cerr << "Usage: game-engine.exe [starting xml file]" << endl;
+		return 1;
+	}
+
     Game game;
-	if (!game.init()) 
+	if (!game.init(argv[1])) 
 	{
 		Logger::log("Game initialization failed. See previous messages");
 		return 1;

@@ -158,27 +158,12 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 {
     bool isCorrect = true;
     
-	string loggerString = "Analyzing tag: ";
-	loggerString.append(node->name());
-	Logger::log(loggerString);
-
     if(reserved.find(node->name()) != reserved.end()) //checks if tag is a reserved word
     {
-		loggerString.clear();
-		loggerString = node->name();
-		loggerString.append(" is a valid tag");
-		Logger::log(loggerString);
+	
     }
     else //prints out all valid tags passed into this function
     {
-		loggerString.clear();
-		loggerString = node->name();
-		loggerString.append(" is an incorrect tag. Must be one of: ");
-		Logger::log(loggerString);
-        for(auto x = reserved.begin(); x != reserved.end(); x++)
-        {
-			Logger::log("	" + *x);
-        }
         return false;
     }
     
@@ -187,9 +172,6 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
         || strcmp(node->name(), "name") == 0 || strcmp(node->name(), "value") == 0)
     {
         reserved = set<string>();
-		loggerString.clear();
-		loggerString = "No valid reserved words for ";
-		loggerString.append(node->name());
     }
     else if(strcmp(node->name(), "link") == 0)
     {
@@ -304,6 +286,12 @@ Tile Parser::parse(const char* filename,
 					{
 						grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
 					}
+					else ifPassed = false;
+				}
+				else // Variable does not exist
+				{
+					// The condition passes if checking a bool for false
+					if (strcmp(checkValue, "false") == 0) grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
 					else ifPassed = false;
 				}
 			}

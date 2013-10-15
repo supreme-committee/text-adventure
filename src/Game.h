@@ -17,6 +17,7 @@ private:
 	map<string, int> intVars;
 	map<string, string> stringVars;
 	Tile tile; // The current tile's info
+	string fileDirectory; // The directory where the story files are
 
 	sf::Font font_main;
 	sf::Text text; // The text to show (built from the texts vector in tile)
@@ -28,7 +29,7 @@ private:
 public:
 	Game();
 	~Game();
-	bool init();   // initialize compenents
+	bool init(string startFile);   // initialize compenents
 	void input();  // Handle user input
 	void render(); // Render stuff on screen
 	
