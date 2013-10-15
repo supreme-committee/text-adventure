@@ -2,11 +2,11 @@
 # 	debug: console window will appear alongside game window
 # 	release: Only the game window will appear
 
-CSOURCE       = Main.cc Game.cc tile.cc parser.cc Logger.cc
+CSOURCE       = Main.cc Game.cc tile.cc parser.cc Logger.cc button.cpp
 EXENAME        = Game_Engine
 SOURCEDIR    = src
 OBJDIR = obj
-SOURCEFILES = $(CSOURCE:%.cc=$(SOURCEDIR)/%.cc)
+SOURCEFILES = $(CSOURCE:%=$(SOURCEDIR)/%)
 OBJECTS = $(CSOURCE:%.cc=$(OBJDIR)/%.o)
 APPLEFRAMEWORKS = -framework OpenGL -framework SFML -framework SFML-graphics -framework SFML-window -framework SFML-system
 GCC = g++ -g -O0 -Wall -Wextra -std=gnu++0x
