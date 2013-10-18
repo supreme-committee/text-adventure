@@ -25,7 +25,13 @@ void Logger::init()
 		timeString.replace(position, 1, ".");
 	}
 
-	filename = "log " + timeString + ".txt";
+	while (timeString.find_first_of(' ', 0) != string::npos) // Remove spaces
+	{
+		unsigned int position = timeString.find_first_of(' ', 0);
+		timeString.replace(position, 1, ".");
+	}
+
+	filename = "log." + timeString + ".txt";
 }
 
 void Logger::log(string s) //adds to queue
