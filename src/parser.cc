@@ -27,16 +27,33 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		char* varValue = node->last_node()->value();
 		if (isInt(varValue))
 		{
+			if (intVars.find(varName) != intVars.end()) // If variable already exists, replace its value
+			{
+				intVars.erase(intVars.find(varName));
+				string logString(varName);
+				Logger::log("WARNING: variable '" + logString + "' already exists. Replacing its value...");
+			}
 			intVars.insert(pair<string, int>(varName, atoi(varValue)));
 		}
 		else if (strcmp(varValue, "true") == 0 || strcmp(varValue, "false") == 0)
 		{
-			strcmp(varValue, "true") == 0 ? 
-				boolVars.insert(pair<string, bool>(varName, true)) :
-				boolVars.insert(pair<string, bool>(varName, false));
+			bool varValueBool = strcmp(varValue, "true") == 0 ? true : false;
+			if (boolVars.find(varName) != boolVars.end()) // If variable already exists, replace its value
+			{
+				boolVars.erase(boolVars.find(varName));
+				string logString(varName);
+				Logger::log("WARNING: variable '" + logString + "' already exists. Replacing its value...");
+			}
+			boolVars.insert(pair<string, bool>(varName, varValueBool));
 		}
 		else
 		{
+			if (stringVars.find(varName) != stringVars.end())
+			{
+				stringVars.erase(stringVars.find(varName));
+				string logString(varName);
+				Logger::log("WARNING: variable '" + logString + "' already exists. Replacing its value...");
+			}
 			stringVars.insert(pair<string, string>(varName, varValue));
 		}
 	}
