@@ -2,7 +2,7 @@
 # 	debug: console window will appear alongside game window
 # 	release: Only the game window will appear
 
-CSOURCE       = Main.cc Game.cc tile.cc parser.cc Logger.cc button.cpp
+CSOURCE       = Main.cc Game.cc tile.cc parser.cc Logger.cc button.cc
 EXENAME        = Game_Engine
 SOURCEDIR    = src
 OBJDIR = obj
