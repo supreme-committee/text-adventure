@@ -28,7 +28,7 @@ void Logger::init()
 	while (timeString.find_first_of(' ', 0) != string::npos) // Remove spaces
 	{
 		unsigned int position = timeString.find_first_of(' ', 0);
-		timeString.replace(position, 1, ".");
+		timeString.replace(position, 1, "_");
 	}
 
 	filename = "log." + timeString + ".txt";
