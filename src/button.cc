@@ -1,4 +1,3 @@
-#pragma once
 #include "button.h"
 
 button::button(Link li, sf::Font& f,float x, float y)	
