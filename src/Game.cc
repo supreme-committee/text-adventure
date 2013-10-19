@@ -42,7 +42,7 @@ void Game::createButtons()
 }
 void Game::loadFile(string filename)
 {
-	text.setString("");
+	text.setString(" ");
 	buttons.clear();
 
 	// Get full path to xml file

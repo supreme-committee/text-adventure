@@ -15,9 +15,9 @@ private:
 	int numLines;
 
 public:
-	button::button();
-	button::button(Link,sf::Font& f, float x, float y);
-	button::button(string c, string l, float x, float y, sf::Font& f);	//Sets up a button with string t, link l, with its top left corner at (x,y).
+	button();
+	button(Link,sf::Font& f, float x, float y);
+	button(string c, string l, float x, float y, sf::Font& f);	//Sets up a button with string t, link l, with its top left corner at (x,y).
 
 	void setPos(int, int);
 	sf::Rect<int> getPos();						//Returns a struct with the height, width of the box, along with the top and left coordinates of the box.

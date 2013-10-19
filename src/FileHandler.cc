@@ -29,7 +29,7 @@ string FileHandler::openFile()
 	string returnString(filenameLength);
 
 	return returnString;
-#elif APPLE
+#elif __APPLE__
 #endif
 }
 void FileHandler::saveFile()
