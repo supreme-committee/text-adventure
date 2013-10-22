@@ -5,14 +5,15 @@ using namespace std;
 
 #ifdef WIN32
 #include <Windows.h>
-#elif APPLE // ???
+#elif __APPLE__ // ???
 #endif
 
 class FileHandler
 {
 public:
-	static string openFile();
-	static void saveFile();
+	enum class OpenFileMode {SAVEGAME, NEWGAME};
+	static string openFile(OpenFileMode mode);
+	static string saveFile();
 };
 
 #endif
