@@ -1,0 +1,58 @@
+Sprint 2 Plan
+Text Adventure Maker Enterprise Pro Plus HD+ 64-bit Gold Edition Alpha 3
+Team Supreme Committee
+Sprint ends 11/6
+Revision 2, 10/21
+
+For this sprint, our main goals are to make a manual and documentation for the engine, polish and add functionality to the GUI, and make a fully functioning sample game.
+
+As both a developer and player I want an extensive manual/documentation to troubleshoot issues, allow for modification, and have a basic introduction on how to play the game. 
+	-Make a manual that describes how to create games.(3 hours)
+	-Make a manual that describes how to play the game.(3 hours)
+	-Make a troubleshooting manual.(3 hours)
+Total for user story: 9 hours.
+
+As a game developer, I want to extend the features/actions supported by our variables in order to allow for greater customization.
+	-Add increment and decrement to integer variables.(2 hours)
+Total for user story: 2 hours.
+
+As a game player, I want to be able to save my games so that I can come back to it at any time.
+	-Implement load and save function.(6 hours)
+	-Make a file loading class for Mac.(2 hours)
+	-Make a file loading class for Windows.(2 hours)
+	-Add a load new .tar file function.(4 hours)
+	-Add error message for missing files.(1 hour)
+Total for user story: 15 hours.
+
+As a game player, I want a polished GUI that makes interaction with the game intuitive and easy. 
+	-Draft default GUI.(2 hours)
+	-Create a menu bar.(4 hours)
+	-Add button scrolling.(1 hours)
+	-Modify button so it expands with text.(1 hours)
+	-Add more features to button class.(1 hour)
+Total for user story: 9 hours.
+
+As a product owner, I want a sample game so I can demonstrate the product.
+	-Create a sample game.(6 hours)
+	-Create packaging for story files.(2 hours)
+	-Create digital version of logo.(1 hour)
+Total for user story: 9 hours
+
+Team Roles:
+	Thomas White - Product Owner
+	Michael Grijalva - Scrum Master, Developer 
+	Michael Parker - Developer
+	Benjamin Lieu - Developer
+	Carl LaMaster - Developer
+
+Initial Task Assignment
+
+Thomas White - As a game player, I want to be able to save my games so that I can come back to it at any time. Implement load and save function.
+
+Michael Grijalva - As a game developer, I want to extend the features/actions supported by our variables in order to allow for greater customization. Add increment and decrement to integer variables.
+
+Michael Parker - As a game player, I want a polished GUI that makes interaction with the game intuitive and easy. Create a menu bar.
+
+Benjamin Lieu - As both a developer and player I want an extensive manual/documentation to troubleshoot issues, allow for modification, and have a basic introduction on how to play the game. Make a manual that describes how to play the game.
+
+Carl LaMaster - As both a developer and player I want an extensive manual/documentation to troubleshoot issues, allow for modification, and have a basic introduction on how to play the game. Make a manual that describes how to make games.
