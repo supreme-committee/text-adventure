@@ -103,6 +103,7 @@ bool Game::init(string filename)
 
 	buildText();
 	createButtons();
+	buttonSelection = 0;
 
 	return true;
 }
@@ -126,6 +127,39 @@ void Game::input()
 				}
 			}
 		}
+		else if (ev.type == sf::Event::KeyPressed)
+		{
+			switch (ev.key.code)
+			{
+			case sf::Keyboard::Return:
+				if (buttons.size() > 0)
+				{
+					loadFile(buttons[buttonSelection].getLink());
+					buttonSelection = 0;
+				}
+				break;
+			case sf::Keyboard::Up:
+				if (buttonSelection < buttons.size() - 1)
+				{
+					for (auto& b : buttons)
+					{
+						b.setPos(b.getPos().left, b.getPos().top - b.getHeight() - 10);
+					}
+					buttonSelection++;
+				}
+				break;
+			case sf::Keyboard::Down:
+				if (buttonSelection > 0)
+				{
+					for (auto& b : buttons)
+					{
+						b.setPos(b.getPos().left, b.getPos().top + b.getHeight() + 10);
+					}
+					buttonSelection--;
+				}
+				break;
+			}
+		}
 	}
 }
 
@@ -138,6 +172,10 @@ void Game::render()
 	{
 		button.render(window);
 	}
+	sf::RectangleShape selection(sf::Vector2f(20.0f, 20.0f));
+	selection.setFillColor(sf::Color::Red);
+	selection.setPosition(5.0f, 250.0f);
+	window.draw(selection);
 
 	window.display();
 }

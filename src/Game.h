@@ -22,6 +22,7 @@ private:
 	sf::Font font_main;
 	sf::Text text; // The text to show (built from the texts vector in tile)
 	vector<button> buttons; // The choices that'll be displayed to the user
+	int buttonSelection;    // The currently selected button
 	void buildText();
 	void createButtons(); // Create Button objects for links from the Tile
 	void loadFile(string filename); // Load and set up a new tile from another xml file
