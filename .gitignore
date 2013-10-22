@@ -15,6 +15,7 @@
 
 # Random stuff
 *.exe
+log*.txt
 
 # Visual studio files and folders
 *.sln
