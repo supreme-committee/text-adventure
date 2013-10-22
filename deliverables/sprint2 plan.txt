@@ -56,3 +56,8 @@ Michael Parker - As a game player, I want a polished GUI that makes interaction 
 Benjamin Lieu - As both a developer and player I want an extensive manual/documentation to troubleshoot issues, allow for modification, and have a basic introduction on how to play the game. Make a manual that describes how to play the game.
 
 Carl LaMaster - As both a developer and player I want an extensive manual/documentation to troubleshoot issues, allow for modification, and have a basic introduction on how to play the game. Make a manual that describes how to make games.
+
+Scrum Times:
+Monday: 7:00 PM
+Tuesday: 2:00 PM
+Friday: 12:00 PM
