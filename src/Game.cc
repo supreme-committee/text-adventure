@@ -141,9 +141,10 @@ void Game::input()
 			case sf::Keyboard::Up:
 				if (buttonSelection < buttons.size() - 1)
 				{
+					int dy = buttons[buttonSelection].coords.height;
 					for (auto& b : buttons)
 					{
-						b.setPos(b.getPos().left, b.getPos().top - b.getHeight() - 10);
+						b.setPos(b.getPos().left, b.getPos().top - dy - 10);
 					}
 					buttonSelection++;
 				}
@@ -151,9 +152,10 @@ void Game::input()
 			case sf::Keyboard::Down:
 				if (buttonSelection > 0)
 				{
+					int dy = buttons[buttonSelection].coords.height;
 					for (auto& b : buttons)
 					{
-						b.setPos(b.getPos().left, b.getPos().top + b.getHeight() + 10);
+						b.setPos(b.getPos().left, b.getPos().top + dy + 10);
 					}
 					buttonSelection--;
 				}
