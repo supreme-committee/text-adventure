@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include "tile.h"
 #include "button.h"
+#include "menu.h"
 
 class Game
 {
@@ -26,6 +27,7 @@ private:
 	void buildText();
 	void createButtons(); // Create Button objects for links from the Tile
 	void loadFile(string filename); // Load and set up a new tile from another xml file
+	menu *m;
 
 public:
 	Game();

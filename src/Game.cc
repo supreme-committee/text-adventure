@@ -73,6 +73,7 @@ Game::Game()
 }
 Game::~Game()
 {
+	delete m;
 }
 bool Game::init(string filename)
 {
@@ -126,6 +127,21 @@ void Game::input()
 						break;
 					}
 				}
+			if(ev.mouseButton.button == sf::Mouse::Left)
+			{
+				if(m->loadSelect(ev.mouseButton.x,ev.mouseButton.y))
+				{
+					//Add code to load a saved game.
+				}
+				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y))
+				{
+					//Add code to start a new game.
+				}
+				if(m->saveSelect(ev.mouseButton.x,ev.mouseButton.y))
+				{
+					//Add code to save current game.
+				}
+			}
 			}
 		}
 		else if (ev.type == sf::Event::KeyPressed)
@@ -173,6 +189,12 @@ void Game::render()
 {
 	window.clear(sf::Color::Cyan);
 
+	sf::Vector2i v = sf::Mouse::getPosition(window);	//Draw menu if the mouse if over it.
+	if(m->isMouseOver(v.x,v.y))
+	{
+		m->render(window);
+		m->setTextColor(v.x,v.y);
+	}
 	window.draw(text);
 	for (auto& button : buttons) // render the buttons
 	{
