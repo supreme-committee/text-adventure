@@ -140,6 +140,8 @@ void Game::input()
 				}
 				if(m->saveSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
+				    Parser::save("save.save","tarfile.tar","xmlFile.xml",
+				        boolVars, intVars, stringVars);
 					//Add code to save current game.
 				}
 			}

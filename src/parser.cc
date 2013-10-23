@@ -375,5 +375,6 @@ void Parser::save(string saveFileName, string tarName, string tileFile,
     {
         saveFile << (*i).first << " " << (*i).second << endl;
     }
+    saveFile.close();
 }
 
