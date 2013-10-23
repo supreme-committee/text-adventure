@@ -23,6 +23,7 @@ apple: $(EXECBIN)
 
 $(EXECBIN): $(OBJECTS)
 	$(GCC) -o $(EXECBIN) $(APPLEFRAMEWORKS) $(OBJECTS)
+	@echo "***************\nCompilation Success"
 
 $(OBJDIR)/%.o: $(SOURCEDIR)/%.cc
 	$(GCC) -c -o $@ $<

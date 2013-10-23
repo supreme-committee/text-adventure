@@ -5,6 +5,7 @@
 #include <cstring>
 #include <typeinfo>
 #include <set>
+#include <fstream>
 
 Parser::Parser(){}
 Parser::~Parser(){}
@@ -343,3 +344,36 @@ Tile Parser::parse(const char* filename,
 	Logger::log(strcat(parseSucceed, filename));
 	return newTile;
 }
+
+void Parser::save(string saveFileName, string tarName, string tileFile,
+	                map<string, bool>& boolVars,
+	                map<string, int>& intVars,
+	                map<string, string>& stringVars)
+{
+    ofstream saveFile;
+    saveFile.open(saveFileName);
+    saveFile << tarName << endl;
+    saveFile << tileFile << endl;
+    
+    saveFile << "bools" << endl;
+    for(map<string, bool>::iterator i = boolVars.begin();
+        i != boolVars.end(); i++)
+    {
+        saveFile << (*i).first << " " << (*i).second << endl;
+    }
+    
+    saveFile << "ints" << endl;
+    for(map<string, int>::iterator i = intVars.begin();
+        i != intVars.end(); i++)
+    {
+        saveFile << (*i).first << " " << (*i).second << endl;
+    }
+    
+    saveFile << "strings" << endl;
+    for(map<string, string>::iterator i = stringVars.begin();
+        i != stringVars.end(); i++)
+    {
+        saveFile << (*i).first << " " << (*i).second << endl;
+    }
+}
+
