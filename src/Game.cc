@@ -83,6 +83,8 @@ bool Game::init(string filename)
 		return false;
 	}
 
+	m = new menu(font_main);
+
 	fileDirectory = filename.substr(0, filename.find_last_of('/')); // Directory containing xml files
 
 	text.setFont(font_main);
@@ -127,8 +129,7 @@ void Game::input()
 						break;
 					}
 				}
-			if(ev.mouseButton.button == sf::Mouse::Left)
-			{
+
 				if(m->loadSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
 					//Add code to load a saved game.
@@ -141,7 +142,6 @@ void Game::input()
 				{
 					//Add code to save current game.
 				}
-			}
 			}
 		}
 		else if (ev.type == sf::Event::KeyPressed)
