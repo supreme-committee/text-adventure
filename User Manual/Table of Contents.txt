@@ -1,0 +1,15 @@
+How to Play
+
+	Open a game -
+
+
+	....
+
+
+Making XML files (also packing into .tar)
+
+	Basics-
+
+	...
+
+Trouble Shooting
