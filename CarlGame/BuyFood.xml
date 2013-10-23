@@ -1,0 +1,13 @@
+<tile>
+	<text>You consider your possesions and what you could do without.</text>
+	<if haveBreadKnife="true">
+        <link>
+            <file>BreadKnifeOffer.xml</file>
+            <text>From your satchel you withdraw your newly forged bread knife and hand it over hilt first</text>
+        </link>
+    </if>
+    <link>
+		<file>Market.xml</file>
+		<text>With a smile for the vendor you walk away from his stall</text>
+	</link>
+</tile>
