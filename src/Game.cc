@@ -18,7 +18,7 @@ void Game::buildText()
 	string textString = stringStream.str();
 
 	int charCount = 0; // Now insert line breaks
-	for (int pos = 0; pos < textString.length(); pos++)
+	for (unsigned int pos = 0; pos < textString.length(); pos++)
 	{
 		if (charCount > 30 && textString[pos] == ' ')
 		{
@@ -181,6 +181,8 @@ void Game::input()
 					}
 					buttonSelection--;
 				}
+				break;
+			default:
 				break;
 			}
 		}
