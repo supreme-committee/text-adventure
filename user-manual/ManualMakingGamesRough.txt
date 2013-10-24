@@ -1,0 +1,79 @@
+In describing how to create games, it is useful to first break down how they are organized. Each game is made up of a compressed file (more details when we know more) which contains all the information necessary for each game. This primarily consists of .xml files, the building blocks of a game made for our engine. Each .xml file defines one 'tile' in the game, I will often refer to the collection of tiles as the 'map' even though this is slightly misleading since a tile does not necessarily represent a location in the game.
+
+When you play a game on our engine, what's on screen at any given time during the game is exactly one tile from the map. These tiles can be used in a variety of ways limited only by the developers ingenuity. They could for example, represent a physical location, a conversation, or a even one time events within the game. Each tile contains at least one 'link' to another tile, in this way developers can create large open worlds, scripted events, and allow players to make choices within the game. The syntax for creating these tiles is fairly simple, however debugging is difficult at best and it can be difficult to visualize how the tiles can interact so here is a sequence of 3 tiles which make up the beginning of our team's sample game.
+
+
+Here is the text of the TownSquare.xml tile which is the starting point for the sample game I have been creating with comments.
+
+TownSquare.xml
+<tile>
+* Every tile must have the <tile></tile> tags marking the beginning and end.
+	<text>You are a wandering adventurer who after weeks of traveling has made your way to Fleurtran, the oldest of the great cities. You stand in the town center, wondering what to do next. There are two particularly busy streets leading away from the plaza, one crowded with throngs of people laden with goods and gold, the other packed with soldiers hurrying up and down it in squads. In front of you a large message board catches your eye.</text>
+* Each file must have some text which is displayed upon the player 'entering' this tile. This is marked with <text>yourtext</text>. Simple, but also often contains the majority of the substance in most text games.
+	<link>
+		<file>Market.xml</file>
+		<text>Follow the crowds towards the business district</text>
+	</link>
+	<link>
+		<file>Barracks.xml</file>
+		<text>Follow the soldiers towards the barracks</text>
+	</link>
+	<link>
+		<file>MessageBoard.xml</file>
+		<text>Read the message board</text>
+	</link>
+	<link>
+		<file>TownGate.xml</file>
+		<text>Head towards the cities main gate</text>
+	</link>
+*The last of the 3 most basic and necessary tags, <link>yourlink</link> denotes a link to another tile. Each link must contain both a file (has the form <file>yourfile.ext</file> and must be in the same directory as the file it is linked from) which is the tile it links to, and text to be displayed on the relevant button. It is worth noting that while it is not required to have a link in each tile, there is no 'go back' standard option, so a tile with no links should only be used in the case of winning or losing the game.
+</tile>
+
+
+MessageBoard.xml
+<tile>
+	<text>There is only one message on the board, its faded letters leaving you to believe it has been posted for some time now: Action! Adventure! Fair wages! Local merchant seeks tough, independent, and self-motivated warrior to guard their wares on a journey south across the Objective Sea. Not for the faint of heart. Inquire at the blue house just past the market for details.</text>
+	<var>
+		<name>haveMerchantMessage</name>
+		<value>true</value>
+	</var>
+*The main item of interest here is the variable tag. Each variable contains a name and a value. Both <name>yourname</name> and <value>yourvalue</value> can be set to any string. If a variable of the same name already exists this will overwrite its old value with the new one you provide. 
+	<link>
+		<file>TownSquare.xml</file>
+		<text>Resume your inspection of the town square</text>
+	</link>
+</tile>
+*Straightforward uses of this include things like adding items to your inventory as in this example, recording which game events have already occurred allowing you to have one time scripted events, and assigning quantities to variables. The following file clarifies its use.
+
+
+Market.xml
+<tile>
+	<text>The cries of vendors mix with the smells of baking food. A sea of people envelops you as you make your way past countless tents offering various services or products, often brimming over with people united in their love of goods and gold. Food and drink are the most abundant, the city has seen better days, and its venerability does not attract the luxury goods and talent it once possessed. Nevertheless, many fortunes have been made here over the years, and beyond the chaos of the market several rows of houses rise up, towering over their neighbors, monuments to the power of wealth. Tucked in between two such monstrosities, a smaller blue house fights for sunlight.</text>
+	<if haveMerchantMessage="true">
+        <link>
+            <file>MerchantHouse.xml</file>
+            <text>Message in hand, you make your way to the blue house and knock on the door.</text>
+        </link>
+    </if>
+*Note that you must explicitly say when the if statement begins and ends with the <if>ifstatements</if> tags. If statements cannot be nested within each other. 
+    <link>
+		<file>TownSquare.xml</file>
+		<text>Walk back to the town square</text>
+	</link>
+	<link>
+		<file>BuyFood.xml</file>
+		<text>Delicious smells emanate from a nearby stall. The plump vendor offers you a loaf of bread and a block of cheese in return for a small amount of silver or a sharp bread knife</text>
+	</link>
+	<link>
+		<file>BuyDrink.xml</file>
+		<text>The man tending this stall is stone faced and silent, in front of him rows of water bottles glint in the setting sun. In response to your inquiry he merely points of a faded sign above his head: Barter only, make an offer</text>
+	</link>
+</tile>
+*This .xml file demonstrates how one would use the variable declared in the tile before. It uses an if statement to check if a variable contains a specific string value. At the moment the only operations available are equals and not equals, in the future we will have some comparative operators.
+
+
+While simply understanding the various functions and their syntax described above is enough to begin creating your own game, I think it's worth briefly discussing how you can use these features to recreate common video game functionality. In this case you start inside a city, and must deal with the classic problem in video games, how do you teach the player how to play and introduce them to the plot without boring tutorials or walls of text at the beginning? First I use the variables to artificially restrict movement. You can travel to the town gate from the starting zone, but it remains closed until you own a weapon (represented as a variable). This forces the player to at least start the simple quest so they become familiar with the world and controls before they are released to the more open and dangerous world beyond the city walls. 
+
+Not every tile is a physical location, this is apparent in the example, the message board is geographically within the town square. If you select the BuyFood link it opens up a series of dialogue focused tiles with options for trading inventory items for food. Each potential offer requires its own special .xml file detailing the net result for the player if the transaction is completed. Unfortunately without comparative operators, we don't yet have the capability to have a quantity of a variable you can subtract from, instead such interactions must either involve barter or be carefully scripted so there can only be one possible result.
+
+(include screenshots of these tiles once our ui is less gross)

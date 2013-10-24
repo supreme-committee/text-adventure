@@ -1,5 +1,5 @@
 <tile>
-	<text>The cries of vendors mix with the smells of baking food. A sea of people envelops you as you make your way past countless tents offering various services or products, often brimming over with people united in their love of goods and gold. Food and drink are the most abundant, the city has seen better days, and its venerability does not attract the luxury goods and talent it once possesed. Nevertheless, many fortunes have been made here over the years, and beyond the chaos of the market several rows of houses rise up, towering over their neighbors, monuments to the power of wealth. Tucked in between two such monstrosities, a smaller blue house fights for sunlight.</text>
+	<text>The cries of vendors mix with the smells of baking food. A sea of people envelops you as you make your way past countless tents offering various services or products, often brimming over with people united in their love of goods and gold. Food and drink are the most abundant, the city has seen better days, and its venerability does not attract the luxury goods and talent it once possessed. Nevertheless, many fortunes have been made here over the years, and beyond the chaos of the market several rows of houses rise up, towering over their neighbors, monuments to the power of wealth. Tucked in between two such monstrosities, a smaller blue house fights for sunlight.</text>
 	<if haveMerchantMessage="true">
         <link>
             <file>MerchantHouse.xml</file>
@@ -12,7 +12,7 @@
 	</link>
 	<link>
 		<file>BuyFood.xml</file>
-		<text>Delicious smells emenate from a nearby stall. The plump vendor offers you a loaf of bread and a block of cheese in return for a small amount of silver or a sharp bread knife</text>
+		<text>Delicious smells emanate from a nearby stall. The plump vendor offers you a loaf of bread and a block of cheese in return for a small amount of silver or a sharp bread knife</text>
 	</link>
 	<link>
 		<file>BuyDrink.xml</file>
