@@ -86,7 +86,7 @@ string FileHandler::saveFile()
 	string returnString = ofn.lpstrFile;
 #endif
 
-	return returnString + ".sav";
+	return returnString;
 #elif __APPLE__
 #endif
 }

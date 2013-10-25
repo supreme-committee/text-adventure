@@ -19,6 +19,7 @@ private:
 	map<string, string> stringVars;
 	Tile tile; // The current tile's info
 	string fileDirectory; // The directory where the story files are
+	string currentFile; // The currently loaded xml file
 
 	sf::Font font_main;
 	sf::Text text; // The text to show (built from the texts vector in tile)

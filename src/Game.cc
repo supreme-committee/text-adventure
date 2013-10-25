@@ -59,6 +59,8 @@ void Game::loadFile(string filename)
 	}
 	file.close();
 
+	currentFile = filename;
+
 	tile = Parser::parse(filePath.c_str(), boolVars, intVars, stringVars);
 	buildText();
 	createButtons();
@@ -132,17 +134,23 @@ void Game::input()
 
 				if(m->loadSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
-					//Add code to load a saved game.
+					string saveFilename = FileHandler::openFile(FileHandler::OpenFileMode::SAVEGAME);
+					// Load the given .save file...
 				}
 				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
-					//Add code to start a new game.
+					string gameFile = FileHandler::openFile(FileHandler::OpenFileMode::NEWGAME);
+					// Load the new .tar file...
 				}
 				if(m->saveSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
-				    Parser::save("save.save","tarfile.tar","xmlFile.xml",
-				        boolVars, intVars, stringVars);
-					//Add code to save current game.
+					string saveFilename = FileHandler::saveFile();
+					if (saveFilename != "") // If they actually chose a file
+					{
+						saveFilename += ".sav";
+						Parser::save(saveFilename, "tarfile.tar", currentFile, 
+							boolVars, intVars, stringVars);
+					}
 				}
 			}
 		}
