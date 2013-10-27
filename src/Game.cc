@@ -119,6 +119,33 @@ void Game::input()
 	while (window.pollEvent(ev))
 	{
 		if (ev.type == sf::Event::Closed) done = true;
+		else if (ev.type == sf::Event::MouseWheelMoved)
+		{
+			if (ev.mouseWheel.delta > 0) // Wheel up
+			{
+				if (buttonSelection < buttons.size() - 1)
+				{
+					int dy = buttons[buttonSelection].coords.height;
+					for (auto& b : buttons)
+					{
+						b.setPos(b.getPos().left, b.getPos().top - dy - 10);
+					}
+					buttonSelection++;
+				}
+			}
+			else if (ev.mouseWheel.delta < 0) // Wheel down
+			{
+				if (buttonSelection > 0)
+				{
+					int dy = buttons[buttonSelection - 1].coords.height;
+					for (auto& b : buttons)
+					{
+						b.setPos(b.getPos().left, b.getPos().top + dy + 10);
+					}
+					buttonSelection--;
+				}
+			}
+		}
 		else if (ev.type == sf::Event::MouseButtonPressed)
 		{
 			if (ev.mouseButton.button == sf::Mouse::Left)
@@ -182,7 +209,7 @@ void Game::input()
 			case sf::Keyboard::Down:
 				if (buttonSelection > 0)
 				{
-					int dy = buttons[buttonSelection].coords.height;
+					int dy = buttons[buttonSelection - 1].coords.height;
 					for (auto& b : buttons)
 					{
 						b.setPos(b.getPos().left, b.getPos().top + dy + 10);
