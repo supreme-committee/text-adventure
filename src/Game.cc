@@ -20,7 +20,7 @@ void Game::buildText()
 	int charCount = 0; // Now insert line breaks
 	for (unsigned int pos = 0; pos < textString.length(); pos++)
 	{
-		if (charCount > 30 && textString[pos] == ' ')
+		if (charCount > 80 && textString[pos] == ' ') // Line break every 80 characters
 		{
 			textString.replace(pos, 1, "\n");
 			charCount = 0;
@@ -90,9 +90,9 @@ bool Game::init(string filename)
 	fileDirectory = filename.substr(0, filename.find_last_of('/')); // Directory containing xml files
 
 	text.setFont(font_main);
-	text.setCharacterSize(32);
+	text.setCharacterSize(14);
 	text.setColor(sf::Color::Black);
-	text.setPosition(sf::Vector2f(10.0f, 10.0f));
+	text.setPosition(sf::Vector2f(10.0f, 25.0f));
 
 	// Iterate through input files and verify they are formatted correctly
 	if (!Parser::verify(filename.c_str()))
