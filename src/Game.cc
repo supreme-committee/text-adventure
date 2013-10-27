@@ -54,8 +54,11 @@ void Game::loadFile(string filename)
 	file.open(filePath, ios::in);
 	if (!file.is_open())
 	{
+		text.setColor(sf::Color::Red);
+		text.setCharacterSize(32);
+		text.setString("ERROR: cannot find file:\n" + filename);
 		Logger::log("ERROR: cannot find file " + filename);
-		exit(1);
+		return;
 	}
 	file.close();
 
@@ -196,7 +199,7 @@ void Game::input()
 				}
 				break;
 			case sf::Keyboard::Up:
-				if (buttonSelection < buttons.size() - 1)
+				if (buttons.size() > 0 && buttonSelection < buttons.size() - 1)
 				{
 					int dy = buttons[buttonSelection].coords.height;
 					for (auto& b : buttons)
