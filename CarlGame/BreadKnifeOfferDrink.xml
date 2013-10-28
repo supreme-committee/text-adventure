@@ -1,0 +1,11 @@
+<tile>
+	<text>The merchant is unimpressed with your newly forged cutlery.</text>
+	<link>
+		<file>BuyDrink.xml</file>
+		<text>With a shrug you pocket the knife and take another look your possessions</text>
+	</link>
+	<link>
+		<file>Market.xml</file>
+		<text>With a shrug you return the knife to your bag and walk away from the stall</text>
+	</link>
+</tile>

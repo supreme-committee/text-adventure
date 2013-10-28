@@ -1,0 +1,15 @@
+<tile>
+	<text>The merchant is quite excited to see your offering, apparently recent conflicts have driven up the price of good steel. You resolve to make a note of this information.</text>
+	<var>
+		<name>haveLoafOfBread</name>
+		<value>true</value>
+	</var>
+	<var>
+		<name>haveBreadKnife</name>
+		<value>false</value>
+	</var>
+	<link>
+		<file>Market.xml</file>
+		<text>You thank the vendor for the food and the information and continue on your way</text>
+	</link>
+</tile>
