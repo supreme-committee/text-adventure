@@ -10,6 +10,7 @@ public:
 	bool newSelect(int, int);
 	bool isMouseOver(int, int);
 	void setTextColor(int, int);
+	void setActive(bool);
 private:
 	sf::RectangleShape bar;
 	sf::Rect<int> l,s,n,b;

@@ -90,3 +90,22 @@ void menu::setTextColor(int x, int y)
 		load.setColor(sf::Color::Red);
 	else load.setColor(sf::Color::Black);
 }
+void menu::setActive(bool active)	//Disables the save button if given false, enables it if true
+{
+	if(!active)
+	{
+		s.height = 0;
+		s.left = 0;
+		s.top = 0;
+		s.width = 0;
+		save.setColor(sf::Color(185,172,156,255));
+	}
+	else
+	{
+		s.height = 22;
+		s.width = 45;
+		s.top = 0;
+		s.left = 100;
+		save.setColor(sf::Color::Black);
+	}
+}
