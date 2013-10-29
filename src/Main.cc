@@ -11,16 +11,21 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	Logger::init();
 	//thread t(Logger::write); // Create a thread for the writer
 	//t.detach(); // Lets thread run in background (also prevents abort() being called when thread is destroyed)
 
-	if (argc != 2)
+	if (argc < 2 || argc > 3)
 	{
 		Logger::log("ERROR: you must specify the starting file on the command line");
 		Logger::log("Usage: game-engine.exe [starting xml file]");
 		cerr << "Usage: game-engine.exe [starting xml file]" << endl;
 		return 1;
+	}
+
+	if (argc == 3 && strcmp(argv[2], "-l") == 0) // If user wants logging turned on
+	{
+		cout << "logging turned on" << endl;
+		Logger::init();
 	}
 
     Game game;

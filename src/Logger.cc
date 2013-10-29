@@ -36,8 +36,11 @@ void Logger::init()
 
 void Logger::log(string s) //adds to queue
 {
-    qq.push(s);
-	write();
+	if (filename.length() > 0) // If logger is initialized
+	{
+		qq.push(s);
+		write();
+	}
 }
 
 void Logger::write() //writes to .log file
