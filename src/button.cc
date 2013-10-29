@@ -14,7 +14,7 @@ button::button(Link li, sf::Font& f,float x, float y)
 	t.setCharacterSize(16);
 	t.setPosition(x+5,y+5);
 	t.setString(str);
-	t.setColor(sf::Color::Black);
+	t.setColor(sf::Color::White);
 	coords = sf::Rect<int>(x,y,150,height);
 }
 button::button(string c, string l, float x, float y, sf::Font& f)	//Sets up a button with string t, link l, with its top left corner at (x,y).
@@ -34,7 +34,7 @@ button::button(string c, string l, float x, float y, sf::Font& f)	//Sets up a bu
 		t.setCharacterSize(16);
 		t.setPosition(x+5,y+5);
 		t.setString(text);
-		t.setColor(sf::Color::Black);
+		t.setColor(sf::Color::White);
 		coords = sf::Rect<int>(x,y,150,height);
 
 }
@@ -60,7 +60,7 @@ bool button::isMouseOver(int x, int y)
 	}
 	else
 	{
-		t.setColor(sf::Color::Black);
+		t.setColor(sf::Color::White);
 		return false;
 	}
 }

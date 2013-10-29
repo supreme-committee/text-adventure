@@ -41,6 +41,32 @@ void Game::createButtons()
 		yPos += b.getHeight() + 10.0f;
 	}
 }
+void Game::scrollButtonsUp()
+{
+	if (buttonSelection < buttons.size() - 1)
+	{
+		int dy = buttons[buttonSelection].coords.height / 2
+			+ buttons[buttonSelection + 1].coords.height / 2 + 10;
+		for (auto& b : buttons)
+		{
+			b.setPos(b.getPos().left, b.getPos().top - dy);
+		}
+		buttonSelection++;
+	}
+}
+void Game::scrollButtonsDown()
+{
+	if (buttonSelection > 0)
+	{
+		int dy = buttons[buttonSelection].coords.height / 2
+			+ buttons[buttonSelection - 1].coords.height / 2 + 10;
+		for (auto& b : buttons)
+		{
+			b.setPos(b.getPos().left, b.getPos().top + dy);
+		}
+		buttonSelection--;
+	}
+}
 void Game::loadFile(string filename)
 {
 	text.setString(" ");
@@ -82,9 +108,9 @@ Game::~Game()
 }
 bool Game::init(string filename)
 {
-	if (!font_main.loadFromFile("arial.ttf")) // Load the font. We need to figure out what kind of font to use - michaelg
+	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
 	{
-		Logger::log("ERROR: could not load font file");
+		Logger::log("ERROR: could not load font.ttf");
 		return false;
 	}
 
@@ -94,7 +120,7 @@ bool Game::init(string filename)
 
 	text.setFont(font_main);
 	text.setCharacterSize(14);
-	text.setColor(sf::Color::Black);
+	text.setColor(sf::Color::White);
 	text.setPosition(sf::Vector2f(10.0f, 25.0f));
 
 	// Iterate through input files and verify they are formatted correctly
@@ -128,24 +154,14 @@ void Game::input()
 			{
 				if (buttonSelection < buttons.size() - 1)
 				{
-					int dy = buttons[buttonSelection].coords.height;
-					for (auto& b : buttons)
-					{
-						b.setPos(b.getPos().left, b.getPos().top - dy - 10);
-					}
-					buttonSelection++;
+					scrollButtonsUp();
 				}
 			}
 			else if (ev.mouseWheel.delta < 0) // Wheel down
 			{
 				if (buttonSelection > 0)
 				{
-					int dy = buttons[buttonSelection - 1].coords.height;
-					for (auto& b : buttons)
-					{
-						b.setPos(b.getPos().left, b.getPos().top + dy + 10);
-					}
-					buttonSelection--;
+					scrollButtonsDown();
 				}
 			}
 		}
@@ -201,35 +217,29 @@ void Game::input()
 			case sf::Keyboard::Up:
 				if (buttons.size() > 0 && buttonSelection < buttons.size() - 1)
 				{
-					int dy = buttons[buttonSelection].coords.height;
-					for (auto& b : buttons)
-					{
-						b.setPos(b.getPos().left, b.getPos().top - dy - 10);
-					}
-					buttonSelection++;
+					scrollButtonsUp();
 				}
 				break;
 			case sf::Keyboard::Down:
 				if (buttonSelection > 0)
 				{
-					int dy = buttons[buttonSelection - 1].coords.height;
-					for (auto& b : buttons)
-					{
-						b.setPos(b.getPos().left, b.getPos().top + dy + 10);
-					}
-					buttonSelection--;
+					scrollButtonsDown();
 				}
 				break;
 			default:
 				break;
 			}
 		}
+		else if (ev.type == sf::Event::MouseMoved)
+		{
+			for (auto& b : buttons) b.isMouseOver(ev.mouseMove.x, ev.mouseMove.y);
+		}
 	}
 }
 
 void Game::render()
 {
-	window.clear(sf::Color::Cyan);
+	window.clear(sf::Color::Black); // Background color
 
 	sf::Vector2i v = sf::Mouse::getPosition(window);	//Draw menu if the mouse if over it.
 	if(m->isMouseOver(v.x,v.y))
@@ -242,9 +252,11 @@ void Game::render()
 	{
 		button.render(window);
 	}
-	sf::RectangleShape selection(sf::Vector2f(20.0f, 20.0f));
-	selection.setFillColor(sf::Color::Red);
-	selection.setPosition(5.0f, 250.0f);
+
+	sf::CircleShape selection; // Arrow for button selection (should eventually be changed) - michaelg
+	selection.setRadius(10.0f);
+	selection.setFillColor(sf::Color::White);
+	selection.setPosition(5.0f, 255.0f);
 	window.draw(selection);
 
 	window.display();
