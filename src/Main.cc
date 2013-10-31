@@ -5,6 +5,7 @@
 
 #include <sstream>
 #include <string>
+#include <string.h>
 #include <iostream>
 #include <thread>
 using namespace std;

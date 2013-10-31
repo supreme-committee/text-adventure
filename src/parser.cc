@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include <set>
 #include <fstream>
+#include <sstream>
 
 Parser::Parser(){}
 Parser::~Parser(){}
@@ -375,6 +376,76 @@ void Parser::save(string saveFileName, string tarName, string tileFile,
     {
         saveFile << (*i).first << " " << (*i).second << endl;
     }
+    saveFile.close();
+}
+
+void Parser::load(string openFileName, string& tarName, string& tileFile,
+                    map<string, bool>& boolVars,
+                    map<string, int>& intVars,
+                    map<string, string>& stringVars)
+{
+    //clear the var tables
+    boolVars.clear();
+    intVars.clear();
+    stringVars.clear();
+    
+    //Open the file and put tar and tile info in right places.
+    ifstream saveFile;
+    saveFile.open(openFileName);
+    getline(saveFile,tarName);
+    getline(saveFile,tileFile);
+    
+    //Check to see if file is in the right format by checking the variable header
+    string typeCheck("bools");
+    string checkee;
+    getline(saveFile,checkee);
+    if(typeCheck.compare(checkee) != 0)
+    {
+        cerr << "Loading failed: Save file corrupted" << endl;
+    }
+    
+    //Load in bools to the boolVar table
+    getline(saveFile,checkee);
+    while(checkee.compare("ints") != 0)
+    {
+        stringstream ss(checkee);
+        string first;
+        bool second;
+        ss >> first;
+        ss >> second;
+        pair<string,bool> tomap(first, second);
+        boolVars.insert(tomap);
+        getline(saveFile,checkee);
+    }
+    
+    //Load in ints. checkee should now == "ints"
+    getline(saveFile,checkee);
+    while(checkee.compare("strings") != 0)
+    {
+        stringstream ss(checkee);
+        string first;
+        int second;
+        ss >> first;
+        ss >> second;
+        pair<string,int> tomap(first, second);
+        intVars.insert(tomap);
+        getline(saveFile,checkee);
+    }
+    
+    //Load in strings. checkee == "strings" 
+    //Scan until EOF
+    while(saveFile.good())
+    {
+        getline(saveFile,checkee);
+        stringstream ss(checkee);
+        string first;
+        string second;
+        ss >> first;
+        ss >> second;
+        pair<string,string> tomap(first, second);
+        stringVars.insert(tomap);
+    }
+    
     saveFile.close();
 }
 
