@@ -251,6 +251,7 @@ void Game::render()
 	for (auto& button : buttons) // render the buttons
 	{
 		button.render(window);
+		button.isMouseOver(v.x,v.y);
 	}
 
 	sf::CircleShape selection; // Arrow for button selection (should eventually be changed) - michaelg
