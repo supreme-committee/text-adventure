@@ -39,6 +39,7 @@ int main(int argc, char** argv)
 	while (!game.isDone())
 	{
 		game.input();
+		game.update();
 		game.render();
 	}
     

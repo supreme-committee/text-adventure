@@ -230,10 +230,22 @@ void Game::input()
 				break;
 			}
 		}
-		else if (ev.type == sf::Event::MouseMoved)
-		{
-			for (auto& b : buttons) b.isMouseOver(ev.mouseMove.x, ev.mouseMove.y);
-		}
+	}
+}
+
+void Game::update()
+{
+	// Update the menu bar
+	sf::Vector2i v = sf::Mouse::getPosition(window);	//Draw menu if the mouse if over it.
+	if(m->isMouseOver(v.x,v.y))
+	{
+		m->setTextColor(v.x,v.y);
+	}
+
+	// Update buttons
+	for (auto& button : buttons)
+	{
+		button.isMouseOver(v.x,v.y);
 	}
 }
 
@@ -245,13 +257,11 @@ void Game::render()
 	if(m->isMouseOver(v.x,v.y))
 	{
 		m->render(window);
-		m->setTextColor(v.x,v.y);
 	}
 	window.draw(text);
 	for (auto& button : buttons) // render the buttons
 	{
 		button.render(window);
-		button.isMouseOver(v.x,v.y);
 	}
 
 	sf::CircleShape selection; // Arrow for button selection (should eventually be changed) - michaelg

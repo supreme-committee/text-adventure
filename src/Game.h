@@ -37,6 +37,7 @@ public:
 	~Game();
 	bool init(string startFile);   // initialize compenents
 	void input();  // Handle user input
+	void update(); // Handle game logic
 	void render(); // Render stuff on screen
 	
 	// inline functions
