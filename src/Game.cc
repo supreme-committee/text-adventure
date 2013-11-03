@@ -69,7 +69,6 @@ void Game::scrollButtonsDown()
 }
 void Game::loadFile(string filename)
 {
-    Parser::verify((fileDirectory + "/" + filename).c_str());
 	text.setString(" ");
 	buttons.clear();
 
@@ -190,7 +189,25 @@ void Game::input()
 				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
 					string gameFile = FileHandler::openFile(FileHandler::OpenFileMode::NEWGAME);
-					// Load the new .tar file...
+					fileDirectory.clear();
+					fileDirectory = gameFile.substr(0, gameFile.find_last_of('\\')) + "\\.gamefiles";
+
+					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);
+
+					system("mkdir .gamefiles");
+					string command = "tar -xf '" + gameFile + "' -C .gamefiles";
+					
+					int returnCode = system(command.c_str());
+#ifdef WIN32
+					system("attrib +h .gamefiles");
+#endif
+					if (returnCode != 0)
+					{
+						// do something
+					}
+
+					boolVars.clear(); intVars.clear(); stringVars.clear();
+					loadFile("Start.xml");
 				}
 				if(m->saveSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
