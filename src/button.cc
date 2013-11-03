@@ -58,7 +58,8 @@ void button::setPos(int x, int y)
 	coords.top = y;
 	coords.left = x;
 	rect.setPosition(x,y);
-	t.setPosition(x+5,y+5);
+	t.setPosition(x+10,y+5);
+	sprite.setPosition(x,y);
 }
 sf::Rect<int> button::getPos()
 {

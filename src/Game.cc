@@ -96,7 +96,7 @@ void Game::loadFile(string filename)
 }
 
 // ================== PUBLIC FUNCTIONS ===================
-Game::Game()
+Game::Game() : fileDirectory(".gamefiles")
 {
 	done = false;
 	window.create(sf::VideoMode(640, 480), "Game Engine", sf::Style::Close);
@@ -117,8 +117,6 @@ bool Game::init(string filename)
 	}
 
 	m = new menu(font_main);
-
-	fileDirectory = filename.substr(0, filename.find_last_of('/')); // Directory containing xml files
 
 	text.setFont(font_main);
 	text.setCharacterSize(14);
@@ -189,9 +187,8 @@ void Game::input()
 				}
 				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
+					system("rmdir .gamefiles /s /q"); // Delete old xml files
 					string gameFile = FileHandler::openFile(FileHandler::OpenFileMode::NEWGAME);
-					fileDirectory.clear();
-					fileDirectory = gameFile.substr(0, gameFile.find_last_of('\\')) + "\\.gamefiles";
 
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);
                     
