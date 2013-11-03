@@ -1,0 +1,15 @@
+<tile>
+	<text>As if to contrast her earlier burst of passion, once you are inside and seated the merchant is all business, quickly going over your responsibilities and pay. The job itself seems fairly straightforward, you are simply there to deter any would be thieves in addition to helping out with some more menial tasks like making camp and helping unload the goods at their destination. The payment is the only surprise. The figure she quotes seems too high, and the explanation is not long to follow. Apparently the merchant recently bought a huge number of books at a ridiculously low price. However books are too much of a luxury good to sell in quantity in these areas, and with the recent restrictions on travel the little capital she had left has been dwindling. As such you won't receive any gold until they reach their destination and she manages to sell some of her wares. Instead she offers your choice of several items she has in stock as your advance, to pay for supplies and such. For you it is not even a decision you have to make, you take the shawl and lump of silver. Your other option was a book, not much good to you except when they have pictures. With a handshake to seal the deal, the merchant tells you to meet her past the gate.</text>
+	<var>
+		<name>haveMerchantShawl</name>
+		<value>true</value>
+	</var>
+	<var>
+		<name>haveSmallLumpSilver</name>
+		<value>true</value>
+	</var>
+	<link>
+		<file>Market.xml</file>
+		<text>Leave the house</text>
+	</link>
+</tile>

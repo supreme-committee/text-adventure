@@ -4,6 +4,10 @@
 		<name>haveFullWaterBottle</name>
 		<value>true</value>
 	</var>
+	<var>
+		<name>haveMerchantShawl</name>
+		<value>false</value>
+	</var>
 	<link>
 		<file>Market.xml</file>
 		<text>The two of you share a chuckle and you resume your navigation of the market, water bottle in hand</text>

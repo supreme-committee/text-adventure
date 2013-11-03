@@ -1,5 +1,5 @@
 <tile>
-	<text>You consider your possesions and what you could do without.</text>
+	<text>You consider your possessions and what you could do without.</text>
 	<if haveBreadKnife="true">
         <link>
             <file>BreadKnifeOfferDrink.xml</file>
