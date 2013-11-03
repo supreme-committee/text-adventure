@@ -13,7 +13,9 @@ private:
 	sf::Text t;
 	sf::Font font;
 	int numLines;
-
+	sf::Texture texture;
+	sf::Sprite sprite;
+	float x,y, yscale;
 public:
 	button();
 	button(Link,sf::Font& f, float x, float y);

@@ -1,51 +1,40 @@
 #include "button.h"
 
-button::button(Link li, sf::Font& f,float x, float y)	
+button::button(Link li, sf::Font& f,float xx, float yy)	
 {
 	numLines = 1;
-	string str = wordWrap(li.text,22);
+	string str = wordWrap(li.text,40);
 	int height = numLines * 20 + 10;
 
 	link = li.filename;
 	rect.setFillColor(sf::Color(40,40,40,100));			//Set up color, position, and size for the rectangle.
-	rect.setPosition(x,y);
-	rect.setSize(sf::Vector2f(150,height));
+	rect.setPosition(xx,yy);
+	rect.setSize(sf::Vector2f(250,height));
 	t.setFont(f);
 	t.setCharacterSize(16);
-	t.setPosition(x+5,y+5);
+	t.setPosition(xx+10,yy+5);
 	t.setString(str);
 	t.setColor(sf::Color::White);
-	coords = sf::Rect<int>(x,y,150,height);
+	coords = sf::Rect<int>(xx,yy,290,height);
+	float h = (float)height;
+	yscale = h/130;
+	x = xx;
+	y = yy;
 }
-button::button(string c, string l, float x, float y, sf::Font& f)	//Sets up a button with string t, link l, with its top left corner at (x,y).
-{           
-                                            //For testing, I will update this later once the tile class is finalized so a button can be instantiated with a tile as an argument.
-		numLines = 1;
-		string str = wordWrap(c,22);
-		cout << numLines << endl;
-		int height = numLines * 20 + 10;
-		text = str;
-		link = l;
-		font = f;
-		rect.setFillColor(sf::Color(40,40,40,100));			//Set up color, position, and size for the rectangle.
-		rect.setPosition(x,y);
-		rect.setSize(sf::Vector2f(150,height));
-		t.setFont(font);
-		t.setCharacterSize(16);
-		t.setPosition(x+5,y+5);
-		t.setString(text);
-		t.setColor(sf::Color::White);
-		coords = sf::Rect<int>(x,y,150,height);
 
-}
 string button::getLink()
 {
 	return link;
 }
 void button::render(sf::RenderWindow& window)
 {
-		window.draw(t);
-		window.draw(rect);
+	texture.loadFromFile("button.png");
+	sprite.setScale(1,yscale);
+	sprite.setPosition(x,y);
+	sprite.setTexture(texture);
+	
+	window.draw(sprite);
+	window.draw(t);
 }
 int button::getHeight()
 {
@@ -85,7 +74,6 @@ string button::wordWrap( std::string str, size_t width = 55 )
             spacePos = str.find( ' ', curWidth );
         if( spacePos != std::string::npos ) {
             str[ spacePos ] = '\n';
-			cout << "adding newline" << endl;
             curWidth = spacePos + width + 1;
 			Lines++;
         }
