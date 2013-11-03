@@ -81,6 +81,42 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		l1.text = text;
 		tileData.links.push_back(l1);
 	}
+	else if (strcmp(node->name(), "modify") == 0)
+	{
+		char* variableName = NULL;
+		char* amount;
+		int i_amount;
+
+		if (strcmp(node->first_node()->name(), "var") == 0)
+		{
+			variableName = node->first_node()->value();
+			amount = node->last_node()->value();
+		}
+		else if (strcmp(node->first_node()->name(), "amount") == 0)
+		{
+			variableName = node->last_node()->value();
+			amount = node->first_node()->value();
+		}
+		else
+		{
+			Logger::log("ERROR: tags within <modify></modify> are out of order");
+			return;
+		}
+
+		// Check if int variable exists
+		if (intVars.find(variableName) == intVars.end())
+		{
+			string message = "ERROR: attempt to modify an int that doesn't exist: ";
+			message.append(variableName);
+			Logger::log(message);
+			return;
+		}
+
+		stringstream ss(amount); // Modify the int
+		ss >> i_amount;
+		auto woot = intVars.find(variableName);
+		woot->second += i_amount;
+	}
 }
 
 void Parser::grabInnerNodes(rapidxml::xml_node<char>* node, Tile& tileData,
