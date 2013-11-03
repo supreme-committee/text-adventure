@@ -95,6 +95,7 @@ MessageBoard.xml
 	</link>
 </tile>
 \end{lstlisting}
+
 *The main item of interest here is the variable tag. Each variable contains a name and a value. Both \textless name\textgreater yourname\textless /name\textgreater  and \textless value\textgreater yourvalue \textless /value\textgreater  can be set to any string. If a variable of the same name already exists this will overwrite its old value with the new one you provide.
 
 *Straightforward uses of this include things like adding items to your inventory as in this example, recording which game events have already occurred allowing you to have one time scripted events, and assigning quantities to variables. The following file clarifies its use.
@@ -153,6 +154,7 @@ Market.xml
 	</link>
 </tile>
 \end{lstlisting}
+
 *Note that you must explicitly say when the if statement begins and ends with the \textless if\textgreater ifstatements\textless /if\textgreater tags. If statements cannot be nested within each other. 
 
 *This .xml file demonstrates how one would use the variable declared in the tile before. It uses an if statement to check if a variable contains a specific string value. At the moment the only operations available are equals and not equals, in the future we will have some comparative operators.

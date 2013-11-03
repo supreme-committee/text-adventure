@@ -87,19 +87,21 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		char* amount;
 		int i_amount;
 
-		if (strcmp(node->first_node()->name(), "var") == 0)
+		if (strcmp(node->first_node()->name(), "var") == 0 &&
+			strcmp(node->last_node()->name(), "amount") == 0)
 		{
 			variableName = node->first_node()->value();
 			amount = node->last_node()->value();
 		}
-		else if (strcmp(node->first_node()->name(), "amount") == 0)
+		else if (strcmp(node->first_node()->name(), "amount") == 0 &&
+			strcmp(node->last_node()->name(), "var") == 0)
 		{
 			variableName = node->last_node()->value();
 			amount = node->first_node()->value();
 		}
 		else
 		{
-			Logger::log("ERROR: tags within <modify></modify> are out of order");
+			Logger::log("ERROR: tags within <modify></modify> are invalid");
 			return;
 		}
 
