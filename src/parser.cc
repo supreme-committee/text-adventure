@@ -441,6 +441,16 @@ void Parser::load(string openFileName, string& tarName, string& tileFile,
     //Open the file and put tar and tile info in right places.
     ifstream saveFile;
     saveFile.open(openFileName);
+#ifdef __APPLE__
+    while(!saveFile.good())
+    {
+        cout << "File not found"<<endl;
+        cout << "Enter full path to file: ";
+        string s;
+        cin >> s;
+        saveFile.open(s);
+    }
+#endif 
     getline(saveFile,tarName);
     getline(saveFile,tileFile);
     

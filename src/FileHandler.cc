@@ -45,6 +45,10 @@ string FileHandler::openFile(OpenFileMode mode)
 	
 	return returnString;
 #elif __APPLE__
+    cout << "Enter full path to file: ";
+    string s;
+    cin >> s;
+    return s;
 #endif
 }
 
@@ -88,5 +92,9 @@ string FileHandler::saveFile()
 
 	return returnString;
 #elif __APPLE__
+    cout <<"Enter savefile name (.sav will be appended): ";
+    string s;
+    cin >> s;
+    return s;
 #endif
 }

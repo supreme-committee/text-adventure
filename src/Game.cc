@@ -184,7 +184,8 @@ void Game::input()
 				{
 					string saveFilename = FileHandler::openFile(FileHandler::OpenFileMode::SAVEGAME);
 					Parser::load(saveFilename, tarFile, currentFile, boolVars, intVars, stringVars);
-					loadFile(currentFile);
+					currentFile = currentFile.substr(currentFile.find_last_of('/'), currentFile.length()-1);
+                    loadFile(currentFile);
 				}
 				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
@@ -193,7 +194,7 @@ void Game::input()
 					fileDirectory = gameFile.substr(0, gameFile.find_last_of('\\')) + "\\.gamefiles";
 
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);
-
+                    
 					system("mkdir .gamefiles");
 					string command = "tar -xf '" + gameFile + "' -C .gamefiles";
 					
