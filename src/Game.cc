@@ -5,6 +5,11 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#ifdef WIN32
+	#include <direct.h>
+#else
+	#include <unistd.h>
+#endif
 using namespace std;
 
 // ================== PRIVATE FUNCTIONS ==================
@@ -108,6 +113,14 @@ Game::~Game()
 }
 bool Game::init(string filename)
 {
+	char buffer[256];
+#ifdef WIN32
+	_getcwd(buffer, 256);
+#else
+	getcwd(buffer, 256);
+#endif
+	exeDir = string(buffer); // Get original working directory
+
 	currentFile = filename;
 
 	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)

@@ -18,6 +18,7 @@ private:
 	map<string, int> intVars;
 	map<string, string> stringVars;
 	Tile tile; // The current tile's info
+	string exeDir;        // Directory where the game engine exe is
 	string fileDirectory; // The directory where the story files are
 	string currentFile; // The currently loaded xml file
 	string tarFile;     // The name of the loaded .tar file
