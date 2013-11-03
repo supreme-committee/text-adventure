@@ -53,8 +53,10 @@ bool button::isMouseOver(int x, int y)
 		return false;
 	}
 }
-void button::setPos(int x, int y)
+void button::setPos(int xx, int yy)
 {
+	x = xx;
+	y = yy;
 	coords.top = y;
 	coords.left = x;
 	rect.setPosition(x,y);
