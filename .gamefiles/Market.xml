@@ -5,9 +5,9 @@
             <file>MerchantHouse.xml</file>
             <text>Message in hand, you make your way to the blue house and knock on the door.</text>
         </link>
-    </if>
-    <link>
-		<file>TownSquare.xml</file>
+	</if>
+	<link>
+		<file>Start.xml</file>
 		<text>Walk back to the town square</text>
 	</link>
 	<link>

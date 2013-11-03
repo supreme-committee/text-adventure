@@ -19,7 +19,7 @@
 		</link>
 	</if>
 	<link>
-		<file>TownSquare.xml</file>
+		<file>Start.xml</file>
 		<text>After several minutes of arguing furiously, you are unable to convince the man to allow you to pass. You attempt to reason with him, explaining that you spent months traveling the countryside to reach this city in the first place, and if he thinks bandits weren't out there prior to the lord's announcement he's been inside for a bit too long himself. However, the guard is adamant in following his orders and does not react to your decreasingly subtle implications regarding his bravery and ability to think for himself. With a resigned sigh you trudge back towards the inner city, wondering where the cheapest weapons are sold.</text>
 	</link>
 </tile>
