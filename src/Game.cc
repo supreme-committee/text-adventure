@@ -5,11 +5,6 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#ifdef WIN32
-	#include <direct.h>
-#else
-	#include <unistd.h>
-#endif
 using namespace std;
 
 // ================== PRIVATE FUNCTIONS ==================
@@ -101,7 +96,7 @@ void Game::loadFile(string filename)
 }
 
 // ================== PUBLIC FUNCTIONS ===================
-Game::Game()
+Game::Game() : fileDirectory(".gamefiles")
 {
 	done = false;
 	window.create(sf::VideoMode(640, 480), "Game Engine", sf::Style::Close);
@@ -113,14 +108,6 @@ Game::~Game()
 }
 bool Game::init(string filename)
 {
-	char buffer[256];
-#ifdef WIN32
-	_getcwd(buffer, 256);
-#else
-	getcwd(buffer, 256);
-#endif
-	exeDir = string(buffer); // Get original working directory
-
 	currentFile = filename;
 
 	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
@@ -130,8 +117,6 @@ bool Game::init(string filename)
 	}
 
 	m = new menu(font_main);
-
-	fileDirectory = filename.substr(0, filename.find_last_of('/')); // Directory containing xml files
 
 	text.setFont(font_main);
 	text.setCharacterSize(14);
@@ -201,9 +186,8 @@ void Game::input()
 				}
 				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
+					system("rmdir .gamefiles /s /q"); // Delete old xml files
 					string gameFile = FileHandler::openFile(FileHandler::OpenFileMode::NEWGAME);
-					fileDirectory.clear();
-					fileDirectory = gameFile.substr(0, gameFile.find_last_of('\\')) + "\\.gamefiles";
 
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);
 
