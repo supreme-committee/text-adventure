@@ -69,6 +69,7 @@ void Game::scrollButtonsDown()
 }
 void Game::loadFile(string filename)
 {
+    Parser::verify((fileDirectory + "/" + filename).c_str());
 	text.setString(" ");
 	buttons.clear();
 
