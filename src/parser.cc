@@ -238,6 +238,17 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 #else
         reserved = set<string>({"file", "text"}); //change reserved words
 #endif
+        
+        ifstream linkedFile;
+        linkedFile.open(node->value());
+        if(!linkedFile.good())
+        {
+            string s("File not found during verification: ");
+            s+=node->value();
+            Logger::log(s);
+        }
+        else
+            cout << "File found: " << node->value();
         //printReserved(reserved);
     }
     else if(strcmp(node->name(), "var") == 0)
@@ -480,6 +491,8 @@ void Parser::load(string openFileName, string& tarName, string& tileFile,
         string second;
         ss >> first;
         ss >> second;
+        if(first.empty())
+            break;
         pair<string,string> tomap(first, second);
         stringVars.insert(tomap);
     }
