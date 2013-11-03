@@ -20,6 +20,7 @@ private:
 	Tile tile; // The current tile's info
 	string fileDirectory; // The directory where the story files are
 	string currentFile; // The currently loaded xml file
+	string tarFile;     // The name of the loaded .tar file
 
 	sf::Font font_main;
 	sf::Text text; // The text to show (built from the texts vector in tile)

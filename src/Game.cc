@@ -108,6 +108,8 @@ Game::~Game()
 }
 bool Game::init(string filename)
 {
+	currentFile = filename;
+
 	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
 	{
 		Logger::log("ERROR: could not load font.ttf");
@@ -181,7 +183,8 @@ void Game::input()
 				if(m->loadSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
 					string saveFilename = FileHandler::openFile(FileHandler::OpenFileMode::SAVEGAME);
-					// Load the given .save file...
+					Parser::load(saveFilename, tarFile, currentFile, boolVars, intVars, stringVars);
+					loadFile(currentFile);
 				}
 				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
