@@ -25,11 +25,11 @@ When you play a game on our engine, what's on screen at any given time during th
 
 \section{Example}
 
-\paragraph{TownSquare.xml}
+\paragraph{Start.xml}
 
-Here is the text of the TownSquare.xml tile which is the starting point for the sample game I have been creating with comments.
+Here is the text of the Start.xml tile which is the starting point for the sample game I have been creating with comments.
 
-TownSquare.xml
+Start.xml
 \begin{lstlisting}[frame=single]
 <tile>
 	<text>You are a wandering adventurer who after 
@@ -70,6 +70,8 @@ TownSquare.xml
 
 *The last of the 3 most basic and necessary tags, \textless link\textgreater yourlink\textless /link\textgreater  denotes a link to another tile. Each link must contain both a file (has the form \textless file\textgreater yourfile.ext\textless /file\textgreater and must be in the same directory as the file it is linked from) which is the tile it links to, and text to be displayed on the relevant button. It is worth noting that while it is not required to have a link in each tile, there is no 'go back' standard option, so a tile with no links should only be used in the case of winning or losing the game.
 
+*Every game must have an .xml file named "start" which is the first tile opened when starting a new game.
+
 \paragraph{MessageBoard.xml}
 
 MessageBoard.xml
@@ -89,7 +91,7 @@ MessageBoard.xml
 		<value>true</value>
 	</var> 
 	<link>
-		<file>TownSquare.xml</file>
+		<file>Start.xml</file>
 		<text>Resume your inspection of the 
 		town square</text>
 	</link>
@@ -131,7 +133,7 @@ Market.xml
         </link>
     </if>
     <link>
-		<file>TownSquare.xml</file>
+		<file>Start.xml</file>
 		<text>Walk back to the town square</text>
 	</link>
 	<link>

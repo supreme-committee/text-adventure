@@ -1,0 +1,13 @@
+<tile>
+	<text>The guard chuckles, "A dangerous weapon, easy to learn but near impossible to master. I'm competent with it myself, would be happy to show you the basics. Well what are you waiting for? Lets get to work.
+
+He finds a practice spear and the two of you get to it. When you start the sun is high in the sky, you do not stop until the sun is well below the horizon and the practice yard lit only by flickering torches. You are so exhausted you simply collapse on a spare bedroll in the guards nearby tent. The next morning you thank him for the crash course in spear use and prepare for the next stage of your journey, before you can leave the guard surprises you. Without explanation he pushes a spear into your hands before striding off towards his post.</text>
+	<var>
+		<name>primaryWeapon</name>
+		<value>unskilledSpear</value>
+	</var>
+	<link>
+		<file>Start.xml</file>
+		<text>Feeling satisfied with your progress, you retrace your steps towards the center of the town.</text>
+	</link>
+</tile>

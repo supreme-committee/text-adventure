@@ -1,0 +1,7 @@
+<tile>
+	<text>Paving stones gradually give way to dirt as you move farther from the wall. Ursala is waiting a short distance down the main road, leaning against a moderately sized wagon attached to two large horses. She inclines her head in greeting, and without further conversation climbs up to the wagon's front seat. You decline the offered seat next to her, enjoying stretching your legs and admiring the view as the two of you begin your journey south. The spaces between houses quickly grow wider, interspersed with fields of crops, pastures, and the occasional thicket of trees contouring the rolling hills. You make good time, the pace is slow but steady, traveling in comfortable silence. The sun has just begun its descent when you stop for some lunch.</text>
+	<link>
+		<file>FleurtranCountrysideEvening.xml</file>
+		<text>Feeling refreshed you continue on your way.</text>
+	</link>
+</tile>
