@@ -20,8 +20,11 @@ button::button(Link li, sf::Font& f,float xx, float yy)
 	yscale = h/130;
 	x = xx;
 	y = yy;
+	r = 0;
+	g = 0;
+	b = 175;
+	alpha = 255;
 }
-
 string button::getLink()
 {
 	return link;
@@ -32,6 +35,7 @@ void button::render(sf::RenderWindow& window)
 	sprite.setScale(1,yscale);
 	sprite.setPosition(x,y);
 	sprite.setTexture(texture);
+	sprite.setColor(sf::Color(r,g,b,alpha));
 	
 	window.draw(sprite);
 	window.draw(t);
@@ -44,12 +48,16 @@ bool button::isMouseOver(int x, int y)
 {
 	if(coords.contains(sf::Vector2i(x,y)))
 	{
-		t.setColor(sf::Color::Red);
+		r = 255;
+		g = 0;
+		b= 0;
 		return true;
 	}
 	else
 	{
-		t.setColor(sf::Color::White);
+		r = 0;
+		g = 0;
+		b= 255;
 		return false;
 	}
 }
@@ -83,4 +91,8 @@ string button::wordWrap( std::string str, size_t width = 55 )
     }
 	numLines = Lines;
     return str;
+}
+void button::setAlpha(int a)
+{
+	alpha = a;
 }
