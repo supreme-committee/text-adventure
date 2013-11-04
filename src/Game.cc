@@ -189,9 +189,9 @@ void Game::input()
 				{
 					system("rmdir .gamefiles /s /q"); // Delete old xml files
 					string gameFile = FileHandler::openFile(FileHandler::OpenFileMode::NEWGAME);
-
+#ifdef WIN32                  
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);
-                    
+#endif                                     
 					system("mkdir .gamefiles");
 					string command = "tar -xf '" + gameFile + "' -C .gamefiles";
 					

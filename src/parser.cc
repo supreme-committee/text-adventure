@@ -246,6 +246,7 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
             string s("File not found during verification: ");
             s+=node->value();
             Logger::log(s);
+            isCorrect = false;
         }
         else
             cout << "File found: " << node->value();
