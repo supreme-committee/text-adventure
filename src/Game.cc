@@ -204,7 +204,11 @@ void Game::input()
 				}
 				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y))
 				{
+#ifdef WIN32                    
 					system("rmdir .gamefiles /s /q"); // Delete old xml files
+#else
+#endif
+
 					string gameFile = FileHandler::openFile(FileHandler::OpenFileMode::NEWGAME);
 #ifdef WIN32                  
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);

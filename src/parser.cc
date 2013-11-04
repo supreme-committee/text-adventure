@@ -229,6 +229,22 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
         || strcmp(node->name(), "name") == 0 || strcmp(node->name(), "value") == 0)
     {
         reserved = set<string>();
+        
+        if(strcmp(node->name(), "file") == 0)
+        {
+            ifstream linkedFile;
+            string filePath(".gamefiles/");
+            filePath+=node->value();
+            linkedFile.open(filePath);
+            if(!linkedFile.is_open())
+            {
+                cout <<"NODE VALUE:"<< node->value() << endl;
+                string s("File not found during verification: ");
+                s.append(node->value());
+                Logger::log(s);
+                isCorrect = false;
+            }
+        }
     }
     else if(strcmp(node->name(), "link") == 0)
     {
@@ -238,18 +254,6 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 #else
         reserved = set<string>({"file", "text"}); //change reserved words
 #endif
-        
-        ifstream linkedFile;
-        linkedFile.open(node->value());
-        if(!linkedFile.good())
-        {
-            string s("File not found during verification: ");
-            s+=node->value();
-            Logger::log(s);
-            isCorrect = false;
-        }
-        else
-            cout << "File found: " << node->value();
         //printReserved(reserved);
     }
     else if(strcmp(node->name(), "var") == 0)
