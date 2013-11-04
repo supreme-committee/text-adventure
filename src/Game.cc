@@ -108,6 +108,23 @@ Game::~Game()
 }
 bool Game::init(string filename)
 {
+	string fileExtension = filename.substr(filename.find_last_of('.'), filename.length() - 1);
+	if (fileExtension != ".tar")
+	{
+		Logger::log("ERROR: you must give me a .tar file!");
+		return false;
+	}
+	system("rmdir .gamefiles /s /q"); // Delete old xml files
+
+	   
+	system("mkdir .gamefiles");
+	string command = "tar -xf '" + filename + "' -C .gamefiles";
+					
+	int returnCode = system(command.c_str());
+#ifdef WIN32
+	system("attrib +h .gamefiles");
+#endif
+
 	currentFile = filename;
 
 	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
@@ -124,12 +141,12 @@ bool Game::init(string filename)
 	text.setPosition(sf::Vector2f(10.0f, 25.0f));
 
 	// Iterate through input files and verify they are formatted correctly
-	if (!Parser::verify(filename.c_str()))
+	if (!Parser::verify(".gamefiles/start.xml"))
 	{
 		return false;
 	}
 	
-	tile = Parser::parse(filename.c_str(), boolVars, intVars, stringVars); // Get the starting tile
+	tile = Parser::parse(".gamefiles/start.xml", boolVars, intVars, stringVars); // Get the starting tile
 	if (tile.links.size() == 0 && tile.texts.size() == 0) // No links or text exists. wtf
 	{
 		cerr << "Error occurred while parsing start.xml" << endl;

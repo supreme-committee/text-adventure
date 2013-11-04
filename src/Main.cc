@@ -17,9 +17,9 @@ int main(int argc, char** argv)
 
 	if (argc < 2 || argc > 3)
 	{
-		Logger::log("ERROR: you must specify the starting file on the command line");
-		Logger::log("Usage: game-engine.exe [starting xml file]");
-		cerr << "Usage: game-engine.exe [starting xml file]" << endl;
+		Logger::log("ERROR: you must specify the game tar on the command line");
+		Logger::log("Usage: game-engine.exe [tar file]");
+		cerr << "Usage: game-engine.exe [tar file]" << endl;
 		return 1;
 	}
 
