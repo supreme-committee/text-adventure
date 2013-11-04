@@ -182,7 +182,7 @@ void Game::input()
 				}
 			}
 		}
-		else if (ev.type == sf::Event::MouseButtonPressed)
+		else if (ev.type == sf::Event::MouseButtonReleased)
 		{
 			if (ev.mouseButton.button == sf::Mouse::Left)
 			{
