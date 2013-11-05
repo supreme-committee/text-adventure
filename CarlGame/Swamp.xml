@@ -1,0 +1,9 @@
+<tile>
+	<text>"So why is it called The Swamp?"
+"Depends on who you ask. You Easterners like to joke it's because it's the only swamp in the entire southern region. I've talked to people who live on the outskirts, they say it's because it's the first swamp."
+You scoff when you hear this, but as you pass from the outer edges into the heart of the area it seems less absurd. There is something ancient and daunting in the air here. Overhanging vegetation forces its way across the path, which is nearly impossible to follow, near buried beneath a thick cover of garish plants, sometimes covered by murky pools bubbling ominously. You are already dreading spending the night in this place, it seems a part of some misty dream, surreal and frightening. As if to confirm your worries, as the sun begins to sink you become aware of a high pitched wailing, sounding almost like the wind. Almost. Ursala has been maintaining her composure as well as you if not better, her sudden strangled yell draws your eyes and immediate concern. You follow her shaking finger to indistinct shapes rising from the muck of the swamp.</text>
+	<link>
+		<file>BogwraithFight.xml</file>
+		<text>You attempt a calming breath and draw your weapon.</text>
+	</link>
+</tile>

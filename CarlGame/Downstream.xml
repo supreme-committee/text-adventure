@@ -1,0 +1,21 @@
+<tile>
+	<text>While the land remains more or less the same, this portion of the journey feels different to you. The settlements are farther apart, once you pass one which is no more than charred remains. After that you give any people you spot an even wider berth. This ferry will be there, Ursala assures you, because it's in one of the bigger towns in the area, it would take a near army of raiders to take it. However, your party is still a days travel from your destination when trouble strikes again. The only warning you have is a high pitched whine. With a solid thud an arrow embeds itself in the side of the wagon, inches from your shoulder. </text>
+	<if primaryWeapon="unskilledSword">
+		<link>
+			<file>DownstreamSword.xml</file>
+			<text>You draw your steel and charge in the direction the arrow came from.</text>
+		</link>
+	</if>
+	<if primaryWeapon="unskilledSpear">
+		<link>
+			<file>DownstreamSpear.xml</file>
+			<text>Weapon in hand, you charge in the direction the arrow came from.</text>
+		</link>
+	</if>
+	<if primaryWeapon="unskilledBow">
+		<link>
+			<file>DownstreamBow.xml</file>
+			<text>Before you realize it you have your bow in hand, aiming an arrow.</text>
+		</link>
+	</if>
+</tile>
