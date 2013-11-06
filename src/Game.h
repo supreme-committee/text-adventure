@@ -36,7 +36,8 @@ private:
 public:
 	Game();
 	~Game();
-	bool init(string startFile);   // initialize compenents
+	bool init(); // used when user does not specify a tar file
+	bool init(string startFile);   // initialize game with given tar file
 	void input();  // Handle user input
 	void update(); // Handle game logic
 	void render(); // Render stuff on screen

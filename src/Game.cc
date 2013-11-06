@@ -106,6 +106,27 @@ Game::~Game()
 {
 	delete m;
 }
+bool Game::init()
+{
+	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
+	{
+		Logger::log("ERROR: could not load font.ttf");
+		return false;
+	}
+
+	m = new menu(font_main);
+
+	text.setFont(font_main);
+	text.setCharacterSize(14);
+	text.setColor(sf::Color::White);
+	text.setPosition(sf::Vector2f(10.0f, 25.0f));
+
+	buildText();
+	createButtons();
+	buttonSelection = 0;
+
+	return true;
+}
 bool Game::init(string filename)
 {
 	string fileExtension = filename.substr(filename.find_last_of('.'), filename.length() - 1);

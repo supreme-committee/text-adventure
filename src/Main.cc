@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 	//thread t(Logger::write); // Create a thread for the writer
 	//t.detach(); // Lets thread run in background (also prevents abort() being called when thread is destroyed)
 
-	if (argc < 2 || argc > 3)
+	if (argc > 3)
 	{
 		Logger::log("ERROR: you must specify the game tar on the command line");
 		Logger::log("Usage: game-engine.exe [tar file]");
@@ -30,7 +30,11 @@ int main(int argc, char** argv)
 	}
 
     Game game;
-	if (!game.init(argv[1])) 
+	if (argc == 1) // No tar file was given
+	{
+		if (!game.init()) return 1;
+	}
+	else if (argc > 1 && !game.init(argv[1])) // Start engine with given tar file
 	{
 		Logger::log("Game initialization failed. See previous messages");
 		return 1;
