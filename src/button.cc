@@ -1,4 +1,5 @@
 #include "button.h"
+#include "Logger.h"
 
 button::button(Link li, sf::Font& f,float xx, float yy)	
 {
@@ -24,6 +25,11 @@ button::button(Link li, sf::Font& f,float xx, float yy)
 	g = 0;
 	b = 175;
 	alpha = 255;
+
+	if (!texture.loadFromFile("button.png"))
+	{
+		Logger::log("Failed to load button.png It could not be found!");
+	}
 }
 string button::getLink()
 {
@@ -31,7 +37,6 @@ string button::getLink()
 }
 void button::render(sf::RenderWindow& window)
 {
-	texture.loadFromFile("button.png");
 	sprite.setScale(1,yscale);
 	sprite.setPosition(x,y);
 	sprite.setTexture(texture);
