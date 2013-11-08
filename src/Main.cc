@@ -15,28 +15,34 @@ int main(int argc, char** argv)
 	//thread t(Logger::write); // Create a thread for the writer
 	//t.detach(); // Lets thread run in background (also prevents abort() being called when thread is destroyed)
 
-	if (argc < 2 || argc > 3)
+	if (argc > 3)
 	{
-		Logger::log("ERROR: you must specify the game tar on the command line");
-		Logger::log("Usage: game-engine.exe [tar file]");
-		cerr << "Usage: game-engine.exe [tar file]" << endl;
+		cout << "Usage: text-adventure.exe [.tar file] [-l]" << endl;
 		return 1;
 	}
 
-	if (argc == 3 && strcmp(argv[2], "-l") == 0) // If user wants logging turned on
+	Game game;
+	string tarFile; // The tar file the user provided
+	for (int i = 1; i < argc; i++)
 	{
-		cout << "logging turned on" << endl;
-		Logger::init();
+		string arg(argv[i]);
+		if (arg == "-l") Logger::init();
+		else if (arg.substr(arg.length() - 4, arg.length() - 1) == ".tar")
+		{
+			tarFile = argv[i];
+		}
 	}
 
-    Game game;
-	if (!game.init(argv[1])) 
+	if (tarFile.length() > 0) // Initialize game with given tar file
 	{
-		Logger::log("Game initialization failed. See previous messages");
-		return 1;
+		if (!game.init(tarFile)) return 1;
+	}
+	else // initialze game without starting file
+	{
+		if (!game.init()) return 1;
 	}
 	
-	while (!game.isDone())
+	while (!game.isDone()) // Run the game loop
 	{
 		game.input();
 		game.update();

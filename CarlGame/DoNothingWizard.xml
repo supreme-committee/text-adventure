@@ -1,0 +1,15 @@
+<tile>
+	<text>The battle rages furiously, the air is heavy with smoke, lit up by the occasional flaring strike, until there are no more targets. With a final incantation the cloaked figure touches the pool from which the first monster arose, immediately the surface roils as if boiling, then is still again. He looks at you and your companion, nods and utters a single word, "Greetings."</text>
+	<link>
+		<file>AfterSwampJourney.xml</file>
+		<text>"Who are you?"</text>
+	</link>
+	<link>
+		<file>AfterSwampJourney.xml</file>
+		<text>"Why did you help us?"</text>
+	</link>
+	<link>
+		<file>AfterSwampJourney.xml</file>
+		<text>"What is the airspeed of an unladen swallow?"</text>
+	</link>
+</tile>

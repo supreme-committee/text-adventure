@@ -32,11 +32,14 @@ private:
 	void scrollButtonsDown();
 	void loadFile(string filename); // Load and set up a new tile from another xml file
 	menu *m;
-
+	sf::Texture texture;
+	sf::Sprite sprite;
+	bool imageValid, hideUI;
 public:
 	Game();
 	~Game();
-	bool init(string startFile);   // initialize compenents
+	bool init(); // used when user does not specify a tar file
+	bool init(string startFile);   // initialize game with given tar file
 	void input();  // Handle user input
 	void update(); // Handle game logic
 	void render(); // Render stuff on screen

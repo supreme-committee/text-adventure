@@ -1,0 +1,21 @@
+<tile>
+	<text></text>
+	<if primaryWeapon="unskilledSword">
+		<link>
+			<file>FleurtranCountryside.xml</file>
+			<text></text>
+		</link>
+	</if>
+	<if primaryWeapon="unskilledSpear">
+		<link>
+			<file>FleurtranCountryside.xml</file>
+			<text></text>
+		</link>
+	</if>
+	<if primaryWeapon="unskilledBow">
+		<link>
+			<file>FleurtranCountryside.xml</file>
+			<text></text>
+		</link>
+	</if>
+</tile>

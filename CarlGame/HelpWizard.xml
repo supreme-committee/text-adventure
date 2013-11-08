@@ -1,0 +1,14 @@
+<tile>
+	<text>You rush forward unwilling to let your new companion face these monsters alone. At first your attacks have no effect, but the mysterious stranger suddenly seems to become aware of you, your next strike rips through the target with ease, the wound billowing black smoke which covers the battleground. Together the two of you make quick work of the slow moving creatures. The battle is over quickly, in the aftermath the wizard deliberately makes his way up to you, peering down into your eyes with an inhuman gaze. When he finally speaks it is surprisingly normal, you were half expecting ancient tongues or telepathy.
+"You should not have done that. Bogwraiths cannot be touched by the physical."
+"So what should I have done? If you hadn't shown up we would have died."
+"Mmmm yes undoubtedly. My apologies, I would have arrived sooner but I was brewing a potion and it was in an extremely delicate state. I suppose I could teach you some magic. You do possess the necessary talent, it's what drew my attention in the first place."</text>
+	<link>
+		<file>WizardTraining.xml</file>
+		<text>I would love to learn the arcane arts!</text>
+	</link>
+	<link>
+		<file>AfterSwampJourney.xml</file>
+		<text>I appreciate the offer but I have prior commitments I must honor first.</text>
+	</link>
+</tile>

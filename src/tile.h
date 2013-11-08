@@ -18,6 +18,7 @@ class Tile
         ~Tile(){}
         vector<string> texts; //Text to display
         vector<Link> links; //first = text second = textfile
+		string image;	//name of image file for the tile
 };
 
 #endif

@@ -93,18 +93,49 @@ void Game::loadFile(string filename)
 	tile = Parser::parse(filePath.c_str(), boolVars, intVars, stringVars);
 	buildText();
 	createButtons();
+	if(texture.loadFromFile(tile.image))
+		imageValid = true;
+	else imageValid = false;
+	sprite.setTexture(texture);
 }
 
 // ================== PUBLIC FUNCTIONS ===================
 Game::Game() : fileDirectory(".gamefiles")
 {
 	done = false;
+	hideUI = false;
 	window.create(sf::VideoMode(640, 480), "Game Engine", sf::Style::Close);
 	window.setFramerateLimit(30);
 }
 Game::~Game()
 {
 	delete m;
+}
+bool Game::init()
+{
+	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
+	{
+		Logger::log("ERROR: could not load font.ttf");
+		return false;
+	}
+
+	m = new menu(font_main);
+
+	text.setFont(font_main);
+	text.setCharacterSize(14);
+	text.setColor(sf::Color::White);
+	text.setPosition(sf::Vector2f(10.0f, 25.0f));
+
+	buildText();
+	createButtons();
+	buttonSelection = 0;
+
+	if(texture.loadFromFile(tile.image))
+		imageValid = true;
+	else imageValid = false;
+	sprite.setTexture(texture);
+
+	return true;
 }
 bool Game::init(string filename)
 {
@@ -157,6 +188,11 @@ bool Game::init(string filename)
 	createButtons();
 	buttonSelection = 0;
 
+	if(texture.loadFromFile(tile.image))
+		imageValid = true;
+	else imageValid = false;
+	sprite.setTexture(texture);
+
 	return true;
 }
 void Game::input()
@@ -184,7 +220,14 @@ void Game::input()
 		}
 		else if (ev.type == sf::Event::MouseButtonReleased)
 		{
-			if (ev.mouseButton.button == sf::Mouse::Left)
+			if(ev.mouseButton.button == sf::Mouse::Right)	//Toggle UI on right click
+			{
+				if(hideUI)
+					hideUI = false;
+				else
+					hideUI = true;
+			}
+			else if (ev.mouseButton.button == sf::Mouse::Left)
 			{
 				for (auto& b : buttons)
 				{
@@ -291,24 +334,29 @@ void Game::update()
 
 void Game::render()
 {
-	window.clear(sf::Color::Black); // Background color
+	if(imageValid)
+		window.draw(sprite);
+	else
+		window.clear(sf::Color::Black);
 
 	sf::Vector2i v = sf::Mouse::getPosition(window);	//Draw menu if the mouse if over it.
 	if(m->isMouseOver(v.x,v.y))
 	{
 		m->render(window);
 	}
-	window.draw(text);
-	for (auto& button : buttons) // render the buttons
+	if(!hideUI)
 	{
-		button.render(window);
+		window.draw(text);
+		for (auto& button : buttons) // render the buttons
+		{
+			button.render(window);
+		}
+
+		sf::CircleShape selection; // Arrow for button selection (should eventually be changed) - michaelg
+		selection.setRadius(10.0f);
+		selection.setFillColor(sf::Color::White);
+		selection.setPosition(5.0f, 255.0f);
+		window.draw(selection);
 	}
-
-	sf::CircleShape selection; // Arrow for button selection (should eventually be changed) - michaelg
-	selection.setRadius(10.0f);
-	selection.setFillColor(sf::Color::White);
-	selection.setPosition(5.0f, 255.0f);
-	window.draw(selection);
-
 	window.display();
 }
