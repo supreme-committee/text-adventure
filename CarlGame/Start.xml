@@ -1,19 +1,7 @@
 <tile>
-	<text>You are a wandering adventurer who after weeks of traveling has made your way to Fleurtran, the oldest of the great cities. You stand in the town center, wondering what to do next. There are two particularly busy streets leading away from the plaza, one crowded with throngs of people laden with goods and gold, the other packed with soldiers hurrying up and down it in squads. In front of you a large message board catches your eye.</text>
+	<text>You wake up somewhere.</text>
 	<link>
-		<file>Market.xml</file>
-		<text>Follow the crowds towards the business district</text>
-	</link>
-	<link>
-		<file>Barracks.xml</file>
-		<text>Follow the soldiers towards the barracks</text>
-	</link>
-	<link>
-		<file>MessageBoard.xml</file>
-		<text>Read the message board</text>
-	</link>
-	<link>
-		<file>TownGate.xml</file>
-		<text>Head towards the cities main gate</text>
+		<file>Step forward.xml</file>
+		<text>Move forward</text>
 	</link>
 </tile>
