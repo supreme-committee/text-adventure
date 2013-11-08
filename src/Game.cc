@@ -130,6 +130,11 @@ bool Game::init()
 	createButtons();
 	buttonSelection = 0;
 
+	if(texture.loadFromFile(tile.image))
+		imageValid = true;
+	else imageValid = false;
+	sprite.setTexture(texture);
+
 	return true;
 }
 bool Game::init(string filename)
