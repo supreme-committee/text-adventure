@@ -1,0 +1,67 @@
+Sprint 3 Plan
+Text Adventure Maker Enterprise Pro Plus HD+ 64-bit Gold Edition Alpha 3
+Team Supreme Committee
+Sprint ends 11/27
+Revision 3, 11/6
+
+For this sprint, our main goals are to run extensive tests on the program, fix faults in the program, and add more polish to the GUI.
+
+As a developer, I want extensive testing for my game in order to eliminate bugs and
+get suggestions/feedback on what needs improvement.
+	-Run tests on parser.(3 hours)
+	-Run tests on logger.(3 hours)
+	-Test error messages.(3 hours)
+	-Environmental/compatibility testing.(2 hours)
+	-Test saving, loading, and newgame.(3 hours)
+Total for user story: 14 hours. 
+
+As a game player, I want pretty images for icons, buttons, maps, etc, and general polish for the GUI so that I enjoy  the visual appearance of the game while I play.
+	-Add button images(1 hour)
+	-Add background images(3 hours)
+	-Add image animation(4 hours)
+	-Add text background(1 hour)
+	-Add image scaling(1 hour)
+	-Add text scrolling(1 hour)
+Total for user story: 11 hours.
+
+As a game player, I want my game to have background music so that I am immersed
+in the game world and affected by the game emotionally.
+	-Add background music.(2 hours)
+	-Add sound effects.(1 hour)
+Total time for user story: 3 hours.
+
+As a developer and player, I want improved manuals and documentation for the game.
+	-Improve troubleshooting manual.(2 hours)
+	-Edit and improve all other sections of the manual.(2 hours)
+	-Add installation guides for Windows and Mac.(2 hours)
+Total time for user story: 6 hours.
+
+As a developer, I want to add more features to the parser so it is easier to use and more complete.
+	-Refactor parser to have better error handling.(3 hours)
+	-Update the verify function in the parser to check for <modify> tags.(3 hours)
+	-Change <if> tags  to implement comparisons.(3 hours)
+Total for user story: 9 hours.
+
+Team Roles:
+	Thomas White - Product Owner
+	Michael Grijalva - Developer 
+	Michael Parker - Scrum Master, Developer
+	Benjamin Lieu - Developer
+	Carl LaMaster - Developer
+
+Initial Task Assignment
+
+Thomas White - As a developer, I want extensive testing for my game in order to eliminate bugs and get suggestions/feedback on what needs improvement. Run tests on parser.
+
+Michael Grijalva - As a developer, I want to add more features to the parser so it is easier to use and more complete. Refactor parser to have better error handling.
+
+Michael Parker - As a game player, I want pretty images for icons, buttons, maps, etc so that I enjoy the visual appearance of the game while I play. Add button images.
+
+Benjamin Lieu - As a developer and player, I want improved manuals and documentation for the game. Edit and improve all other section of the manual.
+
+Carl LaMaster - As a developer and player, I want improved manuals and documentation for the game. Add installation guides for Windows and Mac.
+
+Scrum Times:
+Monday: 7:00 PM - With TA
+Tuesday: 2:00 PM
+Friday: 12:00 PM
