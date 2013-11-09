@@ -88,7 +88,11 @@ void menu::setTextColor(int x, int y)
 
 	if(l.contains(sf::Vector2i(x,y)))
 		load.setColor(sf::Color::Red);
-	else load.setColor(sf::Color::Black);
+	else 
+	{
+		if (l.height == 0) load.setColor(sf::Color(0, 0, 0, 50)); // If loading is disabled
+		else load.setColor(sf::Color::Black);
+	}
 }
 void menu::setActive(bool active)	//Disables the save button if given false, enables it if true
 {
@@ -107,5 +111,24 @@ void menu::setActive(bool active)	//Disables the save button if given false, ena
 		s.top = 0;
 		s.left = 100;
 		save.setColor(sf::Color::Black);
+	}
+}
+void menu::enableLoading(bool enabled)
+{
+	if (!enabled)
+	{
+		l.height = 0;
+		l.left = 0;
+		l.top = 0;
+		l.width = 0;
+		load.setColor(sf::Color(0, 0, 0, 50));
+	}
+	else
+	{
+		l.height = 22;
+		l.width = 45;
+		l.top = 0;
+		l.left = 160;
+		load.setColor(sf::Color::Black);
 	}
 }

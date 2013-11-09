@@ -93,8 +93,11 @@ void Game::loadFile(string filename)
 	tile = Parser::parse(filePath.c_str(), boolVars, intVars, stringVars);
 	buildText();
 	createButtons();
-	if(texture.loadFromFile(" "))
+
+	if (tile.image.length() > 0 && texture.loadFromFile(tile.image))
+	{
 		imageValid = true;
+	}
 	else imageValid = false;
 	sprite.setTexture(texture);
 }
@@ -120,6 +123,7 @@ bool Game::init()
 	}
 
 	m = new menu(font_main);
+	m->enableLoading(false);
 
 	text.setFont(font_main);
 	text.setCharacterSize(14);
@@ -130,8 +134,10 @@ bool Game::init()
 	createButtons();
 	buttonSelection = 0;
 
-	if(texture.loadFromFile(tile.image))
+	if (tile.image.length() > 0 && texture.loadFromFile(tile.image))
+	{
 		imageValid = true;
+	}
 	else imageValid = false;
 	sprite.setTexture(texture);
 
@@ -165,6 +171,7 @@ bool Game::init(string filename)
 	}
 
 	m = new menu(font_main);
+	m->enableLoading(true);
 
 	text.setFont(font_main);
 	text.setCharacterSize(14);
@@ -188,8 +195,10 @@ bool Game::init(string filename)
 	createButtons();
 	buttonSelection = 0;
 
-	if(texture.loadFromFile(tile.image))
+	if (tile.image.length() > 0 && texture.loadFromFile(tile.image))
+	{
 		imageValid = true;
+	}
 	else imageValid = false;
 	sprite.setTexture(texture);
 
@@ -238,14 +247,14 @@ void Game::input()
 					}
 				}
 
-				if(m->loadSelect(ev.mouseButton.x,ev.mouseButton.y))
+				if(m->loadSelect(ev.mouseButton.x,ev.mouseButton.y)) // Loading a saved game
 				{
 					string saveFilename = FileHandler::openFile(FileHandler::OpenFileMode::SAVEGAME);
 					Parser::load(saveFilename, tarFile, currentFile, boolVars, intVars, stringVars);
 					currentFile = currentFile.substr(currentFile.find_last_of('/'), currentFile.length()-1);
                     loadFile(currentFile);
 				}
-				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y))
+				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y)) // Loading a new tar file
 				{
 					string gameFile = FileHandler::openFile(FileHandler::OpenFileMode::NEWGAME);
 					if (gameFile.length() == 0) return;
@@ -269,8 +278,9 @@ void Game::input()
 
 					boolVars.clear(); intVars.clear(); stringVars.clear();
 					loadFile("Start.xml");
+					m->enableLoading(true);
 				}
-				if(m->saveSelect(ev.mouseButton.x,ev.mouseButton.y))
+				if(m->saveSelect(ev.mouseButton.x,ev.mouseButton.y)) // Saving a game
 				{
 					string saveFilename = FileHandler::saveFile();
 					if (saveFilename != "") // If they actually chose a file
