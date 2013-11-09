@@ -26,11 +26,16 @@ private:
 	string tarFile;     // The name of the loaded .tar file
 
 	sf::Font font_main;
-	sf::Text text; // The text to show (built from the texts vector in tile)
+	vector<sf::Text> texts; // The text to show (built from the texts vector in tile)
+	unsigned int textSelection; // The currently selected (i.e. most visible) line of text
+
 	vector<button> buttons; // The choices that'll be displayed to the user
 	unsigned int buttonSelection;    // The currently selected button
 	void buildText();     // Set up the text so it fits cleanly on the screen
 	void createButtons(); // Create Button objects for links from the Tile
+
+	void scrollTextUp();      // Scroll the text
+	void scrollTextDown(); 
 	void scrollButtonsUp();   // Scroll the buttons
 	void scrollButtonsDown();
 	void loadFile(string filename); // Load and set up a new tile from another xml file
