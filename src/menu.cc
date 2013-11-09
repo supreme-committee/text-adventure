@@ -84,7 +84,11 @@ void menu::setTextColor(int x, int y)
 
 	if(s.contains(sf::Vector2i(x,y)))
 		save.setColor(sf::Color::Red);
-	else save.setColor(sf::Color::Black);
+	else 
+	{
+		if (s.height == 0) save.setColor(sf::Color(0, 0, 0, 50)); // If saving is disabled
+		else save.setColor(sf::Color::Black);
+	}
 
 	if(l.contains(sf::Vector2i(x,y)))
 		load.setColor(sf::Color::Red);
@@ -94,7 +98,7 @@ void menu::setTextColor(int x, int y)
 		else load.setColor(sf::Color::Black);
 	}
 }
-void menu::setActive(bool active)	//Disables the save button if given false, enables it if true
+void menu::enableSaving(bool active)	//Disables the save button if given false, enables it if true
 {
 	if(!active)
 	{

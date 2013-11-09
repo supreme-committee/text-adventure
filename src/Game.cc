@@ -125,6 +125,7 @@ bool Game::init()
 
 	m = new menu(font_main);
 	m->enableLoading(false);
+	m->enableSaving(false);
 
 	text.setFont(font_main);
 	text.setCharacterSize(14);
@@ -173,6 +174,7 @@ bool Game::init(string filename)
 
 	m = new menu(font_main);
 	m->enableLoading(true);
+	m->enableSaving(true);
 
 	text.setFont(font_main);
 	text.setCharacterSize(14);
@@ -298,6 +300,7 @@ void Game::input()
 					boolVars.clear(); intVars.clear(); stringVars.clear();
 					loadFile("Start.xml");
 					m->enableLoading(true);
+					m->enableSaving(true);
 				}
 				if(m->saveSelect(ev.mouseButton.x,ev.mouseButton.y)) // Saving a game
 				{

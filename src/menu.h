@@ -10,7 +10,7 @@ public:
 	bool newSelect(int, int);
 	bool isMouseOver(int, int);
 	void setTextColor(int, int);
-	void setActive(bool);
+	void enableSaving(bool);  // Eanble/disable saving button
 	void enableLoading(bool); // Enable/disable loading button
 
 private:
