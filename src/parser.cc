@@ -309,6 +309,7 @@ Tile Parser::parse(const char* filename,
 	char logString[200] = "Started parse on: ";
 	Logger::log(strcat(logString, filename));
 	Tile newTile;
+    newTile.image = " ";
 	try
 	{
 		rapidxml::file<> xmlFile(filename);

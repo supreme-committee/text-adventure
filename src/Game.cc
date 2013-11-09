@@ -280,7 +280,8 @@ void Game::input()
 #ifdef WIN32                  
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);            
 					system("rmdir .gamefiles /s /q"); // Delete old xml files
-#else
+#else 
+                    system("rm .gamefiles/*"); // delete old files MAC specific
 #endif                                 
 					system("mkdir .gamefiles");
 					string command = "tar -xf '" + gameFile + "' -C .gamefiles";
