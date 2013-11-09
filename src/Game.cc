@@ -281,8 +281,12 @@ void Game::input()
 					if (tarFile != saveGametarfile)
 					{
 						string error = "You must load " + saveGametarfile + " before loading this save game";
+#ifdef WIN32
 						thread t(&Game::showErrorMessage, this, error);
 						t.join();
+#else
+						cerr << error << endl;
+#endif
 						return;
 					}
                     loadFile(currentFile);
