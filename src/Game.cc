@@ -93,7 +93,7 @@ void Game::loadFile(string filename)
 	tile = Parser::parse(filePath.c_str(), boolVars, intVars, stringVars);
 	buildText();
 	createButtons();
-	if(texture.loadFromFile(tile.image))
+	if(texture.loadFromFile(" "))
 		imageValid = true;
 	else imageValid = false;
 	sprite.setTexture(texture);
@@ -252,7 +252,8 @@ void Game::input()
 #ifdef WIN32                  
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);            
 					system("rmdir .gamefiles /s /q"); // Delete old xml files
-#else
+#else 
+                    system("rm .gamefiles/*"); // delete old files MAC specific
 #endif                                 
 					system("mkdir .gamefiles");
 					string command = "tar -xf '" + gameFile + "' -C .gamefiles";
