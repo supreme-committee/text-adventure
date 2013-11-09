@@ -108,6 +108,7 @@ Game::Game() : fileDirectory(".gamefiles")
 {
 	done = false;
 	hideUI = false;
+	tarFile = " ";
 	window.create(sf::VideoMode(640, 480), "Game Engine", sf::Style::Close);
 	window.setFramerateLimit(30);
 }
@@ -147,9 +148,21 @@ bool Game::init()
 }
 bool Game::init(string filename)
 {
+	ifstream file;
+	file.open(filename);
+	if (!file.is_open()) 
+	{
+		// This init() is only called when running via command line, so user will see cerr output
+		cerr << filename << " does not exist!" << endl;
+		Logger::log(filename + " does not exist!");
+		return false;
+	}
+	file.close();
+
 	string fileExtension = filename.substr(filename.find_last_of('.'), filename.length() - 1);
 	if (fileExtension != ".tar")
 	{
+		cerr << "ERROR: you must give me a .tar file!" << endl;
 		Logger::log("ERROR: you must give me a .tar file!");
 		return false;
 	}
@@ -264,7 +277,6 @@ void Game::input()
 					}
 
 					Parser::load(saveFilename, tarFile, currentFile, boolVars, intVars, stringVars);
-					currentFile = currentFile.substr(currentFile.find_last_of('/'), currentFile.length()-1);
                     loadFile(currentFile);
 				}
 				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y)) // Loading a new tar file
@@ -305,13 +317,13 @@ void Game::input()
 				if(m->saveSelect(ev.mouseButton.x,ev.mouseButton.y)) // Saving a game
 				{
 					string saveFilename = FileHandler::saveFile();
-					if (saveFilename != "") // If they actually chose a file
+					if (saveFilename.length() > 0) // If they actually chose a file
 					{
 						if (saveFilename.substr(saveFilename.length() - 4, saveFilename.length() - 1) != ".sav")
 						{
 							saveFilename += ".sav";
 						}
-						Parser::save(saveFilename, "tarfile.tar", currentFile, 
+						Parser::save(saveFilename, tarFile, currentFile, 
 							boolVars, intVars, stringVars);
 					}
 				}

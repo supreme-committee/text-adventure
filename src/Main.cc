@@ -31,6 +31,11 @@ int main(int argc, char** argv)
 		{
 			tarFile = argv[i];
 		}
+		else
+		{
+			cerr << "Invalid argument: " << argv[i] << endl;
+			return 1;
+		}
 	}
 
 	if (tarFile.length() > 0) // Initialize game with given tar file
