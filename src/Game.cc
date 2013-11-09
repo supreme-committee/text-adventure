@@ -276,7 +276,15 @@ void Game::input()
 						return;
 					}
 
-					Parser::load(saveFilename, tarFile, currentFile, boolVars, intVars, stringVars);
+					string saveGametarfile = " ";
+					Parser::load(saveFilename, saveGametarfile, currentFile, boolVars, intVars, stringVars);
+					if (tarFile != saveGametarfile)
+					{
+						string error = "You must load " + saveGametarfile + " before loading this save game";
+						thread t(&Game::showErrorMessage, this, error);
+						t.join();
+						return;
+					}
                     loadFile(currentFile);
 				}
 				if(m->newSelect(ev.mouseButton.x,ev.mouseButton.y)) // Loading a new tar file
@@ -292,7 +300,8 @@ void Game::input()
 						return;
 					}
 #ifdef WIN32                  
-					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);            
+					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);   
+					tarFile = gameFile.substr(gameFile.find_last_of('\\') + 1, gameFile.length() - 1); // Keep track of currently loaded tar file
 					system("rmdir .gamefiles /s /q"); // Delete old xml files
 #else 
                     system("rm .gamefiles/*"); // delete old files MAC specific
