@@ -11,6 +11,8 @@ public:
 	bool isMouseOver(int, int);
 	void setTextColor(int, int);
 	void setActive(bool);
+	void enableLoading(bool); // Enable/disable loading button
+
 private:
 	sf::RectangleShape bar;
 	sf::Rect<int> l,s,n,b;
