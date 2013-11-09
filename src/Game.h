@@ -5,7 +5,9 @@
 #include <string>
 #include <map>
 #include <SFML/Graphics.hpp>
+#ifdef WIN32
 #include <Windows.h>
+#endif
 #include "tile.h"
 #include "button.h"
 #include "menu.h"
