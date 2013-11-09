@@ -16,20 +16,47 @@ void Game::buildText()
 	{
 		stringStream << s;
 	}
-	string textString = stringStream.str();
+	string textString = stringStream.str(); // All the text that needs to be displayed
 
-	int charCount = 0; // Now insert line breaks
+	int charCount = 0; // How many characters we've iterated through
+	int start = 0;     // Start of substring to break off
+	int alpha = 255;   // The alpha of the line of text
+	float ypos = 25.0f;
 	for (unsigned int pos = 0; pos < textString.length(); pos++)
 	{
-		if (charCount > 80 && textString[pos] == ' ') // Line break every 80 characters
+		if (charCount > 70 && textString[pos] == ' ') // Line break every 80 characters
 		{
-			textString.replace(pos, 1, "\n");
+			sf::Text text;
+			text.setFont(font_main);
+			text.setCharacterSize(16);
+			text.setColor(sf::Color(255, 255, 255, alpha));
+			if (alpha > 25) alpha -= 25;
+			text.setString(textString.substr(start, charCount + 1));
+			text.setPosition(20.0f, ypos);
+			ypos += 18.0f;
+
+			texts.push_back(text);
+
+			start = pos + 1;
 			charCount = 0;
 		}
-		charCount++;
+		else if (pos == textString.length() - 1) // If we're at the end just chop off the rest and break
+		{
+			sf::Text text;
+			text.setFont(font_main);
+			text.setCharacterSize(16);
+			text.setColor(sf::Color(255, 255, 255, alpha));
+			if (alpha > 25) alpha -= 25;
+			text.setString(textString.substr(start, string::npos));
+			text.setPosition(20.0f, ypos);
+
+			texts.push_back(text);
+			break;
+		}
+		else charCount++;
 	}
 
-	text.setString(textString);
+	
 }
 void Game::createButtons()
 {
@@ -40,6 +67,52 @@ void Game::createButtons()
 		button b(link, font_main, 30.0f, yPos);
 		buttons.push_back(b);
 		yPos += b.getHeight() + 10.0f;
+	}
+}
+void Game::scrollTextUp()
+{
+	if (textSelection < texts.size() - 1)
+	{
+		for (auto& t : texts)
+		{
+			t.setPosition(t.getPosition().x, t.getPosition().y - 18.0f);
+		}
+		textSelection++;
+		int alpha = 255;
+		for (int i = textSelection; i >= 0; i--)
+		{
+			texts[i].setColor(sf::Color(255, 255, 255, alpha));
+			if (alpha > 100) alpha -= 100;
+		}
+		alpha = 255;
+		for (int i = textSelection; i < texts.size(); i++)
+		{
+			texts[i].setColor(sf::Color(255, 255, 255, alpha));
+			if (alpha > 25) alpha -= 25;
+		}
+	}
+}
+void Game::scrollTextDown()
+{
+	if (textSelection > 0)
+	{
+		for (auto& t : texts)
+		{
+			t.setPosition(t.getPosition().x, t.getPosition().y + 18.0f);
+		}
+		textSelection--;
+		int alpha = 255;
+		for (int i = textSelection; i >= 0; i--)
+		{
+			texts[i].setColor(sf::Color(255, 255, 255, alpha));
+			if (alpha > 100) alpha -= 100;
+		}
+		alpha = 255;
+		for (int i = textSelection; i < texts.size(); i++)
+		{
+			texts[i].setColor(sf::Color(255, 255, 255, alpha));
+			if (alpha > 25) alpha -= 25;
+		}
 	}
 }
 void Game::scrollButtonsUp()
@@ -70,20 +143,20 @@ void Game::scrollButtonsDown()
 }
 void Game::loadFile(string filename)
 {
-	text.setString(" ");
 	buttons.clear();
 
 	// Get full path to xml file
 	string filePath = fileDirectory + ("/" + filename);
 
-	// Check if file actually exists
+	// Check if xml file actually exists
 	ifstream file;
 	file.open(filePath, ios::in);
 	if (!file.is_open())
 	{
-		text.setColor(sf::Color::Red);
-		text.setCharacterSize(32);
-		text.setString("ERROR: cannot find file:\n" + filename);
+#ifdef WIN32
+		thread t(&Game::showErrorMessage, this, "Cannot find file " + filename);
+		t.join();
+#endif
 		Logger::log("ERROR: cannot find file " + filename);
 		return;
 	}
@@ -128,13 +201,9 @@ bool Game::init()
 	m->enableLoading(false);
 	m->enableSaving(false);
 
-	text.setFont(font_main);
-	text.setCharacterSize(14);
-	text.setColor(sf::Color::White);
-	text.setPosition(sf::Vector2f(10.0f, 25.0f));
-
 	buildText();
 	createButtons();
+	textSelection = 0;
 	buttonSelection = 0;
 
 	if (tile.image.length() > 0 && texture.loadFromFile(tile.image))
@@ -189,11 +258,6 @@ bool Game::init(string filename)
 	m->enableLoading(true);
 	m->enableSaving(true);
 
-	text.setFont(font_main);
-	text.setCharacterSize(14);
-	text.setColor(sf::Color::White);
-	text.setPosition(sf::Vector2f(10.0f, 25.0f));
-
 	// Iterate through input files and verify they are formatted correctly
 	if (!Parser::verify(".gamefiles/start.xml"))
 	{
@@ -209,6 +273,7 @@ bool Game::init(string filename)
 
 	buildText();
 	createButtons();
+	textSelection = 0;
 	buttonSelection = 0;
 
 	if (tile.image.length() > 0 && texture.loadFromFile(tile.image))
@@ -230,16 +295,16 @@ void Game::input()
 		{
 			if (ev.mouseWheel.delta > 0) // Wheel up
 			{
-				if (buttonSelection < buttons.size() - 1)
+				if (textSelection < texts.size() - 1)
 				{
-					scrollButtonsUp();
+					scrollTextUp();
 				}
 			}
 			else if (ev.mouseWheel.delta < 0) // Wheel down
 			{
-				if (buttonSelection > 0)
+				if (textSelection > 0)
 				{
-					scrollButtonsDown();
+					scrollTextDown();
 				}
 			}
 		}
@@ -353,6 +418,7 @@ void Game::input()
 				if (buttons.size() > 0)
 				{
 					loadFile(buttons[buttonSelection].getLink());
+					textSelection = 0;
 					buttonSelection = 0;
 				}
 				break;
@@ -405,16 +471,21 @@ void Game::render()
 	}
 	if(!hideUI)
 	{
-		window.draw(text);
+		for (auto& text : texts)
+		{
+			window.draw(text);
+		}
 		for (auto& button : buttons) // render the buttons
 		{
 			button.render(window);
 		}
 
 		sf::CircleShape selection; // Arrow for button selection (should eventually be changed) - michaelg
-		selection.setRadius(10.0f);
-		selection.setFillColor(sf::Color::White);
-		selection.setPosition(5.0f, 255.0f);
+		selection.setRadius(5.0f);
+		selection.setFillColor(sf::Color::Red);
+		selection.setPosition(5.0f, 260.0f);
+		window.draw(selection);
+		selection.setPosition(5.0f, 30.0f);
 		window.draw(selection);
 	}
 	window.display();
