@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <thread>
 using namespace std;
 
 // ================== PRIVATE FUNCTIONS ==================
@@ -250,6 +251,16 @@ void Game::input()
 				if(m->loadSelect(ev.mouseButton.x,ev.mouseButton.y)) // Loading a saved game
 				{
 					string saveFilename = FileHandler::openFile(FileHandler::OpenFileMode::SAVEGAME);
+					if (saveFilename.length() == 0) return;
+					if (saveFilename.substr(saveFilename.length() - 4, saveFilename.length() - 1) != ".sav")
+					{
+#ifdef WIN32
+						thread t(&Game::showErrorMessage, this, "You must select a .sav file"); // Show an error message
+						t.join();
+#endif			
+						return;
+					}
+
 					Parser::load(saveFilename, tarFile, currentFile, boolVars, intVars, stringVars);
 					currentFile = currentFile.substr(currentFile.find_last_of('/'), currentFile.length()-1);
                     loadFile(currentFile);
@@ -258,6 +269,14 @@ void Game::input()
 				{
 					string gameFile = FileHandler::openFile(FileHandler::OpenFileMode::NEWGAME);
 					if (gameFile.length() == 0) return;
+					if (gameFile.substr(gameFile.length() - 4, gameFile.length() - 1) != ".tar")
+					{
+#ifdef WIN32
+						thread t(&Game::showErrorMessage, this, "You must select a .tar file");
+						t.join();
+#endif
+						return;
+					}
 #ifdef WIN32                  
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);            
 					system("rmdir .gamefiles /s /q"); // Delete old xml files
@@ -284,7 +303,10 @@ void Game::input()
 					string saveFilename = FileHandler::saveFile();
 					if (saveFilename != "") // If they actually chose a file
 					{
-						saveFilename += ".sav";
+						if (saveFilename.substr(saveFilename.length() - 4, saveFilename.length() - 1) != ".sav")
+						{
+							saveFilename += ".sav";
+						}
 						Parser::save(saveFilename, "tarfile.tar", currentFile, 
 							boolVars, intVars, stringVars);
 					}
