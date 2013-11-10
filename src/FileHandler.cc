@@ -5,16 +5,16 @@ string FileHandler::openFile(OpenFileMode mode)
 {
 #ifdef WIN32
 	OPENFILENAME ofn;
-	char filenameLength[100];
+	char filenameLength[256];
 
 	ZeroMemory(&ofn, sizeof(ofn));
 
 #ifdef _MSC_VER // Visual studio
-	wchar_t dd[100]; // Dummy variable to initialize filename
+	wchar_t dd[256]; // Dummy variable to initialize filename
 	LPWSTR filename = dd;
 	mode == OpenFileMode::NEWGAME ? 
-		ofn.lpstrFilter = L"*.tar" :
-		ofn.lpstrFilter = L"*.sav";
+		ofn.lpstrFilter = L"*.tar\0\0" :
+		ofn.lpstrFilter = L"*.sav\0\0";
 #else // g++
 	char dd[100];
 	LPSTR filename = dd;
