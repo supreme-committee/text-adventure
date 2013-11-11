@@ -56,7 +56,9 @@ public:
 	inline bool isDone() const { return done; }
 	inline void showErrorMessage(string message)
 	{
+#ifdef WIN32
 		MessageBoxA(NULL, message.c_str(), "Error", MB_OK);
+#endif
 	}
 };
 
