@@ -1,0 +1,28 @@
+=== Test cases ===
+
+* Command line:
+    - Run engine with no arguments
+    - Run engine with invalid path to .tar file
+    - arguments out of order (-l comes first)
+    - No tar, only -l
+
+* Input files:
+    2. Pass it a .tar with no start.xml file inside
+    4. A tar with random (non-xml files)
+    
+* Files to pass to the parser:
+    1. Empty xml file
+    2. xml with only <tile> tags
+    3. xml with everything except <tile> tags
+    4. complete xml, but missing </tile> tag at end
+    
+* Setting variables:
+    - Variable names with spaces in them
+    - Calling <modify> on an int with an invalid increment (i.e. "--343984")
+    - Calling <modify> with value out of range (i.e. 21474836470)
+    
+* Window functionality
+    - Saving
+        - Crashes when cancel is clicked (fixed)
+    - Loading
+    - Loading new game

@@ -11,6 +11,8 @@ using namespace std;
 // ================== PRIVATE FUNCTIONS ==================
 void Game::buildText()
 {
+	texts.clear();
+
 	ostringstream stringStream;
 	for (string& s : tile.texts)
 	{
