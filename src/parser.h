@@ -25,6 +25,7 @@ private:
 		map<string, string>& stringVars);
 
 	static void printReserved(set<string> reserved);
+	static bool compareInts(int one, int two, char* comparison);
 
 public:
 	Parser();
