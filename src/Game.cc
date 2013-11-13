@@ -318,10 +318,18 @@ void Game::input()
 		{
 			if(ev.mouseButton.button == sf::Mouse::Right)	//Toggle UI on right click
 			{
-				if(hideUI)
+				if(hideUI)	//UI already hidden, restore
+				{
+					for (auto& b : buttons)
+						b.setActiveRect(true);
 					hideUI = false;
-				else
+				}
+				else       //UI not hidden, hide
+				{
+					for(auto& b : buttons)
+						b.setActiveRect(false);
 					hideUI = true;
+				}
 			}
 			else if (ev.mouseButton.button == sf::Mouse::Left)
 			{
