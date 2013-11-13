@@ -305,23 +305,6 @@ void Game::input()
 	while (window.pollEvent(ev))
 	{
 		if (ev.type == sf::Event::Closed) done = true;
-		else if (ev.type == sf::Event::MouseWheelMoved)
-		{
-			if (ev.mouseWheel.delta > 0) // Wheel up
-			{
-				if (textSelection < texts.size() - 1)
-				{
-					scrollTextUp();
-				}
-			}
-			else if (ev.mouseWheel.delta < 0) // Wheel down
-			{
-				if (textSelection > 0)
-				{
-					scrollTextDown();
-				}
-			}
-		}
 		else if (ev.type == sf::Event::MouseButtonReleased)
 		{
 			if(ev.mouseButton.button == sf::Mouse::Right)	//Toggle UI on right click
@@ -459,15 +442,19 @@ void Game::input()
 				break;
 			case sf::Keyboard::Up:
 				if (buttons.size() > 0 && buttonSelection < buttons.size() - 1)
-				{
 					scrollButtonsUp();
-				}
 				break;
 			case sf::Keyboard::Down:
 				if (buttonSelection > 0)
-				{
 					scrollButtonsDown();
-				}
+				break;
+			case sf::Keyboard::Left: // Scroll text up
+				if (textSelection < texts.size() - 1)
+					scrollTextUp();
+				break;
+			case sf::Keyboard::Right: // scroll text down
+				if (textSelection > 0)
+					scrollTextDown();
 				break;
 			default:
 				break;
