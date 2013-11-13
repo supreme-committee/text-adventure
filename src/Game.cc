@@ -169,6 +169,14 @@ void Game::loadFile(string filename)
 	tile = Parser::parse(filePath.c_str(), boolVars, intVars, stringVars);
 	buildText();
 	createButtons();
+	if (tile.texts.size() == 1 && // if an error occurred
+		tile.texts[0].find("[[ERROR]]") != string::npos)
+	{
+		sf::String s = this->texts[0].getString();
+		s.erase(0, 10); // Erase "[[ERROR]]"
+		this->texts[0].setString(s);
+		for (auto& line : texts) line.setColor(sf::Color::Red);
+	}
 
 	if (tile.image.length() > 0 && texture_background.loadFromFile(".gamefiles/" + tile.image))
 	{
