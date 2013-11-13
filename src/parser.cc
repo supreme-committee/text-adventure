@@ -119,6 +119,16 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		auto woot = intVars.find(variableName);
 		woot->second += i_amount;
 	}
+	else if (strcmp(node->name(), "image") == 0) // <image> tag
+	{
+		tileData.image = node->value();
+	}
+	else // Invalid tag
+	{
+		string er("ERROR: invalid tag found -> ");
+		er.append(node->name());
+		Logger::log(er);
+	}
 }
 
 void Parser::grabInnerNodes(rapidxml::xml_node<char>* node, Tile& tileData,
@@ -487,7 +497,7 @@ Tile Parser::parse(const char* filename,
 			}
 			else if (strcmp(node->name(), "else") != 0) // Handle all other tags (except <else>. It'll be handled seperately)
 			{
-				grabXmlData(node, newTile, boolVars, intVars, stringVars);
+				grabXmlData(node, newTile, boolVars, intVars, stringVars); // Grab data from this set of tags
 			}
 
 			if (ifPassed) // <if> passed. Grab all the stuff inside the <if></if> tags

@@ -170,12 +170,15 @@ void Game::loadFile(string filename)
 	buildText();
 	createButtons();
 
-	if (tile.image.length() > 0 && texture.loadFromFile(tile.image))
+	if (tile.image.length() > 0 && texture_background.loadFromFile(".gamefiles/" + tile.image))
 	{
 		imageValid = true;
 	}
 	else imageValid = false;
-	sprite.setTexture(texture);
+	sprite_background.setTexture(texture_background);
+	// For some reason setTexture doesn't set the area to display, so set it manually:
+	sf::Vector2u texSize = texture_background.getSize();
+	sprite_background.setTextureRect(sf::IntRect(0, 0, texSize.x, texSize.y));
 }
 
 // ================== PUBLIC FUNCTIONS ===================
@@ -208,12 +211,12 @@ bool Game::init()
 	textSelection = 0;
 	buttonSelection = 0;
 
-	if (tile.image.length() > 0 && texture.loadFromFile(tile.image))
+	if (tile.image.length() > 0 && texture_background.loadFromFile(tile.image))
 	{
 		imageValid = true;
 	}
 	else imageValid = false;
-	sprite.setTexture(texture);
+	sprite_background.setTexture(texture_background);
 
 	return true;
 }
@@ -278,12 +281,12 @@ bool Game::init(string filename)
 	textSelection = 0;
 	buttonSelection = 0;
 
-	if (tile.image.length() > 0 && texture.loadFromFile(tile.image))
+	if (tile.image.length() > 0 && texture_background.loadFromFile(tile.image))
 	{
 		imageValid = true;
 	}
 	else imageValid = false;
-	sprite.setTexture(texture);
+	sprite_background.setTexture(texture_background);
 
 	return true;
 }
@@ -462,7 +465,10 @@ void Game::update()
 void Game::render()
 {
 	if(imageValid)
-		window.draw(sprite);
+	{
+		window.clear(sf::Color::Black);
+		window.draw(sprite_background);
+	}
 	else
 		window.clear(sf::Color::Black);
 

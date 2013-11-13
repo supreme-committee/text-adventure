@@ -38,8 +38,8 @@ private:
 	void scrollButtonsDown();
 	void loadFile(string filename); // Load and set up a new tile from another xml file
 	menu *m;
-	sf::Texture texture;
-	sf::Sprite sprite;
+	sf::Texture texture_background; // The texture for the background image
+	sf::Sprite sprite_background;	// The sprite (a sf::Drawable object) for the background image
 	bool imageValid, hideUI;
 public:
 	Game();
