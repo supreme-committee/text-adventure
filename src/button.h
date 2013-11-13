@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
 #include "tile.h"
@@ -17,10 +18,11 @@ private:
 	sf::Sprite sprite;
 	float x,y, yscale;
 	int r,g,b,alpha;
-	
+	sf::SoundBuffer sb;
+	sf::Sound sound;
 public:
 	button();
-	button(Link,sf::Font&, float, float);
+	button(Link,sf::Font&, float, float,bool);
 
 	void setPos(int, int);
 	sf::Rect<int> getPos();						//Returns a struct with the height, width of the box, along with the top and left coordinates of the box.
@@ -32,4 +34,6 @@ public:
 	sf::Rect<int> coords;
 	string wordWrap(string, size_t);
 	void setAlpha(int);
+	void playSound();
+	void toggleMute();
 };

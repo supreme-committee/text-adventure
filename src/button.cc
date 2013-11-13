@@ -1,7 +1,7 @@
 #include "button.h"
 #include "Logger.h"
 
-button::button(Link li, sf::Font& f,float xx, float yy)	
+button::button(Link li, sf::Font& f,float xx, float yy,bool mute)	
 {
 	numLines = 1;
 	string str = wordWrap(li.text,40);
@@ -30,6 +30,9 @@ button::button(Link li, sf::Font& f,float xx, float yy)
 	{
 		Logger::log("Failed to load button.png It could not be found!");
 	}
+	if(mute)
+		sound.setVolume(0);
+	else sound.setVolume(100);
 }
 string button::getLink()
 {
@@ -100,4 +103,19 @@ string button::wordWrap( std::string str, size_t width = 55 )
 void button::setAlpha(int a)
 {
 	alpha = a;
+}
+void button::playSound()
+{
+	if(!sb.loadFromFile("button.wav"))
+	{
+		Logger::log("failed to load button.wav: It could not be found.");
+	}
+	sound.setBuffer(sb);
+	sound.play();
+}
+void button::toggleMute()
+{
+	if(sound.getVolume() == 0)
+		sound.setVolume(100);
+	else sound.setVolume(0);
 }

@@ -66,7 +66,7 @@ void Game::createButtons()
 	// Create a button for each link in this tile
 	for (auto& link : tile.links)
 	{
-		button b(link, font_main, 30.0f, yPos);
+		button b(link, font_main, 30.0f, yPos, muteButtons);
 		buttons.push_back(b);
 		yPos += b.getHeight() + 10.0f;
 	}
@@ -189,6 +189,7 @@ Game::Game() : fileDirectory(".gamefiles")
 	tarFile = " ";
 	window.create(sf::VideoMode(640, 480), "Game Engine", sf::Style::Close);
 	window.setFramerateLimit(30);
+	muteButtons = false;
 }
 Game::~Game()
 {
@@ -328,11 +329,24 @@ void Game::input()
 				{
 					if (b.isMouseOver(ev.mouseButton.x, ev.mouseButton.y))
 					{
+						b.playSound();
+						sf::sleep(sf::seconds(.1));	//Pause for a moment so the sound will be played.
 						loadFile(b.getLink()); // Load the next xml file
 						break;
 					}
 				}
-
+				if(m->muteSelect(ev.mouseButton.x, ev.mouseButton.y))
+				{
+					for (auto& b : buttons)
+					{
+						b.toggleMute();
+					}
+					if(!muteButtons)	//Update muteButtons so that future buttons can be initialized with correct volume
+						muteButtons = true;
+					else muteButtons = false;
+					//also mute background music/sound effects from tile once implemented
+				}
+					
 				if(m->loadSelect(ev.mouseButton.x,ev.mouseButton.y)) // Loading a saved game
 				{
 					string saveFilename = FileHandler::openFile(FileHandler::OpenFileMode::SAVEGAME);
@@ -452,7 +466,7 @@ void Game::update()
 	sf::Vector2i v = sf::Mouse::getPosition(window);	//Draw menu if the mouse if over it.
 	if(m->isMouseOver(v.x,v.y))
 	{
-		m->setTextColor(v.x,v.y);
+		m->setTextColor(v.x,v.y,muteButtons);
 	}
 
 	// Update buttons
