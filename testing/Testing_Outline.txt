@@ -26,3 +26,8 @@
         - Crashes when cancel is clicked (fixed)
     - Loading
     - Loading new game
+
+* GUI
+    -Buttons expand properly with text
+    -Text scrolling and fading
+    

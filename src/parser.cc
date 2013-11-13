@@ -119,6 +119,16 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		auto woot = intVars.find(variableName);
 		woot->second += i_amount;
 	}
+	else if (strcmp(node->name(), "image") == 0) // <image> tag
+	{
+		tileData.image = node->value();
+	}
+	else // Invalid tag
+	{
+		string er("ERROR: invalid tag found -> ");
+		er.append(node->name());
+		Logger::log(er);
+	}
 }
 
 void Parser::grabInnerNodes(rapidxml::xml_node<char>* node, Tile& tileData,
@@ -348,7 +358,7 @@ Tile Parser::parse(const char* filename,
 			node;
 			node = node->next_sibling())
 		{
-			bool ifPassed = true;
+			bool ifPassed = false;
 			if (strcmp(node->name(), "if") == 0) // Handle conditional statements
 			{
 				int count = 0;
@@ -485,13 +495,16 @@ Tile Parser::parse(const char* filename,
 					}
 				}
 			}
-			else if (strcmp(node->name(), "else") != 0) // Handle all other tags
+			else if (strcmp(node->name(), "else") != 0) // Handle all other tags (except <else>. It'll be handled seperately)
 			{
-				grabXmlData(node, newTile, boolVars, intVars, stringVars);
+				grabXmlData(node, newTile, boolVars, intVars, stringVars); // Grab data from this set of tags
 			}
 
-			// If the if statement failed, collect the stuff inside the <else></else> tags
-			if (ifPassed == false && 
+			if (ifPassed) // <if> passed. Grab all the stuff inside the <if></if> tags
+			{
+				grabInnerNodes(node, newTile, boolVars, intVars, stringVars);
+			}
+			else if (ifPassed == false && // If the if statement failed, collect the stuff inside the <else></else> tags
 				node->next_sibling() != NULL && 
 				strcmp(node->next_sibling()->name(), "else") == 0)
 			{

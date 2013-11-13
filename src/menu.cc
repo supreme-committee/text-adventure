@@ -2,6 +2,12 @@
 
 menu::menu(sf::Font& f)
 {
+	mute.setFont(f);
+	mute.setColor(sf::Color::Black);
+	mute.setCharacterSize(16);
+	mute.setPosition(220,0);
+	mute.setString("Mute");
+
 	load.setFont(f);
 	load.setColor(sf::Color::Black);
 	load.setCharacterSize(16);
@@ -24,6 +30,11 @@ menu::menu(sf::Font& f)
 	bar.setFillColor(sf::Color(205,192,176,255));
 	bar.setSize(sf::Vector2f(640,22));
 	bar.setPosition(0,0);
+
+	m.width = 45;
+	m.height = 22;
+	m.top = 0;
+	m.left = 220;
 
 	l.height = 22;
 	l.width = 45;
@@ -51,6 +62,7 @@ void menu::render(sf::RenderWindow& win)
 	win.draw(load);
 	win.draw(save);
 	win.draw(newgame);
+	win.draw(mute);
 }
 bool menu::isMouseOver(int x, int y)
 {
@@ -76,8 +88,22 @@ bool menu::newSelect(int x, int y)
 		return true;
 	else return false;
 }
-void menu::setTextColor(int x, int y)
+bool menu::muteSelect(int x, int y)
 {
+	if(m.contains(sf::Vector2i(x,y)))
+		return true;
+	else return false;
+}
+void menu::setTextColor(int x, int y, bool muted)
+{
+	if(muted && !m.contains(sf::Vector2i(x,y)))	//Sound is muted + no mouseover
+		mute.setColor(sf::Color::Blue);
+	else if(muted && m.contains(sf::Vector2i(x,y)))
+		mute.setColor(sf::Color::Cyan);
+	else if(!muted && m.contains(sf::Vector2i(x,y)))
+		mute.setColor(sf::Color::Red);
+	else mute.setColor(sf::Color::Black);
+
 	if(n.contains(sf::Vector2i(x,y)))
 		newgame.setColor(sf::Color::Red);
 	else newgame.setColor(sf::Color::Black);
