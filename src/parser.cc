@@ -250,7 +250,7 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
     {
 	
     }
-    else //prints out all valid tags passed into this function
+    else 
     {
         return false;
     }
@@ -297,7 +297,7 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 #endif
         //printReserved(reserved);
     }
-    else if(strcmp(node->name(), "if") == 0 || strcmp(node->name(), "else") == 0)
+    else if(strcmp(node->name(), "else") == 0)
     {
 #ifdef _MSC_VER
 		string tmp[] = {"text", "link", "var"};
@@ -307,7 +307,16 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
 #endif
         //printReserved(reserved);
     }
-    
+    else if(strcmp(node->name(), "if") == 0)
+    {
+        unsigned int count = 0;
+        for(auto attr = node->first_attribute(); attr; attr=attr->next_attribute())
+        {
+            count++;
+        }
+        if(count != 3)
+            return false;
+    }
     for(auto newNode = node->first_node();
         newNode;
         newNode = newNode->next_sibling())

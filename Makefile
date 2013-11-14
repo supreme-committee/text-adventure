@@ -13,17 +13,20 @@ GCC = g++ -g -O0 -Wall -Wextra -std=gnu++0x
 EXECBIN = game
 
 
+apple: $(EXECBIN)
+	@echo "\n=====================\n   Compile Success\n=====================\n"
+
 debug-mgrijalva:
 	g++ -g -Wall -Wextra -O0 -std=gnu++0x -o Bin\Debug\${EXENAME} -IC:\Libraries\SFML\include ${SOURCEFILES} -LC:\Libraries\SFML\lib -lsfml-system-d -lsfml-graphics-d -lsfml-window-d -lcomdlg32
 	
 release-mgrijalva:
 	g++ -O2 -std=gnu++0x -o Bin\Release\${EXENAME} -mwindows -IC:\Libraries\SFML\include ${SOURCEFILES} -LC:\Libraries\SFML\lib -lsfml-system -lsfml-graphics -lsfml-window -lsfml-main -lcomdlg32
 
-apple: $(EXECBIN)
+
 
 $(EXECBIN): $(OBJECTS)
 	$(GCC) -o $(EXECBIN) $(APPLEFRAMEWORKS) $(OBJECTS)
-	@echo "***************\nCompilation Success"
+
 
 $(OBJDIR)/%.o: $(SOURCEDIR)/%.cc
 	$(GCC) -c -o $@ $<

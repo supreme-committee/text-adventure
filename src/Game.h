@@ -59,6 +59,9 @@ public:
 #ifdef WIN32
 		MessageBoxA(NULL, message.c_str(), "Error", MB_OK);
 #endif
+#ifdef __APPLE__
+        message = message;
+#endif
 	}
 };
 
