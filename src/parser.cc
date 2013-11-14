@@ -158,6 +158,10 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 	{
 		tileData.image = node->value();
 	}
+	else if (strcmp(node->name(), "sound") == 0) // <sound> tag
+	{
+		tileData.sfx = node->value();
+	}
 	else // Invalid tag
 	{
 		string er("ERROR: invalid tag found -> ");
