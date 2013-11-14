@@ -5,29 +5,40 @@
     - Run engine with invalid path to .tar file
     - arguments out of order (-l comes first)
     - No tar, only -l
+    - Giving it a non-tar file
 
 * Input files:
-    2. Pass it a .tar with no start.xml file inside
-    4. A tar with random (non-xml files)
+    - Pass it a .tar with no start.xml file inside
+    - A tar with random (non-xml files)
     
 * Files to pass to the parser:
-    1. Empty xml file
-    2. xml with only <tile> tags
-    3. xml with everything except <tile> tags
-    4. complete xml, but missing </tile> tag at end
+    - Empty xml file
+    - xml with only <tile> tags
+    - xml with everything except <tile> tags
+    - complete xml, but missing </tile> tag at end
+    - If statements:
+        - Less than 3 args (e.g. <if arg1="name" arg2="mike"></if>
+        - More than 3 args
+        - Comparing two different variable types
+        - Giving it a variable that does not exist
+        - Invalid comparisons (e.g. "ee" or "jsdkj")
+        - Invalid comparison for variable type (compare int with string)
     
 * Setting variables:
     - Variable names with spaces in them
-    - Calling <modify> on an int with an invalid increment (i.e. "--343984")
+    - Calling <modify> on an int with an invalid increment (i.e. "--343984" or "woot")
     - Calling <modify> with value out of range (i.e. 21474836470)
+    - Redefining variables replaces their value.
     
 * Window functionality
     - Saving
         - Crashes when cancel is clicked (fixed)
-    - Loading
+    - Loading saved game
     - Loading new game
 
 * GUI
-    -Buttons expand properly with text
-    -Text scrolling and fading
-    
+    - Buttons expand properly with text
+    - Text scrolling and fading
+    - Images are displayed correctly
+    - Sounds are played correctly
+    - Right-clicking works correctly (right-click hides everything)
