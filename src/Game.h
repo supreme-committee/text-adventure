@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #ifdef WIN32
 #include <Windows.h>
 #endif
@@ -42,6 +43,8 @@ private:
 	menu *m;
 	sf::Texture texture_background; // The texture for the background image
 	sf::Sprite sprite_background;	// The sprite (a sf::Drawable object) for the background image
+	sf::SoundBuffer soundbuffer;	//Stores the sound that will play from the tile
+	sf::Sound sound;				//Plays the sound
 	bool imageValid, hideUI, muteButtons;
 public:
 	Game();
