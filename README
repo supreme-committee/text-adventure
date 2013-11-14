@@ -1,4 +1,4 @@
-This is the repository for CMPS 115 (Fall 13) Group project
+This is the repository for UC Santa Cruz CMPS 115 (Fall 13) Group project
 
 Team Name: Supreme Committee
 
@@ -11,8 +11,17 @@ Members:
 
 	 Our project is to make an interactive story game engine in C++.
 
-A note on the makefile:
-	Feel free to make your own targets. I have my own (debug-mgrijalva & release-mgrijalva) set up for my machine.
-	
-	There is also one for Mac machines. It possibly works in unix, not sure how sfml is installed on those systems
-	If they are the same as Mac, it should work. 
+User Manual and Documentation is located in the user-manual directory
+
+Project is designed with Visual Studio on Windows platform and
+	make / g++ on Macintosh platform
+
+Technologies currently used:
+
+	     g++ (4.9 on Macs)
+	     Visual Studio
+
+	     RapidXML
+	     SFML
+
+	     git (VCS)
