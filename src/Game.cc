@@ -188,6 +188,17 @@ void Game::loadFile(string filename)
 	// For some reason setTexture doesn't set the area to display, so set it manually:
 	sf::Vector2u texSize = texture_background.getSize();
 	sprite_background.setTextureRect(sf::IntRect(0, 0, texSize.x, texSize.y));
+
+	sound.resetBuffer();	//Reset buffer to be ready to load a new one.
+	if(!soundbuffer.loadFromFile(".gamefiles/" + tile.sfx))
+	{
+		Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
+		sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
+	}
+	else sound.setVolume(100);
+	sound.setBuffer(soundbuffer);
+	if(!muteButtons)
+		sound.play();
 }
 
 // ================== PUBLIC FUNCTIONS ===================
@@ -227,6 +238,17 @@ bool Game::init()
 	}
 	else imageValid = false;
 	sprite_background.setTexture(texture_background);
+
+	sound.resetBuffer();	//Reset buffer to be ready to load a new one.
+	if(!soundbuffer.loadFromFile(".gamefiles/" + tile.sfx))
+	{
+		Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
+		sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
+	}
+	else sound.setVolume(100);
+	sound.setBuffer(soundbuffer);
+	if(!muteButtons)
+		sound.play();
 
 	return true;
 }
@@ -298,6 +320,17 @@ bool Game::init(string filename)
 	}
 	else imageValid = false;
 	sprite_background.setTexture(texture_background);
+
+	sound.resetBuffer();	//Reset buffer to be ready to load a new one.
+	if(!soundbuffer.loadFromFile(".gamefiles/" + tile.sfx))
+	{
+		Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
+		sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
+	}
+	else sound.setVolume(100);
+	sound.setBuffer(soundbuffer);
+	if(!muteButtons)
+		sound.play();
 
 	return true;
 }
