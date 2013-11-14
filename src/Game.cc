@@ -87,7 +87,7 @@ void Game::scrollTextUp()
 			if (alpha > 100) alpha -= 100;
 		}
 		alpha = 255;
-		for (int i = textSelection; i < texts.size(); i++)
+		for (unsigned int i = textSelection; i < texts.size(); i++)
 		{
 			texts[i].setColor(sf::Color(255, 255, 255, alpha));
 			if (alpha > 25) alpha -= 25;
@@ -110,7 +110,7 @@ void Game::scrollTextDown()
 			if (alpha > 100) alpha -= 100;
 		}
 		alpha = 255;
-		for (int i = textSelection; i < texts.size(); i++)
+		for (unsigned int i = textSelection; i < texts.size(); i++)
 		{
 			texts[i].setColor(sf::Color(255, 255, 255, alpha));
 			if (alpha > 25) alpha -= 25;
@@ -255,7 +255,7 @@ bool Game::init(string filename)
 	system("mkdir .gamefiles");
 	string command = "tar -xf '" + filename + "' -C .gamefiles";
 					
-	int returnCode = system(command.c_str());
+	//int returnCode = system(command.c_str());
 #ifdef WIN32
 	system("attrib +h .gamefiles");
 #endif

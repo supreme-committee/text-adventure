@@ -45,6 +45,7 @@ string FileHandler::openFile(OpenFileMode mode)
 	
 	return returnString;
 #elif __APPLE__
+    mode = mode;
     cout << "Enter full path to file: ";
     string s;
     cin >> s;
