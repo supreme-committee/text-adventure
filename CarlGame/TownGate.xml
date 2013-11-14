@@ -1,18 +1,18 @@
 <tile>
 	<text>You make your way back up the street, towards the gate through which you entered the town, and are surprised to see it barred shut. It is well past breakfast, and normally the gates stand open sunrise to sunset. In contrast the gatekeeper does not appear to have moved since you entered, he lounges on a stool next to the winch juggling whatever objects happen to come within his reach. The portcullis rises up behind him, a daunting tangle of metal. Barely visible through the gaps is a solid oak door, more than a foot thick and reinforced with steel bands. At your inquiry the gatekeeper informs you there has been a string of bandit attacks recently, citizens are not to be allowed beyond the gate unarmed for their own protection.</text>
-	<if primaryWeapon="unskilledSword">
+	<if arg1="primaryWeapon" arg2="unskilledSword" comparison="eq">
 		<link>
 			<file>FleurtranCountryside.xml</file>
 			<text>You pull aside your cloak revealing your new weapon, resisting the urge to give it a flourish. The guard looks skeptical of your fighting prowess, but after a little pressure he calls over his assistant. With many creaks and groans from all parties involved the gates are slowly opened and you make your way across the drawbridge past the small cottages surrounding the walls.</text>
 		</link>
 	</if>
-	<if primaryWeapon="unskilledSpear">
+	<if arg1="primaryWeapon" arg2="unskilledSpear" comparison="eq">
 		<link>
 			<file>FleurtranCountryside.xml</file>
 			<text>You pull your new weapon off your back and show it to the sharp eyed man. The guard looks skeptical of fighting prowess, but after a little pressure he calls over his assistant. With many creaks and groans from all involved parties the gates are slowly opened and you make your way across the drawbridge past the small cottages surrounding the walls.</text>
 		</link>
 	</if>
-	<if primaryWeapon="unskilledBow">
+	<if arg1="primaryWeapon" arg2="unskilledBow" comparison="eq">
 		<link>
 			<file>FleurtranCountryside.xml</file>
 			<text>You pull your new weapon off your back and show it to the sharp eyed man. With many creaks and groans from all involved parties the gates are slowly opened and you make your way across the drawbridge past the small cottages surrounding the walls.</text>

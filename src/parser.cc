@@ -475,7 +475,7 @@ Tile Parser::parse(const char* filename,
 							}
 							else // attr2 is not a string var. Error
 							{
-								throw rapidxml::parse_error("arg2 must be a string variable in <if> statement", NULL);
+								throw rapidxml::parse_error("Invalid <if> statement: arg1 or arg2 must be a variable", NULL);
 							}
 						}
 					}
@@ -516,8 +516,11 @@ Tile Parser::parse(const char* filename,
 	catch (rapidxml::parse_error ex)
 	{
 		Logger::log(ex.what());
-		//Logger::log(ex.where<char>());
-		return Tile();
+		string err = "[[ERROR]] ";
+		err.append(filename).append(": ").append(ex.what());
+		newTile.texts.clear();
+		newTile.texts.push_back(err);
+		return newTile;
 	}
 	catch (exception e)
 	{

@@ -25,11 +25,10 @@ When you play a game on our engine, what's on screen at any given time during th
 
 \section{Example}
 
-\paragraph{Start.xml}
+\paragraph{start.xml}
 
-Here is the text of the Start.xml tile which is the starting point for the sample game I have been creating with comments.
+Here is the text of the start.xml tile which is the starting point for the sample game I have been creating with comments.
 
-Start.xml
 \begin{lstlisting}[frame=single]
 <tile>
 	<text>You are a wandering adventurer who after 
@@ -42,6 +41,7 @@ Start.xml
 	the other packed with soldiers hurrying up and 
 	down it in squads. In front of you a large 
 	message board catches your eye.</text>
+	<image>magicforest.jpg</image>
 	<link>
 		<file>Market.xml</file>
 		<text>Follow the crowds towards the 
@@ -63,6 +63,7 @@ Start.xml
 	</link>
 </tile>
 \end{lstlisting}
+*Every 'map' must have a file named start.xml which is the default first tile loaded.
 
 * Every tile must have the \textless tile\textgreater \textless /tile\textgreater tags marking the beginning and end.
 
@@ -70,11 +71,10 @@ Start.xml
 
 *The last of the 3 most basic and necessary tags, \textless link\textgreater yourlink\textless /link\textgreater  denotes a link to another tile. Each link must contain both a file (has the form \textless file\textgreater yourfile.ext\textless /file\textgreater and must be in the same directory as the file it is linked from) which is the tile it links to, and text to be displayed on the relevant button. It is worth noting that while it is not required to have a link in each tile, there is no 'go back' standard option, so a tile with no links should only be used in the case of winning or losing the game.
 
-*Every game must have an .xml file named "start" which is the first tile opened when starting a new game.
+*In addition there is also the \textless image\textgreater yourimage.ext\textless /image\textgreater which sets the background to an image file whose path is specified relative to the .gamefiles directory (the directory created from the .tar file you give the game engine).
 
 \paragraph{MessageBoard.xml}
 
-MessageBoard.xml
 \begin{lstlisting}[frame=single]
 <tile>
 	<text>There is only one message on the board, 
@@ -91,13 +91,12 @@ MessageBoard.xml
 		<value>true</value>
 	</var> 
 	<link>
-		<file>Start.xml</file>
+		<file>TownSquare.xml</file>
 		<text>Resume your inspection of the 
 		town square</text>
 	</link>
 </tile>
 \end{lstlisting}
-
 *The main item of interest here is the variable tag. Each variable contains a name and a value. Both \textless name\textgreater yourname\textless /name\textgreater  and \textless value\textgreater yourvalue \textless /value\textgreater  can be set to any string. If a variable of the same name already exists this will overwrite its old value with the new one you provide.
 
 *Straightforward uses of this include things like adding items to your inventory as in this example, recording which game events have already occurred allowing you to have one time scripted events, and assigning quantities to variables. The following file clarifies its use.
@@ -107,7 +106,6 @@ MessageBoard.xml
 
 \paragraph{Market.xml}
 
-Market.xml
 \begin{lstlisting}[frame=single]
 <tile>
 	<text>The cries of vendors mix with the smells 
@@ -123,18 +121,22 @@ Market.xml
 	over the years, and beyond the chaos of the 
 	market several rows of houses rise up, towering 
 	over their neighbors, monuments to the power of 
-	wealth. Tucked in between two such monstrosities, 
-	a smaller blue house fights for sunlight.</text>
-	<if haveMerchantMessage="true">
+	wealth. Tucked in between two such 
+	monstrosities, a smaller blue house fights for 
+	sunlight.</text>
+	<if arg1="haveMerchantMessage" arg2="true" 
+	comparison="eq">
         <link>
             <file>MerchantHouse.xml</file>
             <text>Message in hand, you make your way to 
-		the blue house and knock on the door.</text>
+		the blue house and knock on the 
+		door.</text>
         </link>
-    </if>
-    <link>
-		<file>Start.xml</file>
-		<text>Walk back to the town square</text>
+	</if>
+	<link>
+		<file>TownSquare.xml</file>
+		<text>Walk back to the town 
+		square</text>
 	</link>
 	<link>
 		<file>BuyFood.xml</file>
@@ -156,10 +158,19 @@ Market.xml
 	</link>
 </tile>
 \end{lstlisting}
+*This .xml file demonstrates how one would use the variable declared in the tile before. It uses an if statement to check if a variable contains a specific string value. Usage is a little unusual so the next section is devoted to comparing variables.
 
-*Note that you must explicitly say when the if statement begins and ends with the \textless if\textgreater ifstatements\textless /if\textgreater tags. If statements cannot be nested within each other. 
+\section{Comparisons}
 
-*This .xml file demonstrates how one would use the variable declared in the tile before. It uses an if statement to check if a variable contains a specific string value. At the moment the only operations available are equals and not equals, in the future we will have some comparative operators.
+If statements are a little tricky in our game due to the limitations of xml. The syntax takes the form: 
+
+\textless if arg1="variable" arg2="literal" comparison="gt"\textgreater
+
+\textless /if\textgreater
+
+This if statement will check if arg1(variable) is greater than arg2(literal) and if so will execute the code preceding the closing if. There are three supported comparisons, "eq" (equals), "gt" (greater than), and "ge" (greater than or equal to). For bools and strings you can only use "eq" for comparison.
+
+It is important to note that either arg1 or arg2 must be a variable, however it can be in either order, and you can compare a variable with a literal. It is also possible to compare a variable to another variable. However you cannot compare two literals.
 
 
 \section{Game Design}

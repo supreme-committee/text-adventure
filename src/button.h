@@ -32,8 +32,10 @@ public:
 	int getHeight();
 	bool isMouseOver(int, int);
 	sf::Rect<int> coords;
+	sf::Rect<int> tempCoords;	//Holds the rect object while buttons are not on screen(rect set to 0,0,0,0).
 	string wordWrap(string, size_t);
 	void setAlpha(int);
 	void playSound();
 	void toggleMute();
+	void setActiveRect(bool);
 };

@@ -1,18 +1,18 @@
 <tile>
 	<text></text>
-	<if primaryWeapon="unskilledSword">
+	<if arg1="primaryWeapon" arg2="unskilledSword" comparison="eq">
 		<link>
 			<file>FleurtranCountryside.xml</file>
 			<text></text>
 		</link>
 	</if>
-	<if primaryWeapon="unskilledSpear">
+	<if arg1="primaryWeapon" arg2="unskilledSpear" comparison="eq">
 		<link>
 			<file>FleurtranCountryside.xml</file>
 			<text></text>
 		</link>
 	</if>
-	<if primaryWeapon="unskilledBow">
+	<if arg1="primaryWeapon" arg2="unskilledBow" comparison="eq">
 		<link>
 			<file>FleurtranCountryside.xml</file>
 			<text></text>

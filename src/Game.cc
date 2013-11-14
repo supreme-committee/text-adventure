@@ -169,6 +169,14 @@ void Game::loadFile(string filename)
 	tile = Parser::parse(filePath.c_str(), boolVars, intVars, stringVars);
 	buildText();
 	createButtons();
+	if (tile.texts.size() == 1 && // if an error occurred
+		tile.texts[0].find("[[ERROR]]") != string::npos)
+	{
+		sf::String s = this->texts[0].getString();
+		s.erase(0, 10); // Erase "[[ERROR]]"
+		this->texts[0].setString(s);
+		for (auto& line : texts) line.setColor(sf::Color::Red);
+	}
 
 	if (tile.image.length() > 0 && texture_background.loadFromFile(".gamefiles/" + tile.image))
 	{
@@ -297,31 +305,22 @@ void Game::input()
 	while (window.pollEvent(ev))
 	{
 		if (ev.type == sf::Event::Closed) done = true;
-		else if (ev.type == sf::Event::MouseWheelMoved)
-		{
-			if (ev.mouseWheel.delta > 0) // Wheel up
-			{
-				if (textSelection < texts.size() - 1)
-				{
-					scrollTextUp();
-				}
-			}
-			else if (ev.mouseWheel.delta < 0) // Wheel down
-			{
-				if (textSelection > 0)
-				{
-					scrollTextDown();
-				}
-			}
-		}
 		else if (ev.type == sf::Event::MouseButtonReleased)
 		{
 			if(ev.mouseButton.button == sf::Mouse::Right)	//Toggle UI on right click
 			{
-				if(hideUI)
+				if(hideUI)	//UI already hidden, restore
+				{
+					for (auto& b : buttons)
+						b.setActiveRect(true);
 					hideUI = false;
-				else
+				}
+				else       //UI not hidden, hide
+				{
+					for(auto& b : buttons)
+						b.setActiveRect(false);
 					hideUI = true;
+				}
 			}
 			else if (ev.mouseButton.button == sf::Mouse::Left)
 			{
@@ -443,15 +442,19 @@ void Game::input()
 				break;
 			case sf::Keyboard::Up:
 				if (buttons.size() > 0 && buttonSelection < buttons.size() - 1)
-				{
 					scrollButtonsUp();
-				}
 				break;
 			case sf::Keyboard::Down:
 				if (buttonSelection > 0)
-				{
 					scrollButtonsDown();
-				}
+				break;
+			case sf::Keyboard::Left: // Scroll text up
+				if (textSelection < texts.size() - 1)
+					scrollTextUp();
+				break;
+			case sf::Keyboard::Right: // scroll text down
+				if (textSelection > 0)
+					scrollTextDown();
 				break;
 			default:
 				break;

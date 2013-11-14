@@ -17,6 +17,7 @@ button::button(Link li, sf::Font& f,float xx, float yy,bool mute)
 	t.setString(str);
 	t.setColor(sf::Color::White);
 	coords = sf::Rect<int>(xx,yy,290,height);
+	tempCoords = coords;
 	float h = (float)height;
 	yscale = h/130;
 	x = xx;
@@ -118,4 +119,10 @@ void button::toggleMute()
 	if(sound.getVolume() == 0)
 		sound.setVolume(100);
 	else sound.setVolume(0);
+}
+void button::setActiveRect(bool active)
+{
+	if(!active)
+		coords = sf::Rect<int>(0,0,0,0);
+	else coords = tempCoords;
 }

@@ -7,7 +7,7 @@ He finds a bow and free target and the two of you get to it. When you start the 
 		<value>unskilledBow</value>
 	</var>
 	<link>
-		<file>Start.xml</file>
+		<file>start.xml</file>
 		<text>Feeling satisfied with your progress, you retrace your steps towards the center of the town.</text>
 	</link>
 </tile>
