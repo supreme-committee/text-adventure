@@ -1,12 +1,12 @@
 <tile>
 	<text>You consider your possesions and what you could do without.</text>
-	<if haveBreadKnife="true">
+	<if arg1="haveBreadKnife" arg2="true" comparison="eq">
         <link>
             <file>BreadKnifeOffer.xml</file>
             <text>From your satchel you withdraw your newly forged bread knife and hand it over hilt first</text>
         </link>
     </if>
-	<if haveSmallLumpSilver="true">
+	<if arg1="haveSmallLumpSilver" arg2="true" comparison="eq">
         <link>
             <file>SmallLumpSilverOffer.xml</file>
             <text>From your satchel you withdraw a small lump of silver and hold it up for inspection</text>

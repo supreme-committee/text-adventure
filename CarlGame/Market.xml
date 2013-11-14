@@ -1,13 +1,13 @@
 <tile>
 	<text>The cries of vendors mix with the smells of baking food. A sea of people envelops you as you make your way past countless tents offering various services or products, often brimming over with people united in their love of goods and gold. Food and drink are the most abundant, the city has seen better days, and its venerability does not attract the luxury goods and talent it once possessed. Nevertheless, many fortunes have been made here over the years, and beyond the chaos of the market several rows of houses rise up, towering over their neighbors, monuments to the power of wealth. Tucked in between two such monstrosities, a smaller blue house fights for sunlight.</text>
-	<if haveMerchantMessage="true">
+	<if arg1="haveMerchantMessage" arg2="true" comparison="eq">
         <link>
             <file>MerchantHouse.xml</file>
             <text>Message in hand, you make your way to the blue house and knock on the door.</text>
         </link>
 	</if>
 	<link>
-		<file>Start.xml</file>
+		<file>start.xml</file>
 		<text>Walk back to the town square</text>
 	</link>
 	<link>
