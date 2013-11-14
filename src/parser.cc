@@ -13,15 +13,50 @@ Parser::~Parser(){}
 
 // ======================== PRIVATE FUNCTIONS ========================
 
+string Parser::insertVariable(string input, string variable, string thatString)
+{
+	auto start = input.find_first_of("{{");
+	auto end = input.find_first_of("}}") + 2;
+	string firstPart = input.substr(0, start);
+	string secondPart = input.substr(end, string::npos);
+	return firstPart + thatString + secondPart;
+}
+
 void Parser::grabXmlData(rapidxml::xml_node<char>* node, 
 		Tile& tileData,
 		map<string, bool>& boolVars,
 		map<string, int>& intVars,
 		map<string, string>& stringVars)
 {
-	if (strcmp(node->name(), "text") == 0)
+	if (strcmp(node->name(), "text") == 0) // Text tags
 	{
-		tileData.texts.push_back(node->value());
+		string nodeText(node->value());
+		while (nodeText.find_first_of("{{") != string::npos) // Insert variable values if needed.
+		{
+			auto startSpot = nodeText.find_first_of("{{") + 2;
+			auto endSpot = nodeText.find_first_of("}}");
+			string varName = nodeText.substr(startSpot, endSpot - startSpot);
+			string varValue;
+			if (boolVars.find(varName) != boolVars.end())
+				boolVars.find(varName)->second == true ? varValue = "true" : varValue = "false";
+			else if (intVars.find(varName) != intVars.end())
+			{
+				ostringstream ss;
+				ss << intVars.find(varName)->second;
+				varValue = ss.str();
+			}
+			else if (stringVars.find(varName) != stringVars.end())
+				varValue = stringVars.find(varName)->second;
+			else // Variable not found. Throw error and halt game
+			{
+				char errBuffer[256] = "Variable {{";
+				strcat(errBuffer, varName.c_str());
+				strcat(errBuffer, "}} could not be found!");
+				throw rapidxml::parse_error(errBuffer, NULL);
+			}
+			nodeText = insertVariable(nodeText, varName, varValue); // Replace value in string
+		}
+		tileData.texts.push_back(nodeText);
 	}
 	else if (strcmp(node->name(), "var") == 0)
 	{
