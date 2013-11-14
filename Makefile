@@ -8,7 +8,7 @@ SOURCEDIR    = src
 OBJDIR = obj
 SOURCEFILES = $(CSOURCE:%=$(SOURCEDIR)/%)
 OBJECTS = $(CSOURCE:%.cc=$(OBJDIR)/%.o)
-APPLEFRAMEWORKS = -framework OpenGL -framework SFML -framework SFML-graphics -framework SFML-window -framework SFML-system
+APPLEFRAMEWORKS = -framework OpenGL -framework SFML -framework SFML-graphics -framework SFML-window -framework SFML-system -framework SFML-audio
 GCC = g++ -g -O0 -Wall -Wextra -std=gnu++0x
 EXECBIN = game
 
