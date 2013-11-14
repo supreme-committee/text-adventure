@@ -256,7 +256,8 @@ bool Game::init(string filename)
 	system("mkdir .gamefiles");
 	string command = "tar -xf '" + filename + "' -C .gamefiles";
 					
-	//int returnCode = system(command.c_str());
+	system(command.c_str());
+    
 #ifdef WIN32
 	system("attrib +h .gamefiles");
 #endif
@@ -274,12 +275,12 @@ bool Game::init(string filename)
 	m->enableSaving(true);
 
 	// Iterate through input files and verify they are formatted correctly
-	if (!Parser::verify(".gamefiles/start.xml"))
+	if (!Parser::verify(".gamefiles/Start.xml"))
 	{
 		return false;
 	}
 	
-	tile = Parser::parse(".gamefiles/start.xml", boolVars, intVars, stringVars); // Get the starting tile
+	tile = Parser::parse(".gamefiles/Start.xml", boolVars, intVars, stringVars); // Get the starting tile
 	if (tile.links.size() == 0 && tile.texts.size() == 0) // No links or text exists. wtf
 	{
 		cerr << "Error occurred while parsing start.xml" << endl;
