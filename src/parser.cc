@@ -253,7 +253,7 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
     else 
     {
         Logger::log(string("ERROR found in verification: ") + string(node->name()) +
-            string("is not a valid reserved word"));
+            string(" is not a valid reserved word"));
         return false;
     }
     
