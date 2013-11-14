@@ -315,7 +315,10 @@ bool Parser::verifyHelper(rapidxml::xml_node<char>* node, set<string> reserved)
             count++;
         }
         if(count != 3)
+        {
+            Logger::log("<if> tag does not have 3 attributes");
             return false;
+        }
     }
     for(auto newNode = node->first_node();
         newNode;

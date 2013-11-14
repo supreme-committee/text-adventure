@@ -165,7 +165,8 @@ void Game::loadFile(string filename)
 	file.close();
 
 	currentFile = filename;
-
+    
+    Parser::verify((".gamefiles/" + filename).c_str());
 	tile = Parser::parse(filePath.c_str(), boolVars, intVars, stringVars);
 	buildText();
 	createButtons();
