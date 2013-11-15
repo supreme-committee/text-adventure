@@ -200,6 +200,43 @@ void Game::loadFile(string filename)
 	if(!muteButtons)
 		sound.play();
 }
+bool Game::setup()
+{
+	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
+	{
+		Logger::log("ERROR: could not load font.ttf");
+		return false;
+	}
+
+	m = new menu(font_main);
+	m->enableLoading(false);
+	m->enableSaving(false);
+
+	buildText();
+	createButtons();
+	textSelection = 0;
+	buttonSelection = 0;
+
+	return true;
+}
+void Game::setupNewGame(string tarFile)
+{
+#ifdef WIN32
+	string command = "rmdir .gamefiles /s /q & mkdir .gamefiles && attrib +h .gamefiles && tar -xf '" + tarFile + "' -C .gamefiles";
+	system(command.c_str());
+#else
+	system("rm .gamefiles/*"); // delete old files MAC specific
+	system(("tar -xf " + tarFile + " -C .gamefiles").c_str());
+#endif
+
+	boolVars.clear(); intVars.clear(); stringVars.clear();
+	loadFile("Start.xml");
+	if (m != NULL)
+	{
+		m->enableLoading(true);
+		m->enableSaving(true);
+	}
+}
 
 // ================== PUBLIC FUNCTIONS ===================
 Game::Game() : fileDirectory(".gamefiles")
@@ -217,38 +254,13 @@ Game::~Game()
 }
 bool Game::init()
 {
-	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
-	{
-		Logger::log("ERROR: could not load font.ttf");
-		return false;
-	}
+	if (!setup()) return false;
 
-	m = new menu(font_main);
-	m->enableLoading(false);
-	m->enableSaving(false);
-
-	buildText();
-	createButtons();
-	textSelection = 0;
-	buttonSelection = 0;
-
-	if (tile.image.length() > 0 && texture_background.loadFromFile(tile.image))
-	{
-		imageValid = true;
-	}
-	else imageValid = false;
+	imageValid = false;
 	sprite_background.setTexture(texture_background);
 
 	sound.resetBuffer();	//Reset buffer to be ready to load a new one.
-	if(!soundbuffer.loadFromFile(".gamefiles/" + tile.sfx))
-	{
-		Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
-		sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
-	}
-	else sound.setVolume(100);
-	sound.setBuffer(soundbuffer);
-	if(!muteButtons)
-		sound.play();
+	sound.setVolume(0);
 
 	return true;
 }
@@ -272,29 +284,10 @@ bool Game::init(string filename)
 		Logger::log("ERROR: you must give me a .tar file!");
 		return false;
 	}
-	system("rmdir .gamefiles /s /q"); // Delete old xml files
-
-	   
-	system("mkdir .gamefiles");
-	string command = "tar -xf '" + filename + "' -C .gamefiles";
-					
-	system(command.c_str());
-    
-#ifdef WIN32
-	system("attrib +h .gamefiles");
-#endif
+	
+	setupNewGame(filename); // Set up the given tar file
 
 	currentFile = filename;
-
-	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
-	{
-		Logger::log("ERROR: could not load font.ttf");
-		return false;
-	}
-
-	m = new menu(font_main);
-	m->enableLoading(true);
-	m->enableSaving(true);
 
 	// Iterate through input files and verify they are formatted correctly
 	if (!Parser::verify(".gamefiles/Start.xml"))
@@ -309,10 +302,7 @@ bool Game::init(string filename)
 		return false;
 	}
 
-	buildText();
-	createButtons();
-	textSelection = 0;
-	buttonSelection = 0;
+	setup();
 
 	if (tile.image.length() > 0 && texture_background.loadFromFile(tile.image))
 	{
@@ -421,21 +411,11 @@ void Game::input()
 #endif
 						return;
 					}
-#ifdef WIN32                  
+#ifdef WIN32
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);   
+#endif
 					tarFile = gameFile.substr(gameFile.find_last_of('\\') + 1, gameFile.length() - 1); // Keep track of currently loaded tar file
-
-					string command = "rmdir .gamefiles /s /q & mkdir .gamefiles && attrib +h .gamefiles && tar -xf '" + gameFile + "' -C .gamefiles";
-					system(command.c_str());
-#else 
-                    system("rm .gamefiles/*"); // delete old files MAC specific
-                    system(("tar -xf " + gameFile + " -C .gamefiles").c_str());
-#endif                                 
-
-					boolVars.clear(); intVars.clear(); stringVars.clear();
-					loadFile("Start.xml");
-					m->enableLoading(true);
-					m->enableSaving(true);
+					setupNewGame(gameFile);                             
 				}
 				if(m->saveSelect(ev.mouseButton.x,ev.mouseButton.y)) // Saving a game
 				{

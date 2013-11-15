@@ -46,6 +46,9 @@ private:
 	sf::SoundBuffer soundbuffer;	//Stores the sound that will play from the tile
 	sf::Sound sound;				//Plays the sound
 	bool imageValid, hideUI, muteButtons;
+	bool setup(); // Load font, button icon, and other basic initialization stuff
+	void setupNewGame(string tarFile); // Extract the given tar, set up new game, and load start.xml
+
 public:
 	Game();
 	~Game();

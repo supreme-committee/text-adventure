@@ -284,7 +284,6 @@ bool Parser::verify(const char* filename)
 	}
 
 	return verified;
-	
 }
 
 //Helper function to cut down on copy pasting or printing new reserved words 
