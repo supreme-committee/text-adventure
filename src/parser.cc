@@ -162,6 +162,10 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 	{
 		tileData.sfx = node->value();
 	}
+	else if (strcmp(node->name(), "music") == 0) // <music> tag
+	{
+		tileData.bgm = node->value();
+	}
 	else // Invalid tag
 	{
 		string er("ERROR: invalid tag found -> ");
