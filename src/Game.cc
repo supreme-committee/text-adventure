@@ -424,21 +424,12 @@ void Game::input()
 #ifdef WIN32                  
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);   
 					tarFile = gameFile.substr(gameFile.find_last_of('\\') + 1, gameFile.length() - 1); // Keep track of currently loaded tar file
-					system("rmdir .gamefiles /s /q"); // Delete old xml files
+
+					string command = "rmdir .gamefiles /s /q & mkdir .gamefiles && attrib +h .gamefiles && tar -xf '" + gameFile + "' -C .gamefiles";
+					system(command.c_str());
 #else 
                     system("rm .gamefiles/*"); // delete old files MAC specific
 #endif                                 
-					system("mkdir .gamefiles");
-					string command = "tar -xf '" + gameFile + "' -C .gamefiles";
-					
-					int returnCode = system(command.c_str());
-#ifdef WIN32
-					system("attrib +h .gamefiles");
-#endif
-					if (returnCode != 0)
-					{
-						// do something
-					}
 
 					boolVars.clear(); intVars.clear(); stringVars.clear();
 					loadFile("Start.xml");
