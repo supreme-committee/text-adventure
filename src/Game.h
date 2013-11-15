@@ -25,6 +25,7 @@ private:
 	const string fileDirectory; // The directory where the story files are
 	string currentFile; // The currently loaded xml file
 	string tarFile;     // The name of the loaded .tar file
+	string currentMusic;	//Keep track of music file being played.
 
 	sf::Font font_main;
 	vector<sf::Text> texts; // The text to show (built from the texts vector in tile)
@@ -44,7 +45,8 @@ private:
 	sf::Texture texture_background; // The texture for the background image
 	sf::Sprite sprite_background;	// The sprite (a sf::Drawable object) for the background image
 	sf::SoundBuffer soundbuffer;	//Stores the sound that will play from the tile
-	sf::Sound sound;				//Plays the sound
+	sf::Sound sound;				//Plays the sound specified in a tile
+	sf::Music bgm;					//Background music
 	bool imageValid, hideUI, muteButtons;
 	bool setup(); // Load font, button icon, and other basic initialization stuff
 	void setupNewGame(string tarFile); // Extract the given tar, set up new game, and load start.xml
@@ -58,6 +60,7 @@ public:
 	void update(); // Handle game logic
 	void render(); // Render stuff on screen
 	void rescaleImage(); //Rescale an image to 640x480, keeping aspect ratio of original.
+	void loadMusic(string);
 	
 	// inline functions
 	inline bool isDone() const { return done; }

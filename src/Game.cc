@@ -200,6 +200,8 @@ void Game::loadFile(string filename)
 	sound.setBuffer(soundbuffer);
 	if(!muteButtons)
 		sound.play();
+
+	loadMusic(tile.bgm);
 }
 bool Game::setup()
 {
@@ -324,6 +326,8 @@ bool Game::init(string filename)
 	if(!muteButtons)
 		sound.play();
 
+	loadMusic(tile.bgm);
+
 	return true;
 }
 void Game::input()
@@ -368,9 +372,15 @@ void Game::input()
 						b.toggleMute();
 					}
 					if(!muteButtons)	//Update muteButtons so that future buttons can be initialized with correct volume
+					{
+						bgm.setVolume(0);
 						muteButtons = true;
-					else muteButtons = false;
-					//also mute background music/sound effects from tile once implemented
+					}
+					else
+					{
+						bgm.setVolume(100);
+						muteButtons = false;
+					}
 				}
 					
 				if(m->loadSelect(ev.mouseButton.x,ev.mouseButton.y)) // Loading a saved game
@@ -471,7 +481,6 @@ void Game::input()
 		}
 	}
 }
-
 void Game::update()
 {
 	// Update the menu bar
@@ -487,7 +496,6 @@ void Game::update()
 		button.isMouseOver(v.x,v.y);
 	}
 }
-
 void Game::render()
 {
 	if(imageValid)
@@ -556,4 +564,24 @@ void Game::rescaleImage()
 			sprite_background.setPosition(differenceX/2.0,0);
 		}
 	}
+}
+void Game::loadMusic(string filename)
+{
+	if(filename != "")	//don't bother trying to load music on a tile with none specified
+	{
+		if(filename != currentMusic)	//make sure that the music file from the tile is not already being played.
+		{
+			if(!bgm.openFromFile(filename))
+			{
+				Logger::log("Could not open music file" + filename + ".");
+			}
+			else
+			{
+				bgm.setLoop(true);
+				bgm.play();
+				currentMusic = filename;
+			}
+		}
+	}
+
 }

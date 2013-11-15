@@ -18,7 +18,7 @@ class Tile
         ~Tile(){}
         vector<string> texts; //Text to display
         vector<Link> links; //first = text second = textfile
-		string image,sfx;	//name of image file for the tile
+		string image,sfx, bgm;	//image, sound effect, and backgroud music file names
 };
 
 #endif
