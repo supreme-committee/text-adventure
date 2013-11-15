@@ -200,8 +200,8 @@ void Game::loadFile(string filename)
 	sound.setBuffer(soundbuffer);
 	if(!muteButtons)
 		sound.play();
-
-	loadMusic(".gamefiles/" + tile.bgm);
+	if(tile.bgm != "")
+		loadMusic(".gamefiles/" + tile.bgm);
 }
 bool Game::setup()
 {
@@ -329,7 +329,8 @@ bool Game::init(string filename)
 	if(!muteButtons)
 		sound.play();
 
-	loadMusic(tile.bgm);
+	if(tile.bgm != "")
+		loadMusic(".gamefiles/" + tile.bgm);
 
 	return true;
 }
