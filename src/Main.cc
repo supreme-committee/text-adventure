@@ -12,8 +12,11 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    
+#ifdef WIN32
+	system("rmdir .gamefiles /s /q");
+#else
     system("rm .gamefiles/*");
+#endif
     
 	//thread t(Logger::write); // Create a thread for the writer
 	//t.detach(); // Lets thread run in background (also prevents abort() being called when thread is destroyed)
