@@ -250,6 +250,9 @@ Game::Game() : fileDirectory(".gamefiles")
 	window.create(sf::VideoMode(640, 480), "Game Engine", sf::Style::Close);
 	window.setFramerateLimit(30);
 	muteButtons = false;
+	rect.setPosition(4,22);
+	rect.setSize(sf::Vector2f(630,190));
+	rect.setFillColor(sf::Color(0,0,0,100));
 }
 Game::~Game()
 {
@@ -467,11 +470,11 @@ void Game::input()
 				if (buttonSelection > 0)
 					scrollButtonsDown();
 				break;
-			case sf::Keyboard::Left: // Scroll text up
+			case sf::Keyboard::Right: // Scroll text down
 				if (textSelection < texts.size() - 1)
 					scrollTextUp();
 				break;
-			case sf::Keyboard::Right: // scroll text down
+			case sf::Keyboard::Left: // scroll text up
 				if (textSelection > 0)
 					scrollTextDown();
 				break;
@@ -513,6 +516,7 @@ void Game::render()
 	}
 	if(!hideUI)
 	{
+		window.draw(rect);
 		for (auto& text : texts)
 		{
 			window.draw(text);

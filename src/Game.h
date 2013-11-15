@@ -31,6 +31,8 @@ private:
 	vector<sf::Text> texts; // The text to show (built from the texts vector in tile)
 	unsigned int textSelection; // The currently selected (i.e. most visible) line of text
 
+	sf::RectangleShape rect;
+
 	vector<button> buttons; // The choices that'll be displayed to the user
 	unsigned int buttonSelection;    // The currently selected button
 	void buildText();     // Set up the text so it fits cleanly on the screen
