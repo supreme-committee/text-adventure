@@ -429,6 +429,7 @@ void Game::input()
 					system(command.c_str());
 #else 
                     system("rm .gamefiles/*"); // delete old files MAC specific
+                    system(("tar -xf " + gameFile + " -C .gamefiles").c_str());
 #endif                                 
 
 					boolVars.clear(); intVars.clear(); stringVars.clear();

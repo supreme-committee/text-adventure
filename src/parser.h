@@ -12,7 +12,7 @@ class Parser
 private:
 	// Replace "variable" (e.g. {{name}}) with "thatString" in the given string "input"
 	// Returns the new string with replaced element
-	static string insertVariable(string input, string variable, string thatString);
+	static string insertVariable(string input, string thatString);
 
 	// This will extract data (variables, text, etc.) from the given node. 
 	// It'll not handle conditionals

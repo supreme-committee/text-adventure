@@ -13,7 +13,7 @@ Parser::~Parser(){}
 
 // ======================== PRIVATE FUNCTIONS ========================
 
-string Parser::insertVariable(string input, string variable, string thatString)
+string Parser::insertVariable(string input, string thatString)
 {
 	auto start = input.find_first_of("{{");
 	auto end = input.find_first_of("}}") + 2;
@@ -54,7 +54,7 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 				strcat(errBuffer, "}} could not be found!");
 				throw rapidxml::parse_error(errBuffer, NULL);
 			}
-			nodeText = insertVariable(nodeText, varName, varValue); // Replace value in string
+			nodeText = insertVariable(nodeText, varValue); // Replace value in string
 		}
 		tileData.texts.push_back(nodeText);
 	}
