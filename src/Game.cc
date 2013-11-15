@@ -182,6 +182,7 @@ void Game::loadFile(string filename)
 	if (tile.image.length() > 0 && texture_background.loadFromFile(".gamefiles/" + tile.image))
 	{
 		imageValid = true;
+		rescaleImage();
 	}
 	else imageValid = false;
 	sprite_background.setTexture(texture_background);
@@ -307,6 +308,7 @@ bool Game::init(string filename)
 	if (tile.image.length() > 0 && texture_background.loadFromFile(tile.image))
 	{
 		imageValid = true;
+		rescaleImage();
 	}
 	else imageValid = false;
 	sprite_background.setTexture(texture_background);
@@ -521,4 +523,37 @@ void Game::render()
 		window.draw(selection);
 	}
 	window.display();
+}
+void Game::rescaleImage()
+{
+	sf::Vector2u dimension_img = texture_background.getSize();
+	sf::Vector2u dimension_window = window.getSize();
+	if(!(dimension_img.x == 640 && dimension_img.y == 480))	//image is not 640x480, need to rescale
+	{
+		float aspect_img = (float)dimension_img.x / (float)dimension_img.y;	//get aspect ratio of image
+
+		float scaleX = (float)dimension_window.x / (float)dimension_img.x;	//get ratio of window's width to image's width
+		float scaleY = (float)dimension_window.y / (float)dimension_img.y;	//get ratio of window's height to image's height
+
+		if(aspect_img == (4.0/3.0))	//image is too large or too small, but has 4:3 ratio
+		{
+			sprite_background.setScale(scaleX,scaleY);
+		}
+		else if(aspect_img > (4.0/3.0))	//image has largest width, so scale x and y by width
+		{
+			sprite_background.setScale(scaleX,scaleX);	//set scale
+			float differenceY = 480 - (scaleX * dimension_img.y);	//get difference between window height and scaled height
+			if(differenceY < 0)
+				differenceY *= -1;
+			sprite_background.setPosition(0,differenceY/2.0);	//Position image to make letterbox
+		}
+		else if(aspect_img < (4.0/3.0))	//image has largest height, so scale x and y by height
+		{
+			sprite_background.setScale(scaleY,scaleY);
+			float differenceX = 640 - (scaleY * dimension_img.x);
+			if(differenceX < 0)
+				differenceX *= -1;
+			sprite_background.setPosition(differenceX/2.0,0);
+		}
+	}
 }

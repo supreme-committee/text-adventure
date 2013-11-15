@@ -57,6 +57,7 @@ public:
 	void input();  // Handle user input
 	void update(); // Handle game logic
 	void render(); // Render stuff on screen
+	void rescaleImage(); //Rescale an image to 640x480, keeping aspect ratio of original.
 	
 	// inline functions
 	inline bool isDone() const { return done; }
