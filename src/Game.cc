@@ -273,7 +273,7 @@ bool Game::init(string filename)
 		return false;
 	}
 	system("rmdir .gamefiles /s /q"); // Delete old xml files
-
+    
 	   
 	system("mkdir .gamefiles");
 	string command = "tar -xf '" + filename + "' -C .gamefiles";

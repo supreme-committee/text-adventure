@@ -12,6 +12,9 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
+    
+    system("rm .gamefiles/*");
+    
 	//thread t(Logger::write); // Create a thread for the writer
 	//t.detach(); // Lets thread run in background (also prevents abort() being called when thread is destroyed)
 
@@ -40,7 +43,7 @@ int main(int argc, char** argv)
 
 	if (tarFile.length() > 0) // Initialize game with given tar file
 	{
-		if (!game.init(tarFile)) return 1;
+		if (!game.init(tarFile)) game.init();
 	}
 	else // initialze game without starting file
 	{

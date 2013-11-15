@@ -223,12 +223,22 @@ bool Parser::verify(const char* filename)
 	logString.append(filename);
 	Logger::log(logString);
 
+    fstream testFile;
+    testFile.open(filename);
+    if(!testFile.good())
+    {
+        Logger::log(string(filename) + " does not exist.");
+        return false;
+
+    }
+    
 	rapidxml::file<> xmlFile(filename);
 	if (xmlFile.size() == 0) 
 	{
 		Logger::log(string(filename) + ": empty file!");
 		return false;
 	}
+    
 	rapidxml::xml_document<> doc;
 	try
 	{
