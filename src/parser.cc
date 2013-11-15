@@ -456,6 +456,13 @@ Tile Parser::parse(const char* filename,
 			return Tile();
 		}
 
+		if (doc.first_node()->first_node() == NULL)
+		{
+			Logger::log("ERROR: no tags found within <tile> tags");
+			throw rapidxml::parse_error("no tags found within <tile> tags", NULL);
+			return Tile();
+		}
+
 		for (auto node = doc.first_node()->first_node();
 			node;
 			node = node->next_sibling())
