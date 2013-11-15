@@ -284,7 +284,7 @@ bool Game::init(string filename)
 	system("attrib +h .gamefiles");
 #endif
 
-	currentFile = filename;
+	tarFile = filename;
 
 	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
 	{
@@ -428,6 +428,7 @@ void Game::input()
 					string command = "rmdir .gamefiles /s /q & mkdir .gamefiles && attrib +h .gamefiles && tar -xf '" + gameFile + "' -C .gamefiles";
 					system(command.c_str());
 #else 
+                    tarFile = gameFile;
                     system("rm .gamefiles/*"); // delete old files MAC specific
                     system(("tar -xf " + gameFile + " -C .gamefiles").c_str());
 #endif                                 
