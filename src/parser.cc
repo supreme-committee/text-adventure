@@ -224,9 +224,28 @@ bool Parser::verify(const char* filename)
 	Logger::log(logString);
 
 	rapidxml::file<> xmlFile(filename);
+	if (xmlFile.size() == 0) 
+	{
+		Logger::log(string(filename) + ": empty file!");
+		return false;
+	}
 	rapidxml::xml_document<> doc;
-	doc.parse<0>(xmlFile.data());
+	try
+	{
+		doc.parse<0>(xmlFile.data());
+	}
+	catch (rapidxml::parse_error e)
+	{
+		Logger::log(e.what());
+		return false;
+	}
 	
+	if (doc.first_node() == NULL)
+	{
+		Logger::log(string(filename) + ": invalid xml formatting");
+		return false;
+	}
+
 	bool verified = true;
 	//tiles allowed in a <tile> tag; to be passed to the recursive helper
 #ifdef _MSC_VER // If Visual Studio is being used (it doesn't fully support init. lists yet).
