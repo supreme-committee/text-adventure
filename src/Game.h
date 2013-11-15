@@ -67,7 +67,7 @@ public:
 	inline void showErrorMessage(string message)
 	{
 #ifdef WIN32
-		MessageBoxA(NULL, message.c_str(), "Error", MB_OK);
+		MessageBoxA(NULL, message.c_str(), "Error", MB_OK | MB_ICONEXCLAMATION);
 #endif
 #ifdef __APPLE__
         message = message;

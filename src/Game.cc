@@ -574,6 +574,10 @@ void Game::loadMusic(string filename)
 			if(!bgm.openFromFile(filename))
 			{
 				Logger::log("Could not open music file" + filename + ".");
+#ifdef WIN32
+				thread t(&Game::showErrorMessage, this, "Cannot find file: " + filename);
+				t.join();
+#endif
 			}
 			else
 			{
