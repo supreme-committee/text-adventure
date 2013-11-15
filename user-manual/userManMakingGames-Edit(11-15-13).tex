@@ -205,6 +205,17 @@ This if statement will check if arg1(variable) is greater than arg2(literal) and
 It is important to note that either arg1 or arg2 must be a variable, however it can be in either order, and you can compare a variable with a literal. It is also possible to compare a variable to another variable. However you cannot compare two literals.
 
 
+
+\section{Supported Files}
+
+In this section will be listing files that our game engine supports. 
+
+Here is a complete list of all the supported audio formats: ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam, w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
+
+Not Supported:
+MP3
+
+
 \section{Game Design}
 
 While simply understanding the various functions and their syntax described above is enough to begin creating your own game, I think it's worth briefly discussing how you can use these features to recreate common video game functionality. In this case you start inside a city, and must deal with the classic problem in video games, how do you teach the player how to play and introduce them to the plot without boring tutorials or walls of text at the beginning? First I use the variables to artificially restrict movement. You can travel to the town gate from the starting zone, but it remains closed until you own a weapon (represented as a variable). This forces the player to at least start the simple quest so they become familiar with the world and controls before they are released to the more open and dangerous world beyond the city walls. 
