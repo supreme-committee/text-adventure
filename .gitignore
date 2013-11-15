@@ -35,5 +35,6 @@ game
 .DS_STORE
 *.save
 .gamefiles/*
-test.tar
 CarlGame/tartool
+*.tar
+*.sav
