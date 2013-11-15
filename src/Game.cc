@@ -567,6 +567,31 @@ void Game::rescaleImage()
 }
 void Game::loadMusic(string filename)
 {
+	string supportedTypes[] = {
+		"ogg", "wav", "flac", "aiff", "au", 
+		"raw", "paf", "svx", "nist", "voc", 
+		"ircam", "w64", "mat4", "mat5", "pvf", 
+		"htk", "sds", "avr", "sd2", "caf", "wve", "mpc2k", "rf64"};
+	string ext = filename.substr(filename.find_last_of("."), string::npos);
+	bool good = false;
+	for (auto s : supportedTypes)
+	{
+		if (ext == s) {
+			good = true;
+			break;
+		}
+	}
+	if (!good)
+	{
+#ifdef WIN32
+		thread t(&Game::showErrorMessage, this, "Invalid file format: " + filename);
+		t.join();
+#else
+		cerr << "Invalid file format: " << filename << endl;
+#endif
+		return;
+	}
+
 	if(filename != "")	//don't bother trying to load music on a tile with none specified
 	{
 		if(filename != currentMusic)	//make sure that the music file from the tile is not already being played.
