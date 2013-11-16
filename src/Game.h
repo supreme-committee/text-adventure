@@ -6,6 +6,7 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <thread>
 #ifdef WIN32
 #include <Windows.h>
 #endif
@@ -53,14 +54,12 @@ private:
 	sf::Sound sound;				//Plays the sound specified in a tile
 	sf::Music bgm;					//Background music
 	bool imageValid, hideUI, muteButtons;
-	bool setup(); // Load font, button icon, and other basic initialization stuff
 	void setupNewGame(string tarFile); // Extract the given tar, set up new game, and load start.xml
 
 public:
 	Game();
 	~Game();
-	bool init(); // used when user does not specify a tar file
-	bool init(string startFile);   // initialize game with given tar file
+	void init(string tarFile = " "); // Initialize game engine. tarFile is retrieved from cmd-line arg
 	void input();  // Handle user input
 	void update(); // Handle game logic
 	void render(); // Render stuff on screen
@@ -72,7 +71,9 @@ public:
 	inline void showErrorMessage(string message)
 	{
 #ifdef WIN32
-		MessageBoxA(NULL, message.c_str(), "Error", MB_OK | MB_ICONEXCLAMATION);
+		HWND dummy = NULL;
+		thread t(&MessageBoxA, dummy, message.c_str(), "ERROR", MB_OK | MB_ICONERROR);
+		t.join();
 #endif
 #ifdef __APPLE__
         message = message;

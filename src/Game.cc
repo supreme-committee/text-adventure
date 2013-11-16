@@ -179,7 +179,7 @@ void Game::loadFile(string filename)
 		for (auto& line : texts) line.setColor(sf::Color::Red);
 	}
 
-	if (tile.image.length() > 0 && texture_background.loadFromFile(".gamefiles/" + tile.image))
+	if (tile.image.length() > 1 && texture_background.loadFromFile(".gamefiles/" + tile.image))
 	{
 		imageValid = true;
 		rescaleImage();
@@ -203,25 +203,6 @@ void Game::loadFile(string filename)
 	if(tile.bgm != "")
 		loadMusic(".gamefiles/" + tile.bgm);
 }
-bool Game::setup()
-{
-	if (!font_main.loadFromFile("font.ttf")) // Load the font (OpenSans-Regular)
-	{
-		Logger::log("ERROR: could not load font.ttf");
-		return false;
-	}
-
-	m = new menu(font_main);
-	m->enableLoading(false);
-	m->enableSaving(false);
-
-	buildText();
-	createButtons();
-	textSelection = 0;
-	buttonSelection = 0;
-
-	return true;
-}
 void Game::setupNewGame(string tarFile)
 {
 #ifdef WIN32
@@ -234,11 +215,9 @@ void Game::setupNewGame(string tarFile)
 
 	boolVars.clear(); intVars.clear(); stringVars.clear();
 	loadFile("Start.xml");
-	if (m != NULL)
-	{
-		m->enableLoading(true);
-		m->enableSaving(true);
-	}
+
+	m->enableLoading(true);
+	m->enableSaving(true);
 
 	rect_overlay.setSize(sf::Vector2f(640.0f, 480.0f));
 	rect_overlay.setFillColor(sf::Color::Transparent);
@@ -262,81 +241,80 @@ Game::~Game()
 {
 	delete m;
 }
-bool Game::init()
+void Game::init(string tarFile) // tarFile is " " by default
 {
-	if (!setup()) return false;
-
-	imageValid = false;
-	sprite_background.setTexture(texture_background);
-
-	sound.resetBuffer();	//Reset buffer to be ready to load a new one.
-	sound.setVolume(0);
-
-	return true;
-}
-bool Game::init(string filename)
-{
-	ifstream file;
-	file.open(filename);
-	if (!file.is_open()) 
-	{
-		// This init() is only called when running via command line, so user will see cerr output
-		cerr << filename << " does not exist!" << endl;
-		Logger::log(filename + " does not exist!");
-		return false;
-	}
-	file.close();
-
-	string fileExtension = filename.substr(filename.find_last_of('.'), filename.length() - 1);
-	if (fileExtension != ".tar")
-	{
-		cerr << "ERROR: you must give me a .tar file!" << endl;
-		Logger::log("ERROR: you must give me a .tar file!");
-		return false;
-	}
-	
-	setupNewGame(filename); // Set up the given tar file
-
-	currentFile = filename;
-
-	// Iterate through input files and verify they are formatted correctly
-	if (!Parser::verify(".gamefiles/Start.xml"))
-	{
-		return false;
-	}
-	
-	tile = Parser::parse(".gamefiles/Start.xml", boolVars, intVars, stringVars); // Get the starting tile
-	if (tile.links.size() == 0 && tile.texts.size() == 0) // No links or text exists. wtf
-	{
-		cerr << "Error occurred while parsing start.xml" << endl;
-		return false;
+	if (!font_main.loadFromFile("font.ttf")) { // Load the font (OpenSans-Regular)
+		Logger::log("ERROR: could not load font.ttf");
+		showErrorMessage("ERROR: could not load font.ttf");
 	}
 
-	setup();
+	m = new menu(font_main);
+	m->enableLoading(false);
+	m->enableSaving(false);
 
-	if (tile.image.length() > 0 && texture_background.loadFromFile(tile.image))
+	if (tarFile != " ") // If user provided a tar file
 	{
-		imageValid = true;
-		rescaleImage();
+		ifstream file(tarFile, ios::in);
+		if (!file.is_open()) {
+			Logger::log("ERROR: Could not find " + tarFile);
+			showErrorMessage("ERROR: Could not find " + tarFile);
+		}
+		else file.close();
+
+		string fileExt = tarFile.substr(tarFile.find_last_of("."), string::npos);
+		if (fileExt != ".tar") {
+			Logger::log("ERROR: invalid file type: " + fileExt);
+			showErrorMessage("ERROR: invalid file type: " + fileExt);
+		}
+
+		setupNewGame(tarFile); // Extract the tar, load start.xml
+		this->currentFile = ".gamefiles/Start.xml";
+
+		// Verify the content of the start.xml file
+		if (!Parser::verify(currentFile.c_str())) {
+			showErrorMessage("ERROR: file failed verification: " + currentFile);
+		}
+
+		tile = Parser::parse(currentFile.c_str(), boolVars, intVars, stringVars); // Parse the first file
+		if (tile.texts.size() == 1 && // if an error occurred
+			tile.texts[0].find("[[ERROR]]") != string::npos) {
+			sf::String s = this->texts[0].getString();
+			s.erase(0, 10); // Erase "[[ERROR]]"
+			this->texts[0].setString(s);
+			for (auto& line : texts) line.setColor(sf::Color::Red);
+			m->enableSaving(false);
+			m->enableLoading(false);
+		}
+		else {
+			buildText();
+			createButtons();
+			m->enableLoading(true); // Enable saving and loading buttons
+			m->enableSaving(true);
+		}
+
+		// Load and scale the image for this tile
+		if (tile.image.length() > 1 && texture_background.loadFromFile(tile.image)) {
+			this->imageValid = true;
+			rescaleImage();
+		}
+		else this->imageValid = false;
+		sprite_background.setTexture(texture_background);
+
+		sound.resetBuffer(); // Load and set up the sound effect for this tile
+		if(tile.sfx.length() > 1 && !soundbuffer.loadFromFile(".gamefiles/" + tile.sfx)) {
+			Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
+			showErrorMessage("ERROR: Could not open sound file: " + tile.sfx);
+			sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
+		}
+		else sound.setVolume(100);
+		sound.setBuffer(soundbuffer);
+
+		if (!muteButtons) sound.play();
+		if (tile.bgm.length() > 1) loadMusic(".gamefiles/" + tile.bgm);
 	}
-	else imageValid = false;
-	sprite_background.setTexture(texture_background);
 
-	sound.resetBuffer();	//Reset buffer to be ready to load a new one.
-	if(!soundbuffer.loadFromFile(".gamefiles/" + tile.sfx))
-	{
-		Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
-		sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
-	}
-	else sound.setVolume(100);
-	sound.setBuffer(soundbuffer);
-	if(!muteButtons)
-		sound.play();
-
-	if(tile.bgm != "")
-		loadMusic(".gamefiles/" + tile.bgm);
-
-	return true;
+	textSelection = 0;
+	buttonSelection = 0;
 }
 void Game::input()
 {

@@ -28,7 +28,7 @@ int main(int argc, char** argv)
 	}
 
 	Game game;
-	string tarFile; // The tar file the user provided
+	string tarFile = " "; // The tar file the user provided
 	for (int i = 1; i < argc; i++)
 	{
 		string arg(argv[i]);
@@ -44,14 +44,7 @@ int main(int argc, char** argv)
 		}
 	}
 
-	if (tarFile.length() > 0) // Initialize game with given tar file
-	{
-		if (!game.init(tarFile)) game.init();
-	}
-	else // initialze game without starting file
-	{
-		if (!game.init()) return 1;
-	}
+	game.init(tarFile); // Initialize the game engine
 	
 	while (!game.isDone()) // Run the game loop
 	{
