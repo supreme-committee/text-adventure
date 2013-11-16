@@ -32,6 +32,9 @@ private:
 	unsigned int textSelection; // The currently selected (i.e. most visible) line of text
 
 	sf::RectangleShape rect;
+	sf::RectangleShape rect_overlay; // Used for fade transitions
+	enum Transitionstate{FADING_OUT, FADING_IN, STATIC}; // State of overlay transition
+	int tran_state;
 
 	vector<button> buttons; // The choices that'll be displayed to the user
 	unsigned int buttonSelection;    // The currently selected button

@@ -239,6 +239,9 @@ void Game::setupNewGame(string tarFile)
 		m->enableLoading(true);
 		m->enableSaving(true);
 	}
+
+	rect_overlay.setSize(sf::Vector2f(640.0f, 480.0f));
+	rect_overlay.setFillColor(sf::Color::Transparent);
 }
 
 // ================== PUBLIC FUNCTIONS ===================
@@ -253,6 +256,7 @@ Game::Game() : fileDirectory(".gamefiles")
 	rect.setPosition(4,22);
 	rect.setSize(sf::Vector2f(630,190));
 	rect.setFillColor(sf::Color(0,0,0,100));
+	tran_state = STATIC;
 }
 Game::~Game()
 {
@@ -365,7 +369,8 @@ void Game::input()
 					{
 						b.playSound();
 						sf::sleep(sf::seconds(.1));	//Pause for a moment so the sound will be played.
-						loadFile(b.getLink()); // Load the next xml file
+						this->tran_state = FADING_OUT; // Fade everything out
+						this->currentFile = b.getLink(); // Prepare next xml file for loading
 						break;
 					}
 				}
@@ -499,6 +504,25 @@ void Game::update()
 	{
 		button.isMouseOver(v.x,v.y);
 	}
+
+	if (this->tran_state == FADING_OUT) // Increase alpha of overlay
+	{
+		int alpha = (int)rect_overlay.getFillColor().a + 15;
+		if (alpha >= 255) { // Done fading out, so load next file and fade in
+			alpha = 255; 
+			rect_overlay.setFillColor(sf::Color(0, 0, 0, alpha));
+			this->tran_state = FADING_IN; 
+		}
+		rect_overlay.setFillColor(sf::Color(0, 0, 0, alpha));
+	}
+	else if (this->tran_state == FADING_IN) // Decrease alpha of overlay
+	{
+		int alpha = (int)rect_overlay.getFillColor().a;
+		if (alpha >= 255) loadFile(this->currentFile); // Only load next file when overlay is 100% opaque
+		alpha -= 15;
+		if (alpha <= 0) { alpha = 0; this->tran_state = STATIC; }
+		rect_overlay.setFillColor(sf::Color(0, 0, 0, alpha));
+	}
 }
 void Game::render()
 {
@@ -535,6 +559,7 @@ void Game::render()
 		selection.setPosition(5.0f, 30.0f);
 		window.draw(selection);
 	}
+	window.draw(rect_overlay); // Draw the overlay over everything else
 	window.display();
 }
 void Game::rescaleImage()
