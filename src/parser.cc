@@ -565,7 +565,7 @@ Tile Parser::parse(const char* filename,
 					else // attr1 is just a string (NOT "true", "false" or a number)
 					{
 						if (strcmp(attr3->value(), "eq") != 0) 
-							throw rapidxml::parse_error("Invalid comparison used for bool variables", NULL);
+							throw rapidxml::parse_error("Invalid comparison for given variables in <if> statement.", NULL);
 						if (stringVars.find(attr1->value()) != stringVars.end()) // attr1 is a string var
 						{
 							if (stringVars.find(attr2->value()) != stringVars.end()) // attr2 is also a string var
