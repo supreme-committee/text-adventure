@@ -4,7 +4,7 @@ Command Line,,
 ,Give engine invalid path to .tar file,"good, but save & load enable anyways(fixed)"
 ,Arguments out of order,good
 ,"No tar, only ""-l""",good
-,Give it a non-tar file,
+,Give it a non-tar file,Closes immediately with no error
 Input tar files,,
 ,Give it a tar with no start.xml file,good
 ,A tar with random (non-xml files),good
