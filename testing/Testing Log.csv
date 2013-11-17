@@ -1,0 +1,42 @@
+Test Area,Description,Status
+Command Line,,
+,Run engine with no arguments,good
+,Give engine invalid path to .tar file,"good, but save & load enable anyways(fixed)"
+,Arguments out of order,good
+,"No tar, only ""-l""",good
+,Give it a non-tar file,
+Input tar files,,
+,Give it a tar with no start.xml file,good
+,A tar with random (non-xml files),good
+Parser,,
+,Empty xml file,
+,xml file with only <tile> tags,
+,xml with everything except <tile> tags,
+,"Complete xml, but missing </tile> tag",
+<if> statements,,
+,Less than 3 args,
+,More than 3 args,
+,Comparing 2 different variable types,
+,Giving it a variable that doesn't exist,
+,"Invalid comparisons (e.g. ""ee"" or ""jasd"")",
+,Invalid comparison for variable type (compare int w/ bool),
+Setting Variables,,
+,Variable names with spaces in them,
+,"Calling <modify> on an int with invalid increment (i.e. ""--34"" or ""woot"")",
+,Calling <modify> with value out of range of the int type,
+,Make sure redifining a variable replaces its value,
+Saving and Loading,,
+,Make sure related tar is saved with sav file,
+,Ensure correct variables are restored when loading,
+,Ensure engine denies sav when loaded for incorrect game,
+Windows functionality,,
+,Saving dialog works,
+,Loading save game works,
+,Loading new game works,
+GUI,,
+,Buttons expand properly with text,
+,Text scrolling and fading functions correctly,
+,Images are scaled correctly,
+,Sounds are played correctly,
+,Music is played correctly,
+,"""Right-click to show picture"" feature works correctly",
