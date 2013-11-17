@@ -450,9 +450,16 @@ Tile Parser::parse(const char* filename,
 	try
 	{
 		rapidxml::file<> xmlFile(filename);
+
+		if (xmlFile.size() < 6) { // File is too short to be valid
+			Logger::log("ERROR: Invalid xml file: " + string(filename));
+			throw rapidxml::parse_error("Invalid xml file", NULL);
+			return Tile();
+		}
+
 		rapidxml::xml_document<> doc;
 		doc.parse<0>(xmlFile.data());
-
+		
 		// Check if <tile> tag exists. Abort if it doesn't
 		if (strcmp(doc.first_node()->name(), "tile") != 0)
 		{
@@ -626,7 +633,7 @@ Tile Parser::parse(const char* filename,
 			}
 		}
 	}
-	catch (rapidxml::parse_error ex)
+	catch (rapidxml::parse_error ex) // Format error as: "[[ERROR]] filename: ex.what()"
 	{
 		Logger::log(ex.what());
 		string err = "[[ERROR]] ";
