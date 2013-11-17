@@ -258,6 +258,7 @@ void Game::init(string tarFile) // tarFile is " " by default
 		if (!file.is_open()) {
 			Logger::log("ERROR: Could not find " + tarFile);
 			showErrorMessage("ERROR: Could not find " + tarFile);
+			return;
 		}
 		else file.close();
 
