@@ -137,6 +137,7 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		else
 		{
 			Logger::log("ERROR: tags within <modify></modify> are invalid");
+			throw rapidxml::parse_error("tags within <modify></modify> are invalid", NULL);
 			return;
 		}
 
