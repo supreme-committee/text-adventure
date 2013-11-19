@@ -60,38 +60,50 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 	}
 	else if (strcmp(node->name(), "var") == 0)
 	{
-		char* varName = node->first_node()->value();
+		char* varName = node->first_node()->value(); // Get var name and value
 		char* varValue = node->last_node()->value();
-		if (isInt(varValue))
+
+		if (intVars.find(varName) != intVars.end()) // They're redefining an int variable
 		{
-			if (intVars.find(varName) != intVars.end()) // If variable already exists, replace its value
-			{
+			if (isInt(varValue)) { // New value is of the same type. Good!
 				intVars.erase(intVars.find(varName));
-				string logString(varName);
-				Logger::log("WARNING: variable '" + logString + "' already exists. Replacing its value...");
+				intVars.insert(pair<string, int>(varName, atoi(varValue)));
+				Logger::log("WARNING: variable '" + string(varName) + "' already exists. Replacing its value...");
 			}
-			intVars.insert(pair<string, int>(varName, atoi(varValue)));
+			else { // Assigning non-int to int variable. Bad!
+				char err[100] = "Attempt to assign non-int value to int variable: ";
+				strcat(err, varName);
+				throw rapidxml::parse_error(err, NULL);
+			}
 		}
-		else if (strcmp(varValue, "true") == 0 || strcmp(varValue, "false") == 0)
+		else if (boolVars.find(varName) != boolVars.end()) // They're redefining a bool variable
 		{
-			bool varValueBool = strcmp(varValue, "true") == 0 ? true : false;
-			if (boolVars.find(varName) != boolVars.end()) // If variable already exists, replace its value
-			{
+			if (string(varValue) == "true" || string(varValue) == "false") {
 				boolVars.erase(boolVars.find(varName));
-				string logString(varName);
-				Logger::log("WARNING: variable '" + logString + "' already exists. Replacing its value...");
+				bool varAsBool = strcmp(varValue, "true") == 0 ? true : false;
+				boolVars.insert(pair<string, bool>(varName, varAsBool));
+				Logger::log("WARNING: variable '" + string(varName) + "' already exists. Replacing its value...");
 			}
-			boolVars.insert(pair<string, bool>(varName, varValueBool));
+			else {
+				char err[100] = "Attempt to assign non-bool value to bool variable: ";
+				strcat(err, varName);
+				throw rapidxml::parse_error(err, NULL);
+			}
 		}
-		else
+		else if (stringVars.find(varName) != stringVars.end()) // They're redefining a string variable
 		{
-			if (stringVars.find(varName) != stringVars.end())
-			{
-				stringVars.erase(stringVars.find(varName));
-				string logString(varName);
-				Logger::log("WARNING: variable '" + logString + "' already exists. Replacing its value...");
-			}
+			stringVars.erase(stringVars.find(varName));
+			Logger::log("WARNING: variable '" + string(varName) + "' already exists. Replacing its value...");
 			stringVars.insert(pair<string, string>(varName, varValue));
+		}
+		else // Variable does not exist yet, so create it
+		{
+			if (isInt(varValue)) intVars.insert(pair<string, int>(varName, atoi(varValue)));
+			else if (strcmp(varValue, "true") == 0 || strcmp(varValue, "false") == 0) {
+				bool varAsBool = strcmp(varValue, "true") == 0 ? true : false;
+				boolVars.insert(pair<string, bool>(varName, varAsBool));
+			}
+			else stringVars.insert(pair<string, string>(varName, varValue));
 		}
 	}
 	else if (strcmp(node->name(), "link") == 0)
