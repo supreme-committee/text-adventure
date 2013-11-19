@@ -236,7 +236,7 @@ bool Parser::isInt(string string)
 //Will print out to cerr all debug/test text.
 bool Parser::verify(const char* filename)
 {
-	string logString = "Starting verication of ";
+	string logString = "Starting verificaion of ";
 	logString.append(filename);
 	Logger::log(logString);
 
