@@ -202,18 +202,12 @@ void Parser::grabInnerNodes(rapidxml::xml_node<char>* node, Tile& tileData,
 
 bool Parser::compareInts(int one, int two, char* comparison)
 {
-	if (strcmp(comparison, "eq") == 0)
-	{
-		if (one == two) return true;
-	}
-	else if (strcmp(comparison, "gt") == 0)
-	{
-		if (one > two) return true;
-	}
-	else if (strcmp(comparison, "ge") == 0)
-	{
-		if (one >= two) return true;
-	}
+	if (strcmp(comparison, "eq") == 0) { if (one == two) return true; }
+	else if (strcmp(comparison, "gt") == 0) { if (one > two) return true; }
+	else if (strcmp(comparison, "ge") == 0) { if (one >= two) return true; }
+	else if (strcmp(comparison, "lt") == 0) { if (one < two) return true; }
+	else if (strcmp(comparison, "le") == 0) { if (one <= two) return true; }
+	else if (strcmp(comparison, "neq") == 0) { if (one != two) return true; }
 	else
 	{
 		throw rapidxml::parse_error("Invalid comparison in <if> statement", NULL);
@@ -501,11 +495,11 @@ Tile Parser::parse(const char* filename,
 				}
 				if (count != 3) throw rapidxml::parse_error("Not enough stuff in if statement", NULL);
 
-				auto attr1 = node->first_attribute(); // arg1
+				auto attr1 = node->first_attribute(); // arg1 (i.e. variable name)
 				node->remove_first_attribute();
 				auto attr2 = node->first_attribute(); // arg2
 				node->remove_first_attribute();
-				auto attr3 = node->first_attribute(); // Comparison
+				auto attr3 = node->first_attribute(); // Comparison (gt, ge, eq, etc.)
 				node->remove_first_attribute();
 				if (strcmp(attr1->name(), "arg1") != 0 ||
 					strcmp(attr2->name(), "arg2") != 0 ||
@@ -514,118 +508,71 @@ Tile Parser::parse(const char* filename,
 					throw rapidxml::parse_error("Invalid if statement", NULL);
 				}
 
-				if (!isInt(attr1->value())) // If attr1 is not an integer
+				if (intVars.find(attr1->value()) != intVars.end()) // If arg1 is an int variable
 				{
-					if (intVars.find(attr1->value()) != intVars.end()) // If attr1 is a stored int variable
-					{
-						if (intVars.find(attr2->value()) != intVars.end()) // attr1 & attr2 are both int variables
+					if (isInt(attr2->value())) // arg2 is a plain int ("123")
+					{ 
+						ifPassed = compareInts(intVars.find(attr1->value())->second,
+							atoi(attr2->value()),
+							attr3->value());
+					}
+					else // arg2 two looks to be another stored int variable
+					{ 
+						if (intVars.find(attr2->value()) != intVars.end()) // Check that arg2 does indeed exist
 						{
-							ifPassed = compareInts(
-								intVars.find(attr1->value())->second, 
+							ifPassed = compareInts(intVars.find(attr1->value())->second,
 								intVars.find(attr2->value())->second,
 								attr3->value());
 						}
-						else // attr1 is int variable. attr2 is not
+						else // arg2's variable doesn't exist. Error
 						{
-							if (isInt(attr2->value()))
-							{
-								ifPassed = compareInts(
-									intVars.find(attr1->value())->second,
-									atoi(attr2->value()),
-									attr3->value());
-							}
-						}
-					}
-					else if (boolVars.find(attr1->value()) != boolVars.end()) // attr1 is a stored bool variable
-					{
-						if (strcmp(attr3->value(), "eq") != 0) 
-							throw rapidxml::parse_error("Invalid comparison used for bool variables", NULL);
-						if (boolVars.find(attr2->value()) != boolVars.end()) // attr2 is also a bool variable
-						{
-							ifPassed = boolVars.find(attr1->value())->second == boolVars.find(attr2->value())->second;
-						}
-						else if (strcmp(attr2->value(), "true") == 0 // attr2 is a "true" or "false" string
-							|| strcmp(attr2->value(), "false") == 0)
-						{
-							if (strcmp(attr2->value(), "true") == 0)
-								ifPassed = boolVars.find(attr1->value())->second == true;
-							else
-								ifPassed = boolVars.find(attr1->value())->second == false;
-						}
-						else // Something's wrong
-						{
-							throw rapidxml::parse_error(
-								"Invalid value for arg2 in <if>. Must be bool variable, \"true\", or \"false\"", NULL);
-						}
-					}
-					else if (strcmp(attr1->value(), "true") == 0 || // attr1 is "true" or "false"
-						strcmp(attr1->value(), "false") == 0)
-					{
-						if (strcmp(attr3->value(), "eq") != 0) 
-							throw rapidxml::parse_error("Invalid comparison used for bool variables", NULL);
-						if (boolVars.find(attr2->value()) != boolVars.end()) // attr2 is a stored bool variable
-						{
-							if (strcmp(attr1->value(), "true") == 0)
-								ifPassed = boolVars.find(attr2->value())->second == true;
-							else
-								ifPassed = boolVars.find(attr2->value())->second == false;
-						}
-						else
-						{
-							throw rapidxml::parse_error("arg2 must be a bool variable in <if> tag", NULL);
-						}
-					}
-					else // attr1 is just a string (NOT "true", "false" or a number)
-					{
-						if (strcmp(attr3->value(), "eq") != 0) 
-							throw rapidxml::parse_error("Invalid comparison for given variables in <if> statement.", NULL);
-						if (stringVars.find(attr1->value()) != stringVars.end()) // attr1 is a string var
-						{
-							if (stringVars.find(attr2->value()) != stringVars.end()) // attr2 is also a string var
-							{
-								if (stringVars.find(attr1->value())->second == 
-									stringVars.find(attr2->value())->second)
-								{
-									ifPassed = true;
-								}
-							}
-							else // attr1 is a string var, attr2 is a string literal
-							{
-								if (stringVars.find(attr1->value())->second == string(attr2->value()))
-								{
-									ifPassed = true;
-								}
-							}
-						}
-						else // attr1 is a string literal
-						{
-							if (stringVars.find(attr2->value()) != stringVars.end()) // attr2 is a string var
-							{
-								if (string(attr1->value()) == stringVars.find(attr2->value())->second)
-								{
-									ifPassed = true;
-								}
-							}
-							else // attr2 is not a string var. Error
-							{
-								throw rapidxml::parse_error("Invalid <if> statement: arg1 or arg2 must be a variable", NULL);
-							}
+							char err[256] = "int variable referenced in arg2 not found: ";
+							strcat(err, attr2->value());
+							throw rapidxml::parse_error(err, NULL);
 						}
 					}
 				}
-				else // attr1 is an integer (i.e. "345" or something)
+				else if (boolVars.find(attr1->value()) != boolVars.end()) // If arg1 is a bool variable
 				{
-					if (intVars.find(attr2->value()) != intVars.end())
+					if (strcmp(attr3->value(), "eq") != 0) // Invalid comparison used
+						throw rapidxml::parse_error("Invalid comparison for bool variable. Bools can only be compared with \"eq\"", NULL);
+
+					if (strcmp(attr2->value(), "true") == 0 || strcmp(attr2->value(), "false") == 0) // arg2 is "true" or "false"
 					{
-						ifPassed = compareInts(
-								atoi(attr1->value()), 
-								intVars.find(attr2->value())->second,
-								attr3->value());
+						bool comparisonValue = strcmp(attr2->value(), "true") == 0 ? true : false;
+						ifPassed = boolVars.find(attr1->value())->second == comparisonValue;
 					}
-					else
+					else // arg2 is (presumably) a bool variable as well
+					{ 
+						if (boolVars.find(attr2->value()) != boolVars.end()) // Check that arg2 exists
+						{
+							ifPassed = boolVars.find(attr1->value())->second == boolVars.find(attr2->value())->second;
+						}
+						else // arg2 does not exist. Error
+						{
+							char err[256] = "bool variable referenced in arg2 not found: ";
+							strcat(err, attr2->value());
+							throw rapidxml::parse_error(err, NULL);
+						}
+					}
+				}
+				else if (stringVars.find(attr1->value()) != stringVars.end()) // If arg1 is a string variable
+				{
+					if (strcmp(attr3->value(), "eq") != 0) // Invalid comparison used
+						throw rapidxml::parse_error("Invalid comparison for string variable. Strings can only be compared with \"eq\"", NULL);
+
+					if (stringVars.find(attr2->value()) != stringVars.end()) // Check if arg2 is a string variable
 					{
-						throw rapidxml::parse_error("arg2 must be a stored int variable", NULL);
+						ifPassed = string(attr1->value()) == stringVars.find(attr2->value())->second;
 					}
+					else // Just compare arg1 with arg2 as a plain string
+					{
+						ifPassed = string(stringVars.find(attr1->value())->second) == string(attr2->value());
+					}
+				}
+				else // arg1 is not a variable. Throw an error
+				{
+					throw rapidxml::parse_error("arg1 in if statements must be a variable", NULL);
 				}
 			}
 			else if (strcmp(node->name(), "else") != 0) // Handle all other tags (except <else>. It'll be handled seperately)
