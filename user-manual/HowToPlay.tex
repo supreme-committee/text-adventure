@@ -16,9 +16,13 @@ As we start the game, a window will appear that has the text on the upper half o
 
 There is a menu that pops up when the mouse is near the top of the window. On the menu bar we put three options that will let the player start a new game, save the game, or load a game.
 
+\section{Macs}
 
+The steps required to play on a mac can differ slightly. Unlike our PC release, the terminal is currently required for starting, saving, and loading games. Once everything is compiled correctly you should have a Unix Executable File called 'game' in a folder with a .tar file containing only xml, image, and sound files. A list of supported image and sound file types can be found in the Making Games section of the manual. 
 
+Once you have both these things, simply run the unix executable. This should bring up the game engine window, from here click on the 'new game' button. This should trigger a terminal message asking for the path to a map file (the .tar). Assuming your .tar is in the same folder as the game, simply typing the name of the game is sufficient. If you wish to run with logging enabled (for debugging) use the command './game -l' in the terminal when starting the game engine. 
 
+The procedure for loading a game is very similar, click on Load Game within the game engine, then specify a path to the save file (.save) in the command line.
 
 
 
