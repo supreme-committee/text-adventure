@@ -249,6 +249,12 @@ void Game::init(string tarFile) // tarFile is " " by default
 		showErrorMessage("ERROR: could not load font.ttf");
 	}
 
+	if (!tex_arrow.loadFromFile("content/arrow.png")) {
+		Logger::log("ERROR: could not load arrow.png");
+		showErrorMessage("ERROR: could not load arrow.png");
+	}
+	this->spr_arrow.setTexture(tex_arrow);
+
 	m = new menu(font_main);
 	m->enableLoading(false);
 	m->enableSaving(false);
@@ -531,13 +537,10 @@ void Game::render()
 			button.render(window);
 		}
 
-		sf::CircleShape selection; // Arrow for button selection (should eventually be changed) - michaelg
-		selection.setRadius(5.0f);
-		selection.setFillColor(sf::Color::Red);
-		selection.setPosition(5.0f, 260.0f);
-		window.draw(selection);
-		selection.setPosition(5.0f, 30.0f);
-		window.draw(selection);
+		this->spr_arrow.setPosition(-9, 260); // Draw the arrow
+		window.draw(spr_arrow);
+		this->spr_arrow.setPosition(-9, 30);
+		window.draw(spr_arrow);
 	}
 	window.draw(rect_overlay); // Draw the overlay over everything else
 	window.display();
