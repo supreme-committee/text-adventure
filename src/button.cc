@@ -27,7 +27,7 @@ button::button(Link li, sf::Font& f,float xx, float yy,bool mute)
 	b = 175;
 	alpha = 255;
 
-	if (!texture.loadFromFile("button.png"))
+	if (!texture.loadFromFile("content/button.png"))
 	{
 		Logger::log("Failed to load button.png It could not be found!");
 	}
@@ -107,7 +107,7 @@ void button::setAlpha(int a)
 }
 void button::playSound()
 {
-	if(!sb.loadFromFile("button.wav"))
+	if(!sb.loadFromFile("content/button.wav"))
 	{
 		Logger::log("failed to load button.wav: It could not be found.");
 	}

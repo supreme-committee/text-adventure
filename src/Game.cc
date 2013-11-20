@@ -39,6 +39,7 @@ void Game::buildText()
 			text.setCharacterSize(16);
 			text.setColor(sf::Color(255, 255, 255, alpha));
 			if (alpha > 25) alpha -= 25;
+			else alpha = 0;
 			text.setString(textString.substr(start, charCount + 1));
 			text.setPosition(20.0f, ypos);
 			ypos += 18.0f;
