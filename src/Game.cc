@@ -209,6 +209,7 @@ void Game::setupNewGame(string tarFile)
 	string command = "rmdir .gamefiles /s /q & mkdir .gamefiles && attrib +h .gamefiles && tar -xf '" + tarFile + "' -C .gamefiles";
 	system(command.c_str());
 #else
+    system("mkdir .gamefiles");
 	system("rm .gamefiles/*"); // delete old files MAC specific
 	system(("tar -xf " + tarFile + " -C .gamefiles").c_str());
 #endif
