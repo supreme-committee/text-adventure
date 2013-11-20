@@ -20,13 +20,19 @@ void Game::buildText()
 	}
 	string textString = stringStream.str(); // All the text that needs to be displayed
 
+	while (textString.find("\r") != string::npos) // Replace return characters
+	{
+		textString.replace(textString.find("\r"), 1, " ");
+	}
+
 	int charCount = 0; // How many characters we've iterated through
 	int start = 0;     // Start of substring to break off
 	int alpha = 255;   // The alpha of the line of text
 	float ypos = 25.0f;
 	for (unsigned int pos = 0; pos < textString.length(); pos++)
 	{
-		if (charCount > 70 && textString[pos] == ' ') // Line break every 80 characters
+		if (textString[pos] == '\n' || // Line break when '\n' is found
+			(charCount > 70 && textString[pos] == ' ')) // Or just line break every 80 characters
 		{
 			sf::Text text;
 			text.setFont(font_main);
