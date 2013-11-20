@@ -17,7 +17,7 @@
 		<text>You tell the guard you've always found bows appealing, you'd love to learn to use one.</text>
 	</link>
 	<link>
-		<file>start.xml</file>
+		<file>TownCenter.xml</file>
 		<text>You thank him profusely for the offer but you have other business you must attend to.</text>
 	</link>
 </tile>

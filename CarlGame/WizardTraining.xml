@@ -1,15 +1,12 @@
 <tile>
-	<text></text>
-	<var>
-		<name></name>
-		<value></value>
-	</var>
-	<var>
-		<name></name>
-		<value></value>
-	</var>
+	<text>The wizard's face is unreadable, he shows no reaction to your response. Without wasting any more time he informs you that his house lies near the edge of the swamp. Through all of this Ursala has remained silent, however upon hearing this she breaks her silence.
+"You live in this horrible place. Why?"
+"Where there is great evil there is potential for great good. This swamp has teemed with life since before humans strode the earth. Some wise men theorize that life as we know it sprung from the depths of such a place. There is great power here for those who are attuned to such things. However it is currently under the influence of some agent I cannot detect. As such it is quite dangerous, I'm afraid I can't offer you my protection for the duration of your companions training."
+She is clearly unhappy about this, but it is difficult to argue with a man with a glowing staff, so she prepares to be on her way. The two of you say quick, although reluctant, goodbyes. In your short journey together you had come to admire her independence and courage, you are sad to part ways. It is with twinges of sadness and regret you watch her retreating form.
+
+However there are more pressing matters for you to attend to. As soon as you are ready the wizard sets off, leaving you to match his pace. It is a long journey, and made all the more stressful by the way your new companion seems to constantly be fending off enemies you can't ever seem to see clearly. Instead you hear their rustling and bestial cries, the only thing more disconcerting are the brightly colored flashes which emanate from the cloaked figures staff in response. After what seems like an eternity the journey comes to an abrupt end. The two of you squeeze between a boulder and especially large tree trunk, sitting at the center of a small grove sits a surprisingly normal abode, a modest hut with a thatched roof. As you go to enter it occurs to you you don't know your rescuers name. In response to your inquiry, the wizard says a single word: "Aeternus".</text>
 	<link>
-		<file>.xml</file>
-		<text></text>
+		<file>SecondWizardTraining.xml</file>
+		<text>Enter the house</text>
 	</link>
 </tile>

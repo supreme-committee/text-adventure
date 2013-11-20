@@ -7,7 +7,7 @@ He finds a practice spear and the two of you get to it. When you start the sun i
 		<value>unskilledSpear</value>
 	</var>
 	<link>
-		<file>start.xml</file>
+		<file>TownCenter.xml</file>
 		<text>Feeling satisfied with your progress, you retrace your steps towards the center of the town.</text>
 	</link>
 </tile>

@@ -5,7 +5,7 @@
 		<value>true</value>
 	</var>
 	<link>
-		<file>start.xml</file>
+		<file>TownCenter.xml</file>
 		<text>Resume your inspection of the town square</text>
 	</link>
 </tile>
