@@ -41,6 +41,8 @@ private:
 	unsigned int buttonSelection;    // The currently selected button
 	void buildText();     // Set up the text so it fits cleanly on the screen
 	void createButtons(); // Create Button objects for links from the Tile
+	sf::Texture tex_arrow; // texture for the arrow
+	sf::Sprite spr_arrow; // Little arrow for currently selected button
 
 	void scrollTextUp();      // Scroll the text
 	void scrollTextDown(); 
