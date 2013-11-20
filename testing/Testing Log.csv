@@ -16,13 +16,16 @@ Parser,,
 <if> statements,,
 17,Less than 3 args,"Good, but we should change error message (""not enough stuff in if statement"")"
 18,More than 3 args,"good, but wrong error message displated (""not enough stuff in if statement"")"
-19,Comparing 2 different variable types:,
+,Comparing 2 different variable types:,
 20,           int vs bool,int then bool: no error message. bool then int: good
 21,int vs string,int then string: no error message. string then int: no error message
 22,bool vs string,bool then string: good. string then bool: no error message
 23,Giving it a variable that doesn't exist,good
 24,"Invalid comparisons (e.g. ""ee"" or ""jasd"")","Error always the same (""Invalid comparison used for bool variables"") (fixed)"
 25,"Invalid comparison for variable type (compare int w/ bool w/ ""gt"" or ""ge"")",
+36,"int comparisons (eq, gt, ge, lt, le, neq)",good
+37,bool comparisons (eq),good
+38,string comparisons (eq),good
 Setting Variables,,
 27,Variable names and values with spaces in them,good
 28,<modify> properly changes ints by requested amount,good
@@ -30,7 +33,10 @@ Setting Variables,,
 30,Calling <modify> with value out of range of the int type,variable runs out of range. No crash.
 31,Using invalid (e.g. <text>) tags within <modify> tags,No error message shown (fixed)
 32,Make sure redefining a variable replaces its value,good
-33,Try to redefine variable as different type,
+,Try to redefine variable as different type:,
+33,Improperly redefine an int,good
+34,Improperly redefine a bool,good
+35,Improperly redefine a string,? Technically anything within <value> is valid once a string-var is defined
 Saving and Loading,,
 ,Make sure related tar is saved with sav file,
 ,Ensure correct variables are restored when loading,
