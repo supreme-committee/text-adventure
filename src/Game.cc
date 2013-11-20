@@ -537,7 +537,7 @@ void Game::render()
 			button.render(window);
 		}
 
-		this->spr_arrow.setPosition(-9, 260); // Draw the arrow
+		this->spr_arrow.setPosition(0, 265); // Draw the arrow
 		window.draw(spr_arrow);
 		this->spr_arrow.setPosition(-9, 30);
 		window.draw(spr_arrow);
