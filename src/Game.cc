@@ -463,9 +463,12 @@ void Game::input()
 			case sf::Keyboard::Return:
 				if (buttons.size() > 0)
 				{
-					loadFile(buttons[buttonSelection].getLink());
-					textSelection = 0;
+					buttons[buttonSelection].playSound();
+					sf::sleep(sf::seconds(.1));	//Pause for a moment so the sound will be played.
+					this->tran_state = FADING_OUT; // Fade everything out
+					this->currentFile = buttons[buttonSelection].getLink(); // Prepare next xml file for loading
 					buttonSelection = 0;
+					textSelection = 0;
 				}
 				break;
 			case sf::Keyboard::Up:
