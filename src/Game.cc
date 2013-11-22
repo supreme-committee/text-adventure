@@ -264,9 +264,8 @@ void Game::init(string tarFile) // tarFile is " " by default
 
 	if (texture_background.loadFromFile("content/logo.png")) {
 		imageValid = true;
-		
-		sprite_background.setTexture(texture_background);
 		rescaleImage();
+		sprite_background.setTexture(texture_background);
 	}
 
 	m = new menu(font_main);
@@ -566,7 +565,7 @@ void Game::rescaleImage()
 {
 	sf::Vector2u dimension_img = texture_background.getSize();
 	sf::Vector2u dimension_window = window.getSize();
-	if(!dimension_img.x == 1024 && !dimension_img.y == 576)	//image is not 1024X576, need to rescale
+	if(dimension_img.x != 1024 || dimension_img.y != 576)	//image is not 1024X576, need to rescale
 	{
 		float aspect_img = (float)dimension_img.x / (float)dimension_img.y;	//get aspect ratio of image
 
@@ -594,6 +593,11 @@ void Game::rescaleImage()
 			sprite_background.setPosition(differenceX/2.0,0);
 		}
 	}
+	else
+	{
+		sprite_background.setScale(1.0,1.0);
+		sprite_background.setPosition(0,0);
+	}
 }
 void Game::loadMusic(string filename)
 {
@@ -611,7 +615,6 @@ void Game::loadMusic(string filename)
 			break;
 		}
 	}
-
 	if (!good)
 	{
 #ifdef WIN32
