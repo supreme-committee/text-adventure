@@ -227,7 +227,7 @@ void Game::setupNewGame(string tarFile)
 	m->enableLoading(true);
 	m->enableSaving(true);
 
-	rect_overlay.setSize(sf::Vector2f(640.0f, 480.0f));
+	rect_overlay.setSize(sf::Vector2f(1024.0f, 576.0f));
 	rect_overlay.setFillColor(sf::Color::Transparent);
 }
 
