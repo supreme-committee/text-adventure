@@ -262,6 +262,13 @@ void Game::init(string tarFile) // tarFile is " " by default
 	}
 	this->spr_arrow.setTexture(tex_arrow);
 
+	if (texture_background.loadFromFile("content/logo.png")) {
+		imageValid = true;
+		
+		sprite_background.setTexture(texture_background);
+		rescaleImage();
+	}
+
 	m = new menu(font_main);
 	m->enableLoading(false);
 	m->enableSaving(false);
