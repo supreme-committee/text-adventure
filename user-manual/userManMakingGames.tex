@@ -181,7 +181,7 @@ While simply understanding the various functions and their syntax described abov
 
 Not every tile is a physical location, this is apparent in the example, the message board is geographically within the town square. If you select the BuyFood link it opens up a series of dialogue focused tiles with options for trading inventory items for food. Each potential offer requires its own special .xml file detailing the net result for the player if the transaction is completed. Unfortunately without comparative operators, we don't yet have the capability to have a quantity of a variable you can subtract from, instead such interactions must either involve barter or be carefully scripted so there can only be one possible result.
 
-\section{Tags}
+\section{Tags and Variables}
 
 For the sake of clarity and completeness, all the usable tags are shown here. 
 
@@ -193,6 +193,12 @@ For the sake of clarity and completeness, all the usable tags are shown here.
 
 
 <image></image>
+
+<sound></sound>
+
+<music></music>
+
+For all media, you must give a path to a file relative to the tar. If you have a media file inside a folder in your tar (in our example, if CarlGame.tar contained /gamemusic/testmusic.wav), you would specify with <image>gamemusic/testmusic.wav</image>. 
 	
 
 <link>
@@ -200,6 +206,31 @@ For the sake of clarity and completeness, all the usable tags are shown here.
 	<text></text>
 </link>
 
+
+<var>
+	<name></name>
+	<value></value>
+</var>
+
+<modify>
+	<var>(variablename)</var>
+	<amount>(int)</amount>
+</modify>
+
+<text> randomtext  {{ variablename }} otherrandomtext </text>
+
+Some special notes regarding variable related tags. The value of a variable can be either an int, bool, or string. Typing is done automatically, if the variable is a number within range it is evaluated as an integer, if it's 'true' or 'false' it is considered a boolean, otherwise it is a string. 
+
+There are very few restrictions for variable names. They should start with a letter. Avoid starting variable names with numbers as this will cause problems. There is also a short list of keywords that should be avoided, listed here.
+
+Keywords:
+bool
+int
+string
+
+Modify only works if the thing inside <var></var> is a variable already in the table and must be an integer. Strings and bools can be changed simply be redeclaring the variable with the new value. The amount can be positive or negative, but again the variable must stay within valid int range. 
+
+In addition, there is a special application of variables inside of <text></text> tags. You can use {{ }} with the name of a variable inside, and the value of that variable will be displayed. 
 
 
 \end{document}
