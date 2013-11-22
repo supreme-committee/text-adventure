@@ -132,7 +132,6 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 	{
 		char* variableName = NULL;
 		char* amount;
-		int i_amount;
 
 		if (strcmp(node->first_node()->name(), "var") == 0 &&
 			strcmp(node->last_node()->name(), "amount") == 0)
@@ -156,16 +155,24 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		// Check if int variable exists
 		if (intVars.find(variableName) == intVars.end())
 		{
-			string message = "ERROR: attempt to modify an int that doesn't exist: ";
-			message.append(variableName);
+			string message = "ERROR: attempt to modify an int that doesn't exist: " + string(variableName);
 			Logger::log(message);
 			return;
 		}
-
-		stringstream ss(amount); // Modify the int
-		ss >> i_amount;
-		auto woot = intVars.find(variableName);
-		woot->second += i_amount;
+		
+		try
+		{
+			int i_amount = stoi(amount);
+			auto woot = intVars.find(variableName);
+			woot->second += i_amount;
+		}
+		catch (invalid_argument)
+		{
+			Logger::log("ERROR: invalid amount used in <modify> statement: " + string(amount));
+			char err[256] = "invalid amount used in <modify> statement: ";
+			strcat(err, amount);
+			throw rapidxml::parse_error(err, NULL);
+		}
 	}
 	else if (strcmp(node->name(), "image") == 0) // <image> tag
 	{
