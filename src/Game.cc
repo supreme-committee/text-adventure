@@ -251,7 +251,7 @@ Game::~Game()
 }
 void Game::init(string tarFile) // tarFile is " " by default
 {
-	if (!font_main.loadFromFile("font.ttf")) { // Load the font (OpenSans-Regular)
+	if (!font_main.loadFromFile("content/font.ttf")) { // Load the font (OpenSans-Regular)
 		Logger::log("ERROR: could not load font.ttf");
 		showErrorMessage("ERROR: could not load font.ttf");
 	}
