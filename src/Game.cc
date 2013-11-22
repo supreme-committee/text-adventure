@@ -602,7 +602,7 @@ void Game::loadMusic(string filename)
 		"raw", "paf", "svx", "nist", "voc", 
 		"ircam", "w64", "mat4", "mat5", "pvf", 
 		"htk", "sds", "avr", "sd2", "caf", "wve", "mpc2k", "rf64"};
-	string ext = filename.substr(filename.find_last_of("."), string::npos);
+	string ext = filename.substr(filename.find_last_of(".") + 1, string::npos);
 	bool good = false;
 	for (auto s : supportedTypes)
 	{
@@ -611,6 +611,7 @@ void Game::loadMusic(string filename)
 			break;
 		}
 	}
+
 	if (!good)
 	{
 #ifdef WIN32
