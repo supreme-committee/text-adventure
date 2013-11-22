@@ -186,7 +186,8 @@ void Game::loadFile(string filename)
 		for (auto& line : texts) line.setColor(sf::Color::Red);
 	}
 
-	if (tile.image.length() > 1 && texture_background.loadFromFile(".gamefiles/" + tile.image))
+	//if (tile.image.length() > 1 && texture_background.loadFromFile(".gamefiles/" + tile.image))
+	if(texture_background.loadFromFile("content/scale.jpg"))
 	{
 		imageValid = true;
 		rescaleImage();
@@ -241,7 +242,7 @@ Game::Game() : fileDirectory(".gamefiles")
 	window.setFramerateLimit(30);
 	muteButtons = false;
 	rect.setPosition(4,22);
-	rect.setSize(sf::Vector2f(630,190));
+	rect.setSize(sf::Vector2f(1014,190));
 	rect.setFillColor(sf::Color(0,0,0,100));
 	tran_state = STATIC;
 }
@@ -566,29 +567,29 @@ void Game::rescaleImage()
 {
 	sf::Vector2u dimension_img = texture_background.getSize();
 	sf::Vector2u dimension_window = window.getSize();
-	if(!(dimension_img.x == 640 && dimension_img.y == 480))	//image is not 640x480, need to rescale
+	if(!dimension_img.x == 1024 && !dimension_img.y == 576)	//image is not 1024X576, need to rescale
 	{
 		float aspect_img = (float)dimension_img.x / (float)dimension_img.y;	//get aspect ratio of image
 
 		float scaleX = (float)dimension_window.x / (float)dimension_img.x;	//get ratio of window's width to image's width
 		float scaleY = (float)dimension_window.y / (float)dimension_img.y;	//get ratio of window's height to image's height
 
-		if(aspect_img == (4.0/3.0))	//image is too large or too small, but has 4:3 ratio
+		if(aspect_img == (16.0/9.0))	//image is too large or too small, but has 16:9 ratio
 		{
 			sprite_background.setScale(scaleX,scaleY);
 		}
-		else if(aspect_img > (4.0/3.0))	//image has largest width, so scale x and y by width
+		else if(aspect_img > (16.0/9.0))	//image has largest width, so scale x and y by width
 		{
 			sprite_background.setScale(scaleX,scaleX);	//set scale
-			float differenceY = 480 - (scaleX * dimension_img.y);	//get difference between window height and scaled height
+			float differenceY = 576 - (scaleX * dimension_img.y);	//get difference between window height and scaled height
 			if(differenceY < 0)
 				differenceY *= -1;
 			sprite_background.setPosition(0,differenceY/2.0);	//Position image to make letterbox
 		}
-		else if(aspect_img < (4.0/3.0))	//image has largest height, so scale x and y by height
+		else if(aspect_img < (16.0/9.0))	//image has largest height, so scale x and y by height
 		{
 			sprite_background.setScale(scaleY,scaleY);
-			float differenceX = 640 - (scaleY * dimension_img.x);
+			float differenceX = 1024 - (scaleY * dimension_img.x);
 			if(differenceX < 0)
 				differenceX *= -1;
 			sprite_background.setPosition(differenceX/2.0,0);
