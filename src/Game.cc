@@ -186,8 +186,7 @@ void Game::loadFile(string filename)
 		for (auto& line : texts) line.setColor(sf::Color::Red);
 	}
 
-	//if (tile.image.length() > 1 && texture_background.loadFromFile(".gamefiles/" + tile.image))
-	if(texture_background.loadFromFile("content/scale.jpg"))
+	if (tile.image.length() > 1 && texture_background.loadFromFile(".gamefiles/" + tile.image))
 	{
 		imageValid = true;
 		rescaleImage();
