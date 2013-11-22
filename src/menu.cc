@@ -28,7 +28,7 @@ menu::menu(sf::Font& f)
 	newgame.setString("New Game");
 
 	bar.setFillColor(sf::Color(205,192,176,255));
-	bar.setSize(sf::Vector2f(640,22));
+	bar.setSize(sf::Vector2f(1024,22));
 	bar.setPosition(0,0);
 
 	m.width = 45;
