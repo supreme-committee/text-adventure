@@ -69,7 +69,7 @@ void Game::buildText()
 }
 void Game::createButtons()
 {
-	float yPos = 250.0f;
+	float yPos = 300.0f;
 	// Create a button for each link in this tile
 	for (auto& link : tile.links)
 	{
@@ -90,14 +90,14 @@ void Game::scrollTextUp()
 		int alpha = 255;
 		for (int i = textSelection; i >= 0; i--)
 		{
-			texts[i].setColor(sf::Color(255, 255, 255, alpha));
-			if (alpha > 100) alpha -= 100;
+			texts[i].setColor(sf::Color::Transparent);
 		}
 		alpha = 255;
 		for (unsigned int i = textSelection; i < texts.size(); i++)
 		{
 			texts[i].setColor(sf::Color(255, 255, 255, alpha));
 			if (alpha > 25) alpha -= 25;
+			else alpha = 0;
 		}
 	}
 }
@@ -113,14 +113,14 @@ void Game::scrollTextDown()
 		int alpha = 255;
 		for (int i = textSelection; i >= 0; i--)
 		{
-			texts[i].setColor(sf::Color(255, 255, 255, alpha));
-			if (alpha > 100) alpha -= 100;
+			texts[i].setColor(sf::Color::Transparent);
 		}
 		alpha = 255;
 		for (unsigned int i = textSelection; i < texts.size(); i++)
 		{
 			texts[i].setColor(sf::Color(255, 255, 255, alpha));
 			if (alpha > 25) alpha -= 25;
+			else alpha = 0;
 		}
 	}
 }
@@ -554,7 +554,7 @@ void Game::render()
 			button.render(window);
 		}
 
-		this->spr_arrow.setPosition(0, 265); // Draw the arrow
+		this->spr_arrow.setPosition(0, 315); // Draw the arrow
 		window.draw(spr_arrow);
 		this->spr_arrow.setPosition(-9, 30);
 		window.draw(spr_arrow);
