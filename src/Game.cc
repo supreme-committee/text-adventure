@@ -359,7 +359,7 @@ void Game::input()
 						b.setActiveRect(true);
 					hideUI = false;
 				}
-				else       //UI not hidden, hide
+				else if (imageValid) // UI not hidden, hide if there is a background image
 				{
 					for(auto& b : buttons)
 						b.setActiveRect(false);
