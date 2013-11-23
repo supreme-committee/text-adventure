@@ -198,15 +198,21 @@ void Game::loadFile(string filename)
 	sprite_background.setTextureRect(sf::IntRect(0, 0, texSize.x, texSize.y));
 
 	sound.resetBuffer();	//Reset buffer to be ready to load a new one.
-	if(tile.sfx.length() > 0 && !soundbuffer.loadFromFile(".gamefiles/" + tile.sfx))
+	if(tile.sfx.length() > 0)
 	{
-		Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
-		sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
+		if(!soundbuffer.loadFromFile(".gamefiles/" + tile.sfx))
+		{
+			Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
+			sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
+		}
+		else
+		{
+			sound.setBuffer(soundbuffer);
+			sound.setVolume(100);
+			if(!muteButtons)
+				sound.play();
+		}
 	}
-	else sound.setVolume(100);
-	sound.setBuffer(soundbuffer);
-	if(!muteButtons)
-		sound.play();
 	if(tile.bgm != "")
 		loadMusic(".gamefiles/" + tile.bgm);
 }
