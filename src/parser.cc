@@ -500,7 +500,8 @@ Tile Parser::parse(const char* filename,
 				{
 					count++;
 				}
-				if (count != 3) throw rapidxml::parse_error("Not enough stuff in if statement", NULL);
+				if (count > 3) throw rapidxml::parse_error("Too many arguments in if statement. Should be: arg1, arg2, and comparison", NULL);
+				else if (count < 3) throw rapidxml::parse_error("if statement is missing arguments. Should be: arg1, arg2, and comparison", NULL);
 
 				auto attr1 = node->first_attribute(); // arg1 (i.e. variable name)
 				node->remove_first_attribute();
