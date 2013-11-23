@@ -215,6 +215,8 @@ void Game::loadFile(string filename)
 	}
 	if(tile.bgm != "")
 		loadMusic(".gamefiles/" + tile.bgm);
+
+	hideUI = false;
 }
 void Game::setupNewGame(string tarFile)
 {
@@ -549,7 +551,7 @@ void Game::render()
 	}
 	if(!hideUI)
 	{
-		window.draw(rect);
+		if (texts.size() > 0) window.draw(rect); // Background for text
 		for (auto& text : texts)
 		{
 			window.draw(text);
@@ -559,10 +561,14 @@ void Game::render()
 			button.render(window);
 		}
 
-		this->spr_arrow.setPosition(0, 315); // Draw the arrow
-		window.draw(spr_arrow);
-		this->spr_arrow.setPosition(-9, 30);
-		window.draw(spr_arrow);
+		if (buttons.size() > 0) {
+			this->spr_arrow.setPosition(0, 315); // Draw the arrow
+			window.draw(spr_arrow);
+		}
+		if (texts.size() > 0) {
+			this->spr_arrow.setPosition(-9, 30);
+			window.draw(spr_arrow);
+		}
 	}
 	window.draw(rect_overlay); // Draw the overlay over everything else
 	window.display();
