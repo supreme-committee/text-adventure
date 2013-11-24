@@ -149,6 +149,7 @@ void Game::scrollButtonsUp()
 		}
 		buttonSelection++;
 	}
+	buttonsAnimating = false;
 }
 void Game::scrollButtonsDown()
 {
@@ -166,6 +167,7 @@ void Game::scrollButtonsDown()
 		}
 		buttonSelection--;
 	}
+	buttonsAnimating = false;
 }
 void Game::loadFile(string filename)
 {
@@ -269,6 +271,7 @@ Game::Game() : fileDirectory(".gamefiles")
 	rect.setSize(sf::Vector2f(1014,190));
 	rect.setFillColor(sf::Color(0,0,0,100));
 	tran_state = STATIC;
+	buttonsAnimating = false;
 }
 Game::~Game()
 {
@@ -493,13 +496,17 @@ void Game::input()
 				}
 				break;
 			case sf::Keyboard::Up: // Scroll buttons up
+				while (buttonsAnimating) this_thread::sleep_for(chrono::milliseconds(1)); // Sleep until prev. animation is done
 				if (buttons.size() > 0 && buttonSelection < buttons.size() - 1) {
+					buttonsAnimating = true;
 					thread t(&Game::scrollButtonsUp, this);
 					t.detach();
 				}
 				break;
 			case sf::Keyboard::Down: // Scroll buttons down
+				while (buttonsAnimating) this_thread::sleep_for(chrono::milliseconds(1));
 				if (buttonSelection > 0) {
+					buttonsAnimating = true;
 					thread t(&Game::scrollButtonsDown, this);
 					t.detach();
 				}

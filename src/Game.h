@@ -38,6 +38,7 @@ private:
 	int tran_state;
 
 	vector<button> buttons; // The choices that'll be displayed to the user
+	bool buttonsAnimating; // true if the buttons are currently in an animation
 	unsigned int buttonSelection;    // The currently selected button
 	void buildText();     // Set up the text so it fits cleanly on the screen
 	void createButtons(); // Create Button objects for links from the Tile
