@@ -80,6 +80,9 @@ void Game::createButtons()
 	for (auto& link : tile.links)
 	{
 		button b(link, font_main, 30.0f, yPos, muteButtons);
+		float alpha = (yPos / 300.0f) * 255.0f;
+		if (alpha > 255.0f) alpha = 255.0f;
+		b.setAlpha(alpha);
 		buttons.push_back(b);
 		yPos += b.getHeight() + 10.0f;
 	}
@@ -139,6 +142,8 @@ void Game::scrollButtonsUp()
 		for (auto& b : buttons)
 		{
 			b.setPos(b.getPos().left, b.getPos().top - dy);
+			if (b.getPos().top < 212.0f) b.setAlpha(0);
+			else if (b.getPos().top < 300.0f) b.setAlpha(100);
 		}
 		buttonSelection++;
 	}
@@ -152,6 +157,8 @@ void Game::scrollButtonsDown()
 		for (auto& b : buttons)
 		{
 			b.setPos(b.getPos().left, b.getPos().top + dy);
+			if (b.getPos().top >= 300) b.setAlpha(255);
+			else if (b.getPos().top > 212) b.setAlpha(100);
 		}
 		buttonSelection--;
 	}

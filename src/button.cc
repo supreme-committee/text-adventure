@@ -104,6 +104,7 @@ string button::wordWrap( std::string str, size_t width = 55 )
 void button::setAlpha(int a)
 {
 	alpha = a;
+	t.setColor(sf::Color(255, 255, 255, a));
 }
 void button::playSound()
 {
