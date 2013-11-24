@@ -38,3 +38,7 @@ game
 CarlGame/tartool
 *.tar
 *.sav
+*.aux
+*.log
+*.out
+*.pdf
