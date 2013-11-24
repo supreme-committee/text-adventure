@@ -4,7 +4,7 @@
 button::button(Link li, sf::Font& f,float xx, float yy,bool mute)	
 {
 	numLines = 1;
-	string str = wordWrap(li.text,40);
+	string str = wordWrap(li.text,70);
 	int height = numLines * 20 + 10;
 
 	link = li.filename;
@@ -13,10 +13,10 @@ button::button(Link li, sf::Font& f,float xx, float yy,bool mute)
 	rect.setSize(sf::Vector2f(250,height));
 	t.setFont(f);
 	t.setCharacterSize(16);
-	t.setPosition(xx+10,yy+5);
+	t.setPosition(xx+20,yy+5);
 	t.setString(str);
 	t.setColor(sf::Color::White);
-	coords = sf::Rect<int>(xx,yy,290,height);
+	coords = sf::Rect<int>(xx+10,yy,500,height);
 	tempCoords = coords;
 	float h = (float)height;
 	yscale = h/130;
@@ -24,7 +24,7 @@ button::button(Link li, sf::Font& f,float xx, float yy,bool mute)
 	y = yy;
 	r = 0;
 	g = 0;
-	b = 175;
+	b = 255;
 	alpha = 255;
 
 	if (!texture.loadFromFile("content/button.png"))
@@ -41,7 +41,7 @@ string button::getLink()
 }
 void button::render(sf::RenderWindow& window)
 {
-	sprite.setScale(1,yscale);
+	sprite.setScale(1.75,yscale);
 	sprite.setPosition(x,y);
 	sprite.setTexture(texture);
 	sprite.setColor(sf::Color(r,g,b,alpha));
@@ -77,7 +77,7 @@ void button::setPos(int xx, int yy)
 	coords.top = y;
 	coords.left = x;
 	rect.setPosition(x,y);
-	t.setPosition(x+10,y+5);
+	t.setPosition(x+20,y+5);
 	sprite.setPosition(x,y);
 }
 sf::Rect<int> button::getPos()
