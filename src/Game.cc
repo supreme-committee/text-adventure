@@ -477,9 +477,6 @@ void Game::input()
 		{
 			switch (ev.key.code)
 			{
-			case sf::Keyboard::O:
-				cout << FileHandler::openFile(FileHandler::OpenFileMode::NEWGAME) << endl;
-				break;
 			case sf::Keyboard::Return:
 				if (buttons.size() > 0)
 				{
