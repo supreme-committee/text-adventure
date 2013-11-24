@@ -63,7 +63,9 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		char* varName = node->first_node()->value(); // Get var name and value
 		char* varValue = node->last_node()->value();
 
-		if ((int)tolower(varName[0]) > 122 || (int)tolower(varName[0]) < 97) { // Check that variable starts with letter
+		if ((int)varName[0] > 122 || ( (int)varName[0] < 97 && (int)varName[0] > 90 ) ||         
+            (int)varName[0] < 65) 
+        { // Check that variable starts with letter
 			char err[256] = "Invalid variable name: '";
 			strcat(err, varName);
 			strcat(err, "'. Variables must start with a letter (A-Z, a-z)");
