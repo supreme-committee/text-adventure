@@ -20,6 +20,10 @@ void Game::buildText()
 	}
 	string textString = stringStream.str(); // All the text that needs to be displayed
 
+	while (textString[0] == '\n' || textString[0] == ' ') // Chop off line breaks and empty space
+	{
+		textString.replace(0, 1, ""); 
+	}
 	while (textString.find("\r") != string::npos) // Replace return characters
 	{
 		textString.replace(textString.find("\r"), 1, " ");
@@ -40,7 +44,9 @@ void Game::buildText()
 			text.setColor(sf::Color(255, 255, 255, alpha));
 			if (alpha > 25) alpha -= 25;
 			else alpha = 0;
-			text.setString(textString.substr(start, charCount + 1));
+			string text_string = textString.substr(start, charCount + 1);
+			while (text_string[0] == ' ') text_string.replace(0, 1, ""); // Trim white space
+			text.setString(text_string);
 			text.setPosition(20.0f, ypos);
 			ypos += 18.0f;
 
