@@ -1,29 +1,40 @@
 \documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\hypersetup{colorlinks=true,urlcolor=blue}
 \begin{document}
-\title{Installation}
-\author{Team Supreme Committee}
-\date{November 2013}
-\maketitle
-
-
-\section{Introduction}
-
-Hello, in this section of the user manual we will be walking you through the really simple step of installing our game engine to your computer. Our installation will be easy and quick, you will be playing your text based game in minutes.
+\begin{center}\huge \bf Installation
+\end{center}
 
 \section{Basics}
 
-To start you should be aware that the game engine currently works on Mac and Windows. Each OS has a different method of installation. There will be a different section for each of the OS we are currently running.
+\indent \indent Start you should be aware that the game engine currently works on Mac and Windows. Each OS has a different method of installation. There will be a different section for each OS that we currently support.
 
 \section{Windows}
 
-For windows our programmer has made the installation process very easy. All you need to do is download our Initial Release which is the adventure.maker.v0.1-alpha.zip. After you extract the .zip file, you should be able to run the game engine from the .exe that becomes available.
+\indent \indent  For windows our programmer has made the installation process very easy. All you need to do is download our Initial Release which is the adventure.maker.v0.1-alpha.zip. After you extract the .zip file, you should be able to run the game engine from the .exe that becomes available.
 
-\section{MAC}
-
-
-
-
-
-
-
+\section{Mac}
+\subsection{Dependencies:}
+    \indent \indent SFML 2.1 (The gcc version) can be downloaded
+    \href{http://www.sfml-dev.org/download/sfml/2.1/}{Here}. Simply follow the installation instructions. \\
+    \indent Verify that you have the utilities \texttt{tar} and \texttt{make} installed. 
+    They should be installed by default. \\
+    \indent \texttt{g++} is required. You will need a version of \texttt{g++} which has \texttt{C++11} support.
+    We recommend at least \texttt{GCC 4.9}.
+    Use \texttt{sudo port install gcc} in order to download and install the 
+    latest version of \texttt{gcc}. \\
+    \indent A little explanation of the \texttt{Makefile} is warranted. 
+    In order to link against the SFML libraries.
+    We use the \texttt{-framework} option in \texttt{gcc}. Note that this option is a Mac OSX only option.
+    We link against the following modules: 
+    \texttt{OpenGL, SFML, SFML-graphics, SFML-window, SFML-system, SFML-audio}.
+    Another technology that we use is called RapidXML. We have included the files for RapidXML as it 
+    is a header-only implementation.
+    
+    
+\subsection{Installation procedure:}
+    \indent \indent To compile from source, \texttt{cd} in to the downloaded directory and type \texttt{make}.
+    This will create an executable called \texttt{game}.
+    
 \end{document}
