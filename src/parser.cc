@@ -63,6 +63,13 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		char* varName = node->first_node()->value(); // Get var name and value
 		char* varValue = node->last_node()->value();
 
+		if ((int)tolower(varName[0]) > 122 || (int)tolower(varName[0]) < 97) { // Check that variable starts with letter
+			char err[256] = "Invalid variable name: '";
+			strcat(err, varName);
+			strcat(err, "'. Variables must start with a letter (A-Z, a-z)");
+			throw rapidxml::parse_error(err, NULL);
+		}
+
 		if (intVars.find(varName) != intVars.end()) // They're redefining an int variable
 		{
 			if (isInt(varValue)) { // New value is of the same type. Good!
@@ -478,6 +485,7 @@ Tile Parser::parse(const char* filename,
 		if (strcmp(doc.first_node()->name(), "tile") != 0)
 		{
 			Logger::log("ERROR: <tile> tag is missing!");
+			throw rapidxml::parse_error("<tile> tag is missing", NULL);
 			return Tile();
 		}
 
