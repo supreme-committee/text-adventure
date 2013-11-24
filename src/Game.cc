@@ -32,7 +32,7 @@ void Game::buildText()
 	for (unsigned int pos = 0; pos < textString.length(); pos++)
 	{
 		if (textString[pos] == '\n' || // Line break when '\n' is found
-			(charCount > 70 && textString[pos] == ' ')) // Or just line break every 80 characters
+			(charCount > 110 && textString[pos] == ' ')) // Or just line break every 110 characters
 		{
 			sf::Text text;
 			text.setFont(font_main);
@@ -487,11 +487,11 @@ void Game::input()
 					scrollButtonsDown();
 				break;
 			case sf::Keyboard::Right: // Scroll text down
-				if (textSelection < texts.size() - 1)
+				if (texts.size() > 9 && textSelection < texts.size() - 1)
 					scrollTextUp();
 				break;
 			case sf::Keyboard::Left: // scroll text up
-				if (textSelection > 0)
+				if (texts.size() > 9 && textSelection > 0)
 					scrollTextDown();
 				break;
 			default:
