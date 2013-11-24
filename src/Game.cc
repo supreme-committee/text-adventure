@@ -137,13 +137,15 @@ void Game::scrollButtonsUp()
 {
 	if (buttonSelection < buttons.size() - 1)
 	{
-		int dy = buttons[buttonSelection].coords.height / 2
-			+ buttons[buttonSelection + 1].coords.height / 2 + 10;
-		for (auto& b : buttons)
+		while (buttons[buttonSelection + 1].getPos().top > 300)
 		{
-			b.setPos(b.getPos().left, b.getPos().top - dy);
-			if (b.getPos().top < 212.0f) b.setAlpha(0);
-			else if (b.getPos().top < 300.0f) b.setAlpha(100);
+			for (auto& b : buttons)
+			{
+				b.setPos(b.getPos().left, b.getPos().top - 1);
+				if (b.getPos().top < 212.0f) b.setAlpha(0);
+				else if (b.getPos().top < 300.0f) b.setAlpha(100);
+			}
+			this_thread::sleep_for(chrono::milliseconds(2));
 		}
 		buttonSelection++;
 	}
@@ -152,13 +154,15 @@ void Game::scrollButtonsDown()
 {
 	if (buttonSelection > 0)
 	{
-		int dy = buttons[buttonSelection].coords.height / 2
-			+ buttons[buttonSelection - 1].coords.height / 2 + 10;
-		for (auto& b : buttons)
+		while (buttons[buttonSelection - 1].getPos().top < 300)
 		{
-			b.setPos(b.getPos().left, b.getPos().top + dy);
-			if (b.getPos().top >= 300) b.setAlpha(255);
-			else if (b.getPos().top > 212) b.setAlpha(100);
+			for (auto& b : buttons)
+			{
+				b.setPos(b.getPos().left, b.getPos().top + 1);
+				if (b.getPos().top >= 300) b.setAlpha(255);
+				else if (b.getPos().top > 212) b.setAlpha(100);
+			}
+			this_thread::sleep_for(chrono::milliseconds(2));
 		}
 		buttonSelection--;
 	}
@@ -477,9 +481,6 @@ void Game::input()
 		{
 			switch (ev.key.code)
 			{
-			case sf::Keyboard::O:
-				cout << FileHandler::openFile(FileHandler::OpenFileMode::NEWGAME) << endl;
-				break;
 			case sf::Keyboard::Return:
 				if (buttons.size() > 0)
 				{
@@ -491,13 +492,17 @@ void Game::input()
 					textSelection = 0;
 				}
 				break;
-			case sf::Keyboard::Up:
-				if (buttons.size() > 0 && buttonSelection < buttons.size() - 1)
-					scrollButtonsUp();
+			case sf::Keyboard::Up: // Scroll buttons up
+				if (buttons.size() > 0 && buttonSelection < buttons.size() - 1) {
+					thread t(&Game::scrollButtonsUp, this);
+					t.detach();
+				}
 				break;
-			case sf::Keyboard::Down:
-				if (buttonSelection > 0)
-					scrollButtonsDown();
+			case sf::Keyboard::Down: // Scroll buttons down
+				if (buttonSelection > 0) {
+					thread t(&Game::scrollButtonsDown, this);
+					t.detach();
+				}
 				break;
 			case sf::Keyboard::Right: // Scroll text down
 				if (texts.size() > 9 && textSelection < texts.size() - 1)
