@@ -41,7 +41,8 @@ string button::getLink()
 }
 void button::render(sf::RenderWindow& window)
 {
-	sprite.setScale(1.75,yscale);
+    float xscale = (numLines > 1) ? 2.0 : ((2.0/60) * static_cast<string>(t.getString()).size());
+	sprite.setScale(xscale,yscale);
 	sprite.setPosition(x,y);
 	sprite.setTexture(texture);
 	sprite.setColor(sf::Color(r,g,b,alpha));
