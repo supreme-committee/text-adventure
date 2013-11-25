@@ -13,13 +13,13 @@ button::button(Link li, sf::Font& f,float xx, float yy,bool mute)
 	rect.setSize(sf::Vector2f(250,height));
 	t.setFont(f);
 	t.setCharacterSize(16);
-	t.setPosition(xx+20,yy+5);
+	t.setPosition(xx+25,yy+5);
 	t.setString(str);
 	t.setColor(sf::Color::White);
-	coords = sf::Rect<int>(xx+10,yy,500,height);
+	coords = sf::Rect<int>(xx,yy,500,height);
 	tempCoords = coords;
 	float h = (float)height;
-	yscale = h/130;
+	yscale = h/120;
 	x = xx;
 	y = yy;
 	r = 0;
@@ -41,9 +41,23 @@ string button::getLink()
 }
 void button::render(sf::RenderWindow& window)
 {
-    float xscale = (numLines > 1) ? 2.0 : ((2.0/60) * static_cast<string>(t.getString()).size());
+    //float xscale = (numLines > 1) ? 2.0 : ((2.0/60) * static_cast<string>(t.getString()).size());
+    float xscale = 2.0;
+    if(numLines == 1)
+    {
+        xscale = (2.0/60)*static_cast<string>(t.getString()).size();
+    }
 	sprite.setScale(xscale,yscale);
-	sprite.setPosition(x,y);
+    if(numLines > 1)
+    {        
+	    sprite.setPosition(x,y);
+    }
+    else 
+    {
+        int offset = 7/xscale;
+        sprite.setPosition(x+offset, y);
+    }
+
 	sprite.setTexture(texture);
 	sprite.setColor(sf::Color(r,g,b,alpha));
 	
@@ -78,7 +92,7 @@ void button::setPos(int xx, int yy)
 	coords.top = y;
 	coords.left = x;
 	rect.setPosition(x,y);
-	t.setPosition(x+20,y+5);
+	t.setPosition(x+25,y+5);
 	sprite.setPosition(x,y);
 }
 sf::Rect<int> button::getPos()
