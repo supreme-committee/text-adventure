@@ -13,7 +13,7 @@ button::button(Link li, sf::Font& f,float xx, float yy,bool mute)
 	rect.setSize(sf::Vector2f(250,height));
 	t.setFont(f);
 	t.setCharacterSize(16);
-	t.setPosition(xx+25,yy+5);
+	t.setPosition(xx+20,yy+5);
 	t.setString(str);
 	t.setColor(sf::Color::White);
 	coords = sf::Rect<int>(xx,yy,500,height);
@@ -27,7 +27,7 @@ button::button(Link li, sf::Font& f,float xx, float yy,bool mute)
 	b = 255;
 	alpha = 255;
 
-	if (!texture.loadFromFile("content/button.png"))
+	if (!texture.loadFromFile("content/button6.png"))
 	{
 		Logger::log("Failed to load button.png It could not be found!");
 	}
@@ -54,7 +54,7 @@ void button::render(sf::RenderWindow& window)
     }
     else 
     {
-        int offset = 7/xscale;
+        int offset = 4/xscale;
         sprite.setPosition(x+offset, y);
     }
 
@@ -92,7 +92,7 @@ void button::setPos(int xx, int yy)
 	coords.top = y;
 	coords.left = x;
 	rect.setPosition(x,y);
-	t.setPosition(x+25,y+5);
+	t.setPosition(x+20,y+5);
 	sprite.setPosition(x,y);
 }
 sf::Rect<int> button::getPos()
