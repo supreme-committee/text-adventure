@@ -234,13 +234,28 @@ void Game::loadFile(string filename)
 	sound.resetBuffer();	//Reset buffer to be ready to load a new one.
 	if(tile.sfx.length() > 0)
 	{
-		if(!soundbuffer.loadFromFile(".gamefiles/" + tile.sfx))
+		string supportedTypes[] = {
+		"ogg", "wav", "flac", "aiff", "au", 
+		"raw", "paf", "svx", "nist", "voc", 
+		"ircam", "w64", "mat4", "mat5", "pvf", 
+		"htk", "sds", "avr", "sd2", "caf", "wve", "mpc2k", "rf64"};
+		string ext = filename.substr(filename.find_last_of(".") + 1, string::npos);
+		bool valid = false;
+		for (auto s : supportedTypes)
+		{
+			if (ext == s) {
+				valid = true;
+				break;
+			}
+		}
+		if(valid && !soundbuffer.loadFromFile(".gamefiles/" + tile.sfx))
 		{
 			Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
 			sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
 		}
 		else
 		{
+			if (!valid) showErrorMessage("Invalid sound format: " + tile.sfx);
 			sound.setBuffer(soundbuffer);
 			sound.setVolume(100);
 			if(!muteButtons)
