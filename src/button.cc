@@ -45,7 +45,7 @@ void button::render(sf::RenderWindow& window)
     float xscale = 2.0;
     if(numLines == 1)
     {
-        xscale = (2.0/60)*static_cast<string>(t.getString()).size();
+		xscale = (2.0/60) * t.getString().getSize();
     }
 	sprite.setScale(xscale,yscale);
     if(numLines > 1)
