@@ -205,10 +205,25 @@ void Game::loadFile(string filename)
 		for (auto& line : texts) line.setColor(sf::Color::Red);
 	}
 
-	if (tile.image.length() > 1 && texture_background.loadFromFile(".gamefiles/" + tile.image))
+	
+	if (tile.image.length() > 1)
 	{
-		imageValid = true;
-		rescaleImage();
+		string supportedImageTypes[] = {"bmp", "png", "tga", "jpg", "gif", "psd", "hdr", "pic"};
+		string extension = tile.image.substr(tile.image.find_last_of(".") + 1, string::npos);
+		bool valid = false;
+		for (auto& s : supportedImageTypes)
+		{
+			if (extension == s) {
+				valid = true;
+				break;
+			}
+		}
+		if (valid && texture_background.loadFromFile(".gamefiles/" + tile.image))
+		{
+			imageValid = true;
+			rescaleImage();
+		}
+		else if (!valid) showErrorMessage("Invalid image format: " + tile.image);
 	}
 	else imageValid = false;
 	sprite_background.setTexture(texture_background);
