@@ -685,8 +685,7 @@ void Game::loadMusic(string filename)
 	if (!good)
 	{
 #ifdef WIN32
-		thread t(&Game::showErrorMessage, this, "Invalid file format: " + filename);
-		t.join();
+		showErrorMessage("Invalid music format: " + filename);
 #else
 		cerr << "Invalid file format: " << filename << endl;
 #endif
