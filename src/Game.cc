@@ -294,7 +294,7 @@ Game::Game() : fileDirectory(".gamefiles")
 	done = false;
 	hideUI = false;
 	tarFile = " ";
-	window.create(sf::VideoMode(1024, 576), "Game Engine", sf::Style::Close);
+	window.create(sf::VideoMode(1024, 576), "Fork in the Read", sf::Style::Close);
 	window.setFramerateLimit(30);
 	muteButtons = false;
 	rect.setPosition(4,22);
