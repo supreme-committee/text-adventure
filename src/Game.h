@@ -32,7 +32,7 @@ private:
 	vector<sf::Text> texts; // The text to show (built from the texts vector in tile)
 	unsigned int textSelection; // The currently selected (i.e. most visible) line of text
 
-	sf::RectangleShape rect;
+	sf::RectangleShape rect_textBackground; // Background for text
 	sf::RectangleShape rect_overlay; // Used for fade transitions
 	enum Transitionstate{FADING_OUT, FADING_IN, STATIC}; // State of overlay transition
 	int tran_state;

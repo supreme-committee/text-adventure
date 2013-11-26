@@ -297,9 +297,9 @@ Game::Game() : fileDirectory(".gamefiles")
 	window.create(sf::VideoMode(1024, 576), "Fork in the Read", sf::Style::Close);
 	window.setFramerateLimit(30);
 	muteButtons = false;
-	rect.setPosition(4,22);
-	rect.setSize(sf::Vector2f(1014,190));
-	rect.setFillColor(sf::Color(0,0,0,100));
+	rect_textBackground.setPosition(4,22);
+	rect_textBackground.setSize(sf::Vector2f(1014,190));
+	rect_textBackground.setFillColor(sf::Color(0,0,0,150));
 	tran_state = STATIC;
 	buttonsAnimating = false;
 }
@@ -606,7 +606,7 @@ void Game::render()
 	}
 	if(!hideUI)
 	{
-		if (texts.size() > 0) window.draw(rect); // Background for text
+		if (texts.size() > 0) window.draw(rect_textBackground); // Background for text
 		for (auto& text : texts)
 		{
 			window.draw(text);
