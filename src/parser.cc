@@ -12,6 +12,20 @@ Parser::Parser(){}
 Parser::~Parser(){}
 
 // ======================== PRIVATE FUNCTIONS ========================
+string Parser::trim(string input)
+{
+	while (input[0] == ' ')
+	{
+		input = input.replace(0, 1, ""); // Replace with empty string
+	}
+	int last = input.length() - 1;
+	while (input[last] == ' ')
+	{
+		input = input.replace(last, 1, "");
+		last--;
+	}
+	return input;
+}
 
 string Parser::insertVariable(string input, string thatString)
 {
@@ -35,7 +49,7 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 		{
 			auto startSpot = nodeText.find_first_of("{{") + 2;
 			auto endSpot = nodeText.find_first_of("}}");
-			string varName = nodeText.substr(startSpot, endSpot - startSpot);
+			string varName = trim(nodeText.substr(startSpot, endSpot - startSpot));
 			string varValue;
 			if (boolVars.find(varName) != boolVars.end())
 				boolVars.find(varName)->second == true ? varValue = "true" : varValue = "false";
@@ -60,8 +74,9 @@ void Parser::grabXmlData(rapidxml::xml_node<char>* node,
 	}
 	else if (strcmp(node->name(), "var") == 0)
 	{
-		char* varName = node->first_node()->value(); // Get var name and value
-		char* varValue = node->last_node()->value();
+		string temp = trim(string(node->first_node()->value())); // Trim whitespace
+		const char* varName = temp.c_str(); // Get var name
+		char* varValue = node->last_node()->value(); // Get variable value
 
 		if ((int)varName[0] > 122 || ( (int)varName[0] < 97 && (int)varName[0] > 90 ) ||         
             (int)varName[0] < 65) 

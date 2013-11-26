@@ -10,6 +10,8 @@ using namespace std;
 class Parser
 {
 private:
+	static string trim(string input); // Trim whitespace from the given string
+
 	// Replace "variable" (e.g. {{name}}) with "thatString" in the given string "input"
 	// Returns the new string with replaced element
 	static string insertVariable(string input, string thatString);
