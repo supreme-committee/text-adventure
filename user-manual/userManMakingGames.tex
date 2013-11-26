@@ -25,22 +25,70 @@ When you play a game on our engine, what's on screen at any given time during th
 
 \section{Example}
 
-\paragraph{start.xml}
+\paragraph{Start.xml}
 
-Here is the text of the start.xml tile which is the starting point for the sample game I have been creating with comments.
+Here is the text of the Start.xml tile which is the starting point for the sample game I have been creating with comments.
 
 \begin{lstlisting}[frame=single]
 <tile>
 	<text>You are a wandering adventurer who after 
 	weeks of traveling has made your way to 
-	Fleurtran, the oldest of the great cities. You 
-	stand in the town center, wondering what to do 
-	next. There are two particularly busy streets 
-	leading away from the plaza, one crowded with 
-	throngs of people laden with goods and gold, 
-	the other packed with soldiers hurrying up and 
-	down it in squads. In front of you a large 
-	message board catches your eye.</text>
+	Fleurtran, the oldest of the great cities. It 
+	is midday and the gate is flung open, a steady 
+	trickle of people heaing in.</text>
+	<image>magicforest.jpg</image>
+	<music>stranger.flac</music>
+	<var>
+		<name>haveMerchantMessage</name>
+		<value>false</value>
+	</var>
+	<var>
+		<name>haveBreadKnife</name>
+		<value>false</value>
+	</var>
+	<var>
+		<name>haveSmallLumpSilver</name>
+		<value>false</value>
+	</var>
+	<var>
+		<name>primaryWeapon</name>
+		<value>fists</value>
+	</var>
+	<var>
+		<name>haveMerchantShawl</name>
+		<value>false</value>
+	</var>
+	<link>
+		<file>TownCenter.xml</file>
+		<text>Head towards the cities center in 
+		search of an adventure.</text>
+	</link>
+</tile>
+\end{lstlisting}
+
+*Every 'map' must have a file named start.xml which is the default first tile loaded.
+
+* Every tile must have the \textless tile\textgreater \textless /tile\textgreater tags marking the beginning and end.
+
+* Each file must have some text which is displayed upon the player 'entering' this tile. This is marked with \textless text\textgreater yourtext\textless /text\textgreater . Simple, but also often contains the majority of the substance in most text games.
+
+*The last of the 3 most basic and necessary tags, \textless link\textgreater yourlink\textless /link\textgreater  denotes a link to another tile. Each link must contain both a file (has the form \textless file\textgreater yourfile.ext\textless /file\textgreater and must be in the same directory as the file it is linked from) which is the tile it links to, and text to be displayed on the relevant button. It is worth noting that while it is not required to have a link in each tile, there is no 'go back' standard option, so a tile with no links should only be used in the case of winning or losing the game.
+
+*In addition there is also the \textless image\textgreater yourimage.ext\textless /image\textgreater which sets the background to an image file whose path is specified relative to the .gamefiles directory (the directory created from the .tar file you give the game engine).
+
+
+\paragraph{TownCenter.xml}
+
+\begin{lstlisting}[frame=single]
+
+<tile>
+	<text>You stand in the town center, wondering 
+	what to do next. There are two particularly 
+	busy streets leading away from the plaza, one 
+	crowded with throngs of people laden with goods 
+	and gold, the other packed with soldiers 
+	hurrying up and down it in squads. In front of 
+	you a large message board catches your eye.</text>
 	<image>magicforest.jpg</image>
 	<link>
 		<file>Market.xml</file>
@@ -62,18 +110,12 @@ Here is the text of the start.xml tile which is the starting point for the sampl
 		gate</text>
 	</link>
 </tile>
+
 \end{lstlisting}
-*Every 'map' must have a file named start.xml which is the default first tile loaded.
 
-* Every tile must have the \textless tile\textgreater \textless /tile\textgreater tags marking the beginning and end.
-
-* Each file must have some text which is displayed upon the player 'entering' this tile. This is marked with \textless text\textgreater yourtext\textless /text\textgreater . Simple, but also often contains the majority of the substance in most text games.
-
-*The last of the 3 most basic and necessary tags, \textless link\textgreater yourlink\textless /link\textgreater  denotes a link to another tile. Each link must contain both a file (has the form \textless file\textgreater yourfile.ext\textless /file\textgreater and must be in the same directory as the file it is linked from) which is the tile it links to, and text to be displayed on the relevant button. It is worth noting that while it is not required to have a link in each tile, there is no 'go back' standard option, so a tile with no links should only be used in the case of winning or losing the game.
-
-*In addition there is also the \textless image\textgreater yourimage.ext\textless /image\textgreater which sets the background to an image file whose path is specified relative to the .gamefiles directory (the directory created from the .tar file you give the game engine).
 
 \paragraph{MessageBoard.xml}
+
 
 \begin{lstlisting}[frame=single]
 <tile>
@@ -197,10 +239,11 @@ For the sake of clarity and completeness, all the usable tags are shown here.
 <sound></sound>
 
 <music></music>
+\end{lstlisting}
 
-For all media, you must give a path to a file relative to the tar. If you have a media file inside a folder in your tar (in our example, if CarlGame.tar contained /gamemusic/testmusic.wav), you would specify with <image>gamemusic/testmusic.wav</image>. 
+For all media, you must give a path to a file relative to the tar. If you have a media file inside a folder in your tar (in our example, if CarlGame.tar contained /gamemusic/testmusic.wav), you would specify with \textless image\textgreater gamemusic/testmusic.wav\textless /image\textgreater. 
 	
-
+\begin{lstlisting}
 <link>
 	<file></file>
 	<text></text>
@@ -219,18 +262,24 @@ For all media, you must give a path to a file relative to the tar. If you have a
 
 <text> randomtext  {{ variablename }} otherrandomtext </text>
 
+\end{lstlisting}
+
 Some special notes regarding variable related tags. The value of a variable can be either an int, bool, or string. Typing is done automatically, if the variable is a number within range it is evaluated as an integer, if it's 'true' or 'false' it is considered a boolean, otherwise it is a string. 
 
 There are very few restrictions for variable names. They should start with a letter. Avoid starting variable names with numbers as this will cause problems. There is also a short list of keywords that should be avoided, listed here.
 
 Keywords:
+
 bool
+
 int
+
 string
 
-Modify only works if the thing inside <var></var> is a variable already in the table and must be an integer. Strings and bools can be changed simply be redeclaring the variable with the new value. The amount can be positive or negative, but again the variable must stay within valid int range. 
 
-In addition, there is a special application of variables inside of <text></text> tags. You can use {{ }} with the name of a variable inside, and the value of that variable will be displayed. 
+Modify only works if the thing inside \textless var\textgreater \textless /var\textgreater is a variable already in the table and must be an integer. Strings and bools can be changed simply be redeclaring the variable with the new value. The amount can be positive or negative, but again the variable must stay within valid int range. 
+
+In addition, there is a special application of variables inside of text tags. You can use {{ }} with the name of a variable inside, and the value of that variable will be displayed. 
 
 
 \end{document}
