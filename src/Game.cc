@@ -441,11 +441,13 @@ void Game::input()
 					{
 						bgm.setVolume(0);
 						muteButtons = true;
+						sound.setVolume(0);
 					}
 					else
 					{
 						bgm.setVolume(100);
 						muteButtons = false;
+						sound.setVolume(100);
 					}
 				}
 					
