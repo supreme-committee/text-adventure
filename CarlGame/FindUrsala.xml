@@ -3,10 +3,10 @@
 
 The rage does not really hit you until you are well into the swamp. Like methane rising through thick sludge, the anger burns away your numbness, until you feel almost compelled to act. Channeling every ounce of your feeling, fire seems to exude from your pores. You utter no spell, the sheer force of your will forces the flames to expand away from you, gouts of flame firing in every direction. Deep in your chest you feel the ancient swamp recoil in pain, then lash back at you, the flames are forced back, until they orbit you in a giant sphere of flame, barely contained by the black streaks of ooze and mist which are the physical representation of the swamps power. You no longer think consciously, you simply are that which fights against the swamp. For several eternities the two entities battle, each barely fending off the other. Then suddenly, darkness. 
 
-When you come to, Aeturnus is standing over you. Your body feels as though it is covered in bruises, and your head aches even worse. Collecting your thoughts, the weight of memory comes crashing down. You look up at the wizard with suspicion. Your voice is dead leaves being crushed, quiet and raspy with a dark edge to it.
+When you come to, Aeturnus is standing over you. Your body feels as though it is covered in bruises, and your head aches even worse. Collecting your thoughts, the weight of memory comes crashing down. You look up at the wizard with suspicion. Your voice evokes dead leaves being crushed, quiet and raspy with a dark edge to it.
 "Did you know? About Ursala?"
 He regards you with his usual quiet consideration, then slowly nods. " I did see the aftermath of the bandit attack. It is unfortunate, but these are not roads to be traveled alone. In any case, I decided it would be best not to tell you. It quickly became obvious you have potential unlike almost any I've seen, and with events moving quickly your training was more important than sentimentality."
-With each word you feel anger rising again, "Well no shit these are unsafe roads, that's why I was traveling with her. If you hadn't been in such a hurry, she would still be alive and well in Javern. And to not tell me…"
+With each word you feel anger rising again, "Well no shit these are unsafe roads, that's why I was traveling with her. If you hadn't been in such a hurry, she would still be alive and well in Javern. And do not tell me…"
 Aeturnus simply bows his head, his explanation finished.</text>
 	<link>
 		<file>KillWizard.xml</file>
@@ -14,6 +14,6 @@ Aeturnus simply bows his head, his explanation finished.</text>
 	</link>
 	<link>
 		<file>ForgiveWizard.xml</file>
-		<text>With extreme effort you calm yourself, reasoning that Aeturnus did not force you to come with him</text>
+		<text>With extreme effort you calm yourself</text>
 	</link>
 </tile>
