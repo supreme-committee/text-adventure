@@ -231,7 +231,7 @@ void Game::loadFile(string filename)
 	sf::Vector2u texSize = texture_background.getSize();
 	sprite_background.setTextureRect(sf::IntRect(0, 0, texSize.x, texSize.y));
 
-	sound.resetBuffer();	//Reset buffer to be ready to load a new one.
+	sound->resetBuffer();	//Reset buffer to be ready to load a new one.
 	if(tile.sfx.length() > 0)
 	{
 		string supportedTypes[] = {
@@ -251,15 +251,15 @@ void Game::loadFile(string filename)
 		if(valid && !soundbuffer.loadFromFile(".gamefiles/" + tile.sfx))
 		{
 			Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
-			sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
+			sound->setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
 		}
 		else
 		{
 			if (!valid) showErrorMessage("Invalid sound format: " + tile.sfx);
-			sound.setBuffer(soundbuffer);
-			sound.setVolume(100);
+			sound->setBuffer(soundbuffer);
+			sound->setVolume(100);
 			if(!muteButtons)
-				sound.play();
+				sound->play();
 		}
 	}
 	if(tile.bgm != "")
@@ -306,6 +306,8 @@ Game::Game() : fileDirectory(".gamefiles")
 Game::~Game()
 {
 	delete m;
+	delete sound;
+	delete bgm;
 }
 void Game::init(string tarFile) // tarFile is " " by default
 {
@@ -325,7 +327,8 @@ void Game::init(string tarFile) // tarFile is " " by default
 		rescaleImage();
 		sprite_background.setTexture(texture_background);
 	}
-
+	bgm = new sf::Music();
+	sound = new sf::Sound();
 	m = new menu(font_main);
 	m->enableLoading(false);
 	m->enableSaving(false);
@@ -379,16 +382,16 @@ void Game::init(string tarFile) // tarFile is " " by default
 		else this->imageValid = false;
 		sprite_background.setTexture(texture_background);
 
-		sound.resetBuffer(); // Load and set up the sound effect for this tile
+		sound->resetBuffer(); // Load and set up the sound effect for this tile
 		if(tile.sfx.length() > 1 && !soundbuffer.loadFromFile(".gamefiles/" + tile.sfx)) {
 			Logger::log("Could not open sound file .gamefiles/" + tile.sfx);
 			showErrorMessage("ERROR: Could not open sound file: " + tile.sfx);
-			sound.setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
+			sound->setVolume(0);	//If no sound is loaded, set the volume to 0 just to be sure it doesn't play anything
 		}
-		else sound.setVolume(100);
-		sound.setBuffer(soundbuffer);
+		else sound->setVolume(100);
+		sound->setBuffer(soundbuffer);
 
-		if (!muteButtons) sound.play();
+		if (!muteButtons) sound->play();
 		if (tile.bgm.length() > 1) loadMusic(".gamefiles/" + tile.bgm);
 	}
 
@@ -439,15 +442,15 @@ void Game::input()
 					}
 					if(!muteButtons)	//Update muteButtons so that future buttons can be initialized with correct volume
 					{
-						bgm.setVolume(0);
+						bgm->setVolume(0);
 						muteButtons = true;
-						sound.setVolume(0);
+						sound->setVolume(0);
 					}
 					else
 					{
-						bgm.setVolume(100);
+						bgm->setVolume(100);
 						muteButtons = false;
-						sound.setVolume(100);
+						sound->setVolume(100);
 					}
 				}
 					
@@ -495,6 +498,15 @@ void Game::input()
 					gameFile = gameFile.substr(gameFile.find_first_of('\\'), gameFile.length() - 1);   
 #endif
 					tarFile = gameFile.substr(gameFile.find_last_of('\\') + 1, gameFile.length() - 1); // Keep track of currently loaded tar file
+					sound->stop();
+					sound->resetBuffer();
+					delete sound;
+					sound = new sf::Sound();
+
+					bgm->stop();
+					delete bgm;
+					bgm = new sf::Music();
+					currentMusic = "";	//reset stored name of current music file being played in case the new game will play the same file that was last played
 					setupNewGame(gameFile);                             
 				}
 				if(m->saveSelect(ev.mouseButton.x,ev.mouseButton.y)) // Saving a game
@@ -698,7 +710,7 @@ void Game::loadMusic(string filename)
 	{
 		if(filename != currentMusic)	//make sure that the music file from the tile is not already being played.
 		{
-			if(!bgm.openFromFile(filename))
+			if(!bgm->openFromFile(filename))
 			{
 				Logger::log("Could not open music file" + filename + ".");
 #ifdef WIN32
@@ -708,8 +720,8 @@ void Game::loadMusic(string filename)
 			}
 			else
 			{
-				bgm.setLoop(true);
-				bgm.play();
+				bgm->setLoop(true);
+				bgm->play();
 				currentMusic = filename;
 			}
 		}

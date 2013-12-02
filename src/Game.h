@@ -54,8 +54,8 @@ private:
 	sf::Texture texture_background; // The texture for the background image
 	sf::Sprite sprite_background;	// The sprite (a sf::Drawable object) for the background image
 	sf::SoundBuffer soundbuffer;	//Stores the sound that will play from the tile
-	sf::Sound sound;				//Plays the sound specified in a tile
-	sf::Music bgm;					//Background music
+	sf::Sound *sound;				//Plays the sound specified in a tile
+	sf::Music *bgm;					//Background music
 	bool imageValid, hideUI, muteButtons;
 	void setupNewGame(string tarFile); // Extract the given tar, set up new game, and load start.xml
 
