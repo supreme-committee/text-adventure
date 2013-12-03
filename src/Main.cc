@@ -18,9 +18,6 @@ int main(int argc, char** argv)
     system("rm .gamefiles/*");
 #endif
     
-	//thread t(Logger::write); // Create a thread for the writer
-	//t.detach(); // Lets thread run in background (also prevents abort() being called when thread is destroyed)
-
 	if (argc > 3)
 	{
 		cout << "Usage: text-adventure.exe [.tar file] [-l]" << endl;
@@ -52,12 +49,6 @@ int main(int argc, char** argv)
 		game.update();
 		game.render();
 	}
-    
-	//Logger::shutdown(); // Tell the logger it's time to shutdown its thread
-	/*while (Logger::active()) // Wait until Logger is done emptying the queue
-	{
-		this_thread::sleep_for(chrono::milliseconds(100));
-	}*/
 	
     return 0;
 }

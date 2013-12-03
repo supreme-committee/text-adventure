@@ -5,14 +5,11 @@
 #include <thread>
 #include "Logger.h"
 
-bool Logger::exitLoop;
 string Logger::filename;
 queue<string> Logger::qq;
 
 void Logger::init()
 {
-	exitLoop = false;
-
 	time_t rawTime;
 	time(&rawTime);
 	struct tm* timeInfo = localtime(&rawTime);
@@ -45,39 +42,21 @@ void Logger::log(string s) //adds to queue
 
 void Logger::write() //writes to .log file
 {
-	//while (true) // Loop indefinitely until queue is emptied
-	//{
-		if (!qq.empty())
-		{
-			ofstream logFile;
-			logFile.open(filename, ios::app);
+	if (!qq.empty()) // If queue is not empty
+	{
+		ofstream logFile;
+		logFile.open(filename, ios::app);
 
-			if (logFile.is_open())
+		if (logFile.is_open()) // If file successfully opened
+		{
+			while(!qq.empty()) // Dequeue data until queue is empty
 			{
-				while(!qq.empty())
-				{
-					logFile << "[" << getTime() << "] " << qq.front() + "\n";
-					qq.pop();        
-				}
-				logFile.close();
+				logFile << "[" << getTime() << "] " << qq.front() + "\n";
+				qq.pop();        
 			}
+			logFile.close();
 		}
-		/*else 
-		{
-			if (exitLoop) break; // qq is empty and logger thread needs to close. Exit this loop
-			this_thread::sleep_for(chrono::milliseconds(1000)); // Sleep for 1 second
-		}*/
-	//}
-}
-
-void Logger::shutdown()
-{
-	exitLoop = true;
-}
-
-bool Logger::active()
-{
-	return qq.size() != 0;
+	}
 }
 
 string Logger::getTime()
