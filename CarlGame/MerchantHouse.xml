@@ -6,12 +6,13 @@ For a second you simply stare uncomprehending. The woman regards you icily for a
 After a moments consideration, several things occur to you. First and foremost the fact that you haven't eaten since the previous day, the faint smell of food from the back of the house is enough to make your mouth water. More to the point, although less pressing, half the reason you left The Republic in the first place was what they did to…you shake your head, bringing yourself back to the present. You give a short bow, "Ma'am merchant, I would feel privileged to have the honor of guarding your wares. And I would never own a slave."
 For a second she merely stares at you, then breaks the silence with a small smile, "Glad to hear it, it's been a bitch finding anyone willing to venture outside with the trouble we've been having. Why don't you come have a seat and we'll figure out the details. I'm Ursala by the way."
 </text>
+	<image>village.jpg</image>
 	<var>
 		<name>questMerchantPassage</name>
 		<value>started</value>
 	</var>
 	<link>
 		<file>MerchantHouseInside.xml</file>
-		<text>Resume your inspection of the town square</text>
+		<text>You follow her into the house</text>
 	</link>
 </tile>

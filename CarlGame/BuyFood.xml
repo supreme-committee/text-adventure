@@ -1,5 +1,6 @@
 <tile>
 	<text>You consider your possesions and what you could do without.</text>
+	<image>village.jpg</image>
 	<if arg1="haveBreadKnife" arg2="true" comparison="eq">
         <link>
             <file>BreadKnifeOffer.xml</file>

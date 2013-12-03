@@ -2,6 +2,7 @@
 	<text>The guard chuckles, "Think you're some kinda hero boy? Can tell you now, you'll won't be doing much fighting just causes or rescuing princesses. Mostly you'll just get bruises and broken bones. Well what are you waiting for? Lets get to work.
 
 He finds a practice sword and the two of you get to it. When you start the sun is high in the sky, you do not stop until the sun is well below the horizon and the practice yard lit only by flickering torches. You are so exhausted you simply collapse on a spare bedroll in the guards nearby tent. The next morning you thank him for the crash course in sword use and prepare for the next stage of your journey, before you can leave the guard surprises you. With unusual brevity, he pushes a bundle into your arms, mutters a goodbye, and quickly fades into the mass of soldiers. Upon opening it you find a sword, used but still in good condition.</text>
+	<image>arena.jpg</image>
 	<var>
 		<name>primaryWeapon</name>
 		<value>unskilledSword</value>

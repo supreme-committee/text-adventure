@@ -1,7 +1,6 @@
 <tile>
 	<text>You are a wandering adventurer who after weeks of traveling has made your way to Fleurtran, the oldest of the great cities. It is midday and the gate is flung open, a steady trickle of people heaing in.</text>
-	<image>magicforest.jpg</image>
-	<music>stranger.flac</music>
+	<image>towers.jpg</image>
 	<var>
 		<name>haveMerchantMessage</name>
 		<value>false</value>
