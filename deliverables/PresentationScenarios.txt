@@ -1,0 +1,35 @@
+User Story(Sprint 1): As a game developer, I want to be able to define my own
+variables in order to customize how the user interacts with my game.
+
+Scenario:
+1. Create an xml file called Start.xml
+2. Follow the rules shown in the user manual 
+    in order to create the game
+3. Compile all of your files into a tarball
+4. Run the program
+5. Click the "New Game" button
+6. Play the game
+
+User Story(Sprint 2): As a game player, I want a polished GUI that makes
+interaction with the game intuitive and easy.
+
+Scenario:
+1. Get our sample game
+2. Run the program
+3. Click "New Game" button
+4. Play the game, buttons animate upon
+    moving with arrow kays.
+
+User Story(Sprint 3): As a developer, I want to add more features to the
+parser so it is easier to use and more complete.
+
+Scenario:
+1. Create an xml file called Start.xml
+2. Follow the rules shown in the user manual 
+    in order to create the game, this time
+    using the more advanced keywords
+    such as <music> <sound> and <if> <else> 
+3. Compile all of your files into a tarball
+4. Run the program
+5. Click the "New Game" button
+6. Play the game
