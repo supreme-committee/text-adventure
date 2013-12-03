@@ -1,5 +1,6 @@
 <tile>
 	<text>The merchant just stares for a second. He half reaches for it, then seems to restrain himself. He is nice enough to inform you that silver prices have been skyrocketing with the recent restrictions on trade, that lump would probably be worth most of his stock.</text>
+	<image>village.jpg</image>
 	<link>
 		<file>Market.xml</file>
 		<text>You thank the vendor for information and restraint.</text>

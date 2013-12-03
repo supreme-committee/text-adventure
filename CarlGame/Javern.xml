@@ -1,12 +1,9 @@
 <tile>
 	<text>Javern bears the dubious and contradictory distinction of the being the oldest of the large modern cities. The majority of the houses are made of stone, a rare feature among the dwellings in cities constructed earlier, however they have a rounded roughness to them born of decades of pounding weather. Its proximity to a large river has made it wealthy, but sunny days are few and far between. Accessibility has been the key to success for Javern. You can find people of every race and religion selling and buying every imaginable good and service. Here you are guaranteed the same indifference and slightly overpriced opportunities regardless. As your group walks farther into the city, you reflect on the journey the two of you shared.
 </text>
+	<image>towers.jpg</image>
 	<link>
 		<file>UrsalaPath.xml</file>
 		<text>It occurs to you that you will miss Ursala and her quiet competence. On an impulse you offer to help her sell her goods.</text>
-	</link>
-	<link>
-		<file>ContJourney.xml</file>
-		<text>While the journey was enjoyable, you are eager to continue on your journey, looking for new adventures.</text>
 	</link>
 </tile>

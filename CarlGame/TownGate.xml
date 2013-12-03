@@ -1,5 +1,6 @@
 <tile>
 	<text>You make your way back up the street, towards the gate through which you entered the town, and are surprised to see it barred shut. It is well past breakfast, and normally the gates stand open sunrise to sunset. In contrast the gatekeeper does not appear to have moved since you entered, he lounges on a stool next to the winch juggling whatever objects happen to come within his reach. The portcullis rises up behind him, a daunting tangle of metal. Barely visible through the gaps is a solid oak door, more than a foot thick and reinforced with steel bands. At your inquiry the gatekeeper informs you there has been a string of bandit attacks recently, citizens are not to be allowed beyond the gate unarmed for their own protection.</text>
+	<image>towers.jpg</image>
 	<if arg1="primaryWeapon" arg2="unskilledSword" comparison="eq">
 		<link>
 			<file>FleurtranCountryside.xml</file>
