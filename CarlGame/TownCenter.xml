@@ -1,6 +1,6 @@
 <tile>
 	<text>You stand in the town center, wondering what to do next. There are two particularly busy streets leading away from the plaza, one crowded with throngs of people laden with goods and gold, the other packed with soldiers hurrying up and down it in squads. In front of you a large message board catches your eye.</text>
-	<image>towers.jpg</image>
+	<image>magicforest.jpg</image>
 	<link>
 		<file>Market.xml</file>
 		<text>Follow the crowds towards the business district</text>

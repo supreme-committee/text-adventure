@@ -1,6 +1,5 @@
 <tile>
 	<text>The merchant's reaction is unexpected. He gives a start as him you've just told him his hair is on fire, his expression alternates between extreme worry and relief, it seems he cannot complete the transaction fast enough. Stopping only to say a few words to a neighbor, he begins striding away, nearly running by the time he is out of sight. You raise your eyebrows at the man selling beans out of a nearby stall with whom he conversed quickly. "His anniversary today."</text>
-	<image>village.jpg</image>
 	<var>
 		<name>haveFullWaterBottle</name>
 		<value>true</value>

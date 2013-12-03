@@ -1,6 +1,5 @@
 <tile>
 	<text>Before you realize it your weapon is in hand, Ursala is even quicker. Faster than you can follow her hand darts out, a whirling blur passes straight through one of the murky shapes, it lodges in the trunk of a tree, finally recognizable as a dagger. A full second later the creature explodes in a shower of sparks and muck, leaving you totally dumbfounded. Only when it happens again do you notice the tall cloaked figure striding at your enemy with even steps, a staff outstretched. As the ethereal creatures continue to rise out of the mist, he methodically destroys each one, lighting crackling from his weapon. For a second you simply stand there, unsure what to do.</text>
-	<image>lightswamp.jpg</image>
 	<link>
 		<file>AttackWizard.xml</file>
 		<text>Destroy the evil magic user while he is still distracted.</text>

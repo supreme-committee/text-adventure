@@ -3,7 +3,6 @@
 "You should not have done that. Bogwraiths cannot be touched by the physical."
 "So what should I have done? If you hadn't shown up we would have died."
 "Mmmm yes undoubtedly. I would have arrived sooner but I was brewing a potion and it was in an extremely delicate state." Several minutes pass. You wonder if the wizard has forgotten the two of you are standing next to him, you are considering leaving when he unexpectedly breaks the silence again. "I suppose I could teach you some magic. You do possess the necessary talent, it's what drew my attention in the first place. I warn you though, it is not an easy path."</text>
-	<image>lightswamp.jpg</image>
 	<link>
 		<file>WizardTraining.xml</file>
 		<text>I would love to learn the arcane arts!</text>

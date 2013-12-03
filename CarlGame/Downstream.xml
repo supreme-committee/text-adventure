@@ -1,6 +1,5 @@
 <tile>
 	<text>While the land remains more or less the same, this portion of the journey feels different to you. The settlements are farther apart, once you pass one which is no more than charred remains. After that you give any people you spot an even wider berth. This ferry will be there, Ursala assures you, because it's in one of the bigger towns in the area, it would take a near army of raiders to take it. However, your party is still a days travel from your destination when trouble strikes again. The only warning you have is a high pitched whine. With a solid thud an arrow embeds itself in the side of the wagon, inches from your shoulder. </text>
-	<image>river.jpg</image>
 	<if arg1="primaryWeapon" arg2="unskilledSword" comparison="eq">
 		<link>
 			<file>DownstreamSword.xml</file>

@@ -1,6 +1,5 @@
 <tile>
 	<text>When you first withdraw the scroll of parchment from your satchel the vendors face lights up with excitement, the glow quickly fades as he scans the text and finds it to be a simple advertisement, not an ancient spell or treasure map. He hands it back to you without a word</text>
-	<image>village.jpg</image>
 	<link>
 		<file>BuyDrink.xml</file>
 		<text>With a shrug you take the message and examine your possessions again.</text>
