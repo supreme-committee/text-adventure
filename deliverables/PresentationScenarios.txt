@@ -28,7 +28,6 @@ Scenario:
 2. Follow the rules shown in the user manual 
     in order to create the game, this time
     using the more advanced keywords
-    such as <music> <sound> and <if> <else> 
 3. Compile all of your files into a tarball
 4. Run the program
 5. Click the "New Game" button
