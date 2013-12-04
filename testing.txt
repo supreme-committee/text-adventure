@@ -1,7 +1,5 @@
 Supreme Committee - Unit Tests
 
-Game Class - Michael Grijalva
-
 Button Class
 
 Menu Class - Michael Parker

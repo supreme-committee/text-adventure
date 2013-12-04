@@ -1,0 +1,60 @@
+Game Class - Michael Grijalva
+
+    Function: buildText
+        Description: Fills the texts vector with strings (from the tile object) that are trimmed
+        and formatted so they will fit cleanly on the screen.
+        
+        EC1: tile.texts vector is empty
+        EC2: tile.texts vector contains one string over 110 characters long
+        EC3: tile.texts vector contains one or more strings totalling over 110 characters long
+        EC4: tile.texts vector contains one or more string totalling less than 110 characters long
+        EC5: tile.texts contains strings that start with '\n', '\r', or ' '
+        EC6: tile.texts contains returns (i.e. '\r')
+        
+        Test Cases:
+            EC1:
+                Input: tile.texts is empty (tile.texts.size() == 0)
+                Expected side effect: texts vector in Game class is empty
+            EC2:
+                Input: tile.texts = {"Hello there. I am a long string that contains over 110 characters. I will be trimmed so I'll fit on the screen in a pretty fashion."}
+                Expected side effect:
+                    texts vector in Game class contains: {"Hello there. I am a long string that contains over 100 characters. I will be trimmed so I'll fit on the screen", "in a pretty fashion."}
+            EC3:
+                Input: tile.texts = {"I am a short string.", "I am another short string.", "All these strings are short, but in the end we will total over 100 letters."}
+                Expected side effect:
+                    texts vector contains: {"I am a short string. I am another short string. All these strings are short, but in the end we will total over", "100 letters."}
+            EC4:
+                Input: tile.texts = {"This is a short string.", "Hello world", "We're less than 110 characters."}
+                Expected side effect:
+                    texts vector contains: {"This is a short string. Hello world. We're less than 110 characters."}
+            EC5:
+                Input: tile.texts = {"\n\n\n\r\r    I have stuff that should be trimmed off!"}
+                Expected side effect:
+                    texts vector contains: {"I have stuff that should be trimmed off!"}
+            EC6:
+                Input: tile.texts = {"I have\r return characters that should be\rcut out!"}
+                Expected side effect:
+                    texts vector contains: {"I have return characters that should be cut out!"}
+                
+    Function: createButtons
+        Description: Builds button objects from data in the vector
+        object 'links' inside the private 'tile' variable in the Game class.
+        'links' is a vector that contains 'Link' objects (contains the text
+        to display on the button, and the file the button should link to).
+        
+        EC1: tile's links variable is empty
+        EC2: tile's links variable has one or more valid items (both button text & filename is defined)
+        EC3: 'links' contains one or more invalid items (either text or filename is undefined)
+        
+        Test Cases:
+            EC1: 
+                Input: tile's 'links' vector is empty (tile.links.size() == 0)
+                Expected side effect: 'buttons' vector in Game class is empty (buttons.size() == 0)
+            EC2:
+                Input: tile.links = {"Click me!", "step2.xml"}
+                Expected side effect: 'buttons' vector contains a button with the text "Click me!" and
+                    a link to "step2.xml"
+            EC3:
+                Input: tile.links contains one link with {"Click me!", ""}
+                Expected side effect: 'buttons' vector contains a button with the text "Click me!" and
+                    no link (link inside the button equals "")
