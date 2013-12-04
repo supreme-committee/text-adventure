@@ -8,4 +8,187 @@ Menu Class - Michael Parker
  
 Parser Class - TJ White
 
+The parser class parses xml files, and has multiple functions
+which return relevant data regarding the file.
+
+Function: parse
+================
+Description: parses a given xml file and returns a Tile object
+which contains data that the rest of the game engine uses to 
+display on screen. Also edits the variable tables.
+================
+
+EC1: Xml is perfectly formatted (follows the user manual specification)
+EC2: Variable referenced is not found in var table
+EC3: No <tile> tag in xml
+EC4: Uses an unsupported tag
+EC5: Variable name invalid (does not start with a letter)
+EC6: Assigning or modifying a variable with wrong type
+
+Test Cases:
+
+EC1:    Input: CarlGame/Start.xml, and empty variable tables.
+        Expected Output: Does not throw exception
+EC2:    Input: 
+        <tile>
+            <text>{{thisVarDoesNotExist}}</text>
+        </tile>
+        Expected Output: RapidXML::parse_error 
+                        and error message printed to log
+
+EC3:    Input: ->blank xml file
+        Expected Output: RapidXML::parse_error 
+                        and error message printed to log
+        
+EC4:    Input: 
+        <tile>
+            <derp></derp> 
+        </tile>
+        Expected Output: RapidXML::parse_error 
+                        and error message printed to log
+
+EC5:    Input:
+        <tile>
+            <var>
+        		<name>123VarName</name>
+        		<value>42</value>
+            </var>
+        </tile>
+        Expected Output: RapidXML::parse_error 
+                        and error message printed to log
+EC6:
+        Input:
+        <tile>
+            <var>
+        		<name>VarName</name>
+        		<value>string</value>
+            </var>
+            <modify>
+                <var>VarName</var>
+                <amount>-1</amount>
+            </modify>
+        </tile>
+        Expected Output: RapidXML::parse_error 
+                        and error message printed to log
+    
+Function: compareInts
+================
+Description: Given 2
+================
+
+EC1: "eq" comparison is true
+EC2: "eq" comparison is false
+EC3: "gt" comp is true
+EC4: "gt" comp is false
+EC5: "ge" comp is true
+EC6: "ge" comp is false
+EC7: "lt" comp is true
+EC8: "lt" comp is false
+EC9: "le" comp is true
+EC10: "le" comp is false
+EC11: "neq" comp is true
+EC12: "neq" comp is false
+EC13: Anything else
+
+Test Cases:
+
+EC1:    Input: (1,1, "eq")
+        EO: true
+EC2:    Input: (1,2, "eq")
+        EO: false
+EC3:    Input: (1,0, "gt")
+        EO: true
+EC4:    Input: (1,2, "gt")
+        EO: false
+EC5:    Input: (1,1, "ge")
+        EO: true
+EC6:    Input: (1,2, "ge")
+        EO: false
+EC7:    Input: (1,3, "lt")
+        EO: true
+EC8:    Input: (1,0, "lt")
+        EO: false
+EC9:    Input: (1,1, "le")
+        EO: true
+EC10:    Input: (1,0, "le")
+        EO: false
+EC11:    Input: (1,3, "neq")
+        EO: true
+EC12:    Input: (1,1, "neq")
+        EO: false
+EC13:    Input: (1,1, "weinoein")
+        EO: RapidXML::parse_error exception and error message to log.
+                        
+Function: verify
+================
+Description: Analyzes the xml file and makes sure that
+tags are used correctly. Returns true is passed, false otherwise
+================
+
+EC1: Perfectly formatted xml file
+EC2: Unsupported tags are used.
+
+Test Cases:
+
+EC1:    Input: CarlGame/Start.xml
+        Expected Output: true
+        
+EC2:    Input: 
+        <tile>
+            <derp></derp> 
+        </tile>
+        Expected Output: false
+                        
+Function: save
+================
+Description: Saves the current state of the game
+As a text file
+================
+
+EC1: Save file is created
+
+Test Cases:
+
+EC1:    Input: Play the sample game for a while, 
+            then hit the save button. 
+            Enter in a file name in the dialog box
+        Expected Output: A file with the name you specified
+            is created.
+            
+Function: load
+================
+Description: Loads a save file and attempts
+to set the variables
+================
+
+EC1: The save file is not corrupted or edited from the
+        output of the save function. 
+EC2: File is corrupted or edited
+
+Test Cases:
+
+EC1:    Input: Using the Sample game press the load button and
+            choose this file:
+
+        test.tar
+        Market.xml
+        bools
+        haveMerchantMessage 1
+        ints
+        strings
+        
+        Expected Output: The tile Market.xml is loaded and variables are
+                set correctly.
+                
+EC2:    Input: This file
+
+        woeinqeion
+        woiqnoin
+        woeqnin
+        oqnb3ioufbrf3q
+        oqbn3ufb29fbuqb
+        0qf8    2i9fubq
+        
+        Expected Output: Loading fails, no variables are set.
+        
 Logger Class - Benjamin Lieu
