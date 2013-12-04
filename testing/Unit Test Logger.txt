@@ -1,0 +1,63 @@
++Supreme Committee
+
+ Logger Class - Benjamin Lieu
+ 
++The logger class is a debugging tool will read in a file and returns a file that shows where the error is by outputing the specific error message. It should also show where the error occured.
++
++Function: init
++================
++Description: init reads in the time then goes through the string taking out "\n, :, and white spaces". Afterwords it will take the leftover string and assign it to the filename as ("log." + timeString ".txt")
++================
++
++EC1: Init is perfectly formatted 
++EC2: Variable inputted is not a date or time
++
++Test Cases:
++
++EC1:    Input: 8:00 pm
++        Expected Output: log.800pm.txt
++EC2:    Input: helloworld
++        Expected Output: error exception
++    
++Function: log
++================
++Description: Adds a string to queue if the logger is initialized.
++================
++
++EC1: filename is greater than 0 and s is a string.
++EC2: filename is less than or equal to 0.
+
++Test Cases:
++EC1:	Input: string "helloworld"
++		Expected Output: helloworld should be pushed into qq.
++EC2:	Input: filename is empty.
+		Expected Output: nothing is done.
++	
++                        
++Function: write
++================
++Description: Writes to the .log file
++================
++
++EC1: qq has a string pushed onto it.
++EC2: qq is empty.
++
++Test Cases:
++
++EC1:    Input: !qq.empty()
++        Expected Output: string s
++        
++EC2:    Input: qq is empty
++        Expected Output: nothing happens
++                        
++Function: getTime
++================
++Description: gets the current time and returns it into the .log file.
++================
++
++EC1: Time is pulled from the registar
++
++Test Cases:
++
++EC1:    Input: 4:32:12
++        Expected Output: 4:32:12
