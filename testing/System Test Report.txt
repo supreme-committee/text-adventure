@@ -1,0 +1,19 @@
+Supreme Committee - User story test coverage
+
+
+    Scenario 1 (ALL user stories are covered by this scenario)
+        
+    Scenario:
+        1. Navigate to the 'CarlGame' folder in the local copy of the Github repo.
+        2. Open the Start.xml file. In this file you can see how variables are defined (lines 4 through 23, via <var> tags).
+        3. Open the file TownCenter.xml. In this file you can see how images are integrated (line 3, via <image> tags)
+        4. Open the file BuyDrink.xml. In this file you can see how if statements work (line 4, via <if> tags)
+        5. Using 7-zip (or similar software), select all the files in this directory and compress then into a .tar file
+        6. Run 'Fork in the Read.exe' (Download from Releases page on Github repo).
+        7. Click on 'New Game' in the upper-left corner
+        8. Select the .tar file you created earlier
+        9. Click through the first few tiles
+        10. Click the 'save' button and save your game.
+        11. Click on the 'New Game' button and re-load the .tar file (this will start the game from the beginning).
+        12. Click the 'load' button and load the save file you created earlier.
+        
