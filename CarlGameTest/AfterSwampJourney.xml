@@ -1,0 +1,8 @@
+<tile>
+	<text>Without another word the wizard steps into the trees and is instantly out of sight. You and Ursala simply stand there for a second trying to absorb what just happened, upon meeting gazes you share a nervous laugh and with exaggerated calm gather your things and get the horses back on the path. Luckily nothing seems to have been broken or lost, the two of you set out immediately and travel straight through the night and well into the next day, not stopping until the swamp is out of sight behind you. At such a quick pace, it is not long before farms and settlements begin increasing in density, soon the high towers of Javern come into view. It is a newer city and one of the fastest growing in the region, it sprawls far beyond its low walls, never especially tall or impressive, but never seeming to end either.</text>
+	<image>river.jpg</image>
+	<link>
+		<file>Javern.xml</file>
+		<text>You and Ursala join the stream of people flowing towards the city.</text>
+	</link>
+</tile>

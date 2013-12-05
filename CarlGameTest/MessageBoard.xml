@@ -1,0 +1,12 @@
+<tile>
+	<text>There is only one message on the board, its faded letters leaving you to believe it has been posted for some time now: Action! Adventure! Fair wages! Local merchant seeks tough, independent, and self-motivated warrior to guard their wares on a journey south across the Objective Sea. Not for the faint of heart. Inquire at the blue house just past the market for details.</text>
+	<image>village.jpg</image>
+	<var>
+		<name>haveMerchantMessage</name>
+		<value>true</value>
+	</var>
+	<link>
+		<file>TownCenter.xml</file>
+		<text>Resume your inspection of the town square</text>
+	</link>
+</tile>

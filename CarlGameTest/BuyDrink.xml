@@ -1,0 +1,26 @@
+<tile>
+	<text>You consider your possessions and what you could do without.</text>
+	<image>village.jpg</image>
+	<if arg1="haveBreadKnife" arg2="true" comparison="eq">
+        <link>
+            <file>BreadKnifeOfferDrink.xml</file>
+            <text>From your satchel you withdraw your newly forged bread knife and hand it over hilt first</text>
+        </link>
+    </if>
+	<if arg1="haveMerchantMessage" arg2="true" comparison="eq">
+        <link>
+            <file>MerchantMessageOffer.xml</file>
+            <text>From your satchel you withdraw the faded parchment and offer it to the merchant</text>
+        </link>
+    </if>
+	<if arg1="haveMerchantShawl" arg2="true" comparison="eq">
+        <link>
+            <file>MerchantShawlOffer.xml</file>
+            <text>From your satchel you withdraw your newly acquired shawl and display it for the shopkeeper</text>
+        </link>
+    </if>
+    <link>
+		<file>Market.xml</file>
+		<text>With a smile and a goodbye for the vendor you walk away from his stall</text>
+	</link>
+</tile>

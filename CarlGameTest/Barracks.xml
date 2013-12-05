@@ -1,0 +1,24 @@
+<tile>
+	<text>You head down the dirt path, packed rock hard and yet still giving off a stream of dust torn free by marching boots. Row after row of tents slide by on either side, each one identical to the next. After several minutes of weaving your way through throngs of armed men, you come to the wide expanse of the practice yard full of men throwing themselves at each other in explosions of grating metal and sparks. Surrounding the yard are the many buildings necessary for the military machine. As you stand around, a little daunted by the bustle, a genial looking solider approaches you.
+"Greetings traveler, you look lost. What brings you to this mirthless warren of weapons?"
+"The usual I suppose. Ran away from home seeking fame and fortune. Well mainly fortune. Turns out getting money is the easy part, holding on to it is a little more complicated." Your statement elicits gales of laughter from the jovial man. 
+"Ha well said my friend. I myself am familiar with the fickle ways of money. Sometimes I wonder much I could own if my money weren't so fond of women and drink. Then I get depressed and go get a drink." He continues on in this vein for several minutes, describing the many malicious parties plotting to part him from his precious gold, all the while wearing a grin that belies his words. Finally he comes back around to his starting point. "Well then my friend, I suppose you'll be wanting to learn to defend yourself. I'd be willing to help. If you kill a couple bandits it means less work for me you know."
+</text>
+	<image>arena.jpg</image>
+	<link>
+		<file>LearnSword.xml</file>
+		<text>You tell the guard you've always found swords appealing, you'd love to learn to use one.</text>
+	</link>
+	<link>
+		<file>LearnSpear.xml</file>
+		<text>You tell the guard you've always found spears appealing, you'd love to learn to use one.</text>
+	</link>
+	<link>
+		<file>LearnBow.xml</file>
+		<text>You tell the guard you've always found bows appealing, you'd love to learn to use one.</text>
+	</link>
+	<link>
+		<file>TownCenter.xml</file>
+		<text>You thank him profusely for the offer but you have other business you must attend to.</text>
+	</link>
+</tile>

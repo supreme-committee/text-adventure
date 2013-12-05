@@ -1,0 +1,13 @@
+<tile>
+	<text>The two of you stand at the rivers edge, staring at the other side with consternation. The remains of the ferry and dock are still visible below the surface of the clear water, skeletons now after weeks of rushing current stripping the frame. There are no clues as to what happened, and nothing to do but find a way around. Ursala outlines the options available. 
+"There's really only two possible alternatives from here. If we follow the river upstream its source is a spring not too far from here, we can simply circumvent it entirely. Of course, we'd have to travel through The Swamp. Downstream is more predictable, it's more of what we've been seeing until we reach the next ferry. It's quite a ways though, probably the slower of the options. Do you have a preference?" </text>
+	<image>river.jpg</image>
+	<link>
+		<file>Swamp.xml</file>
+		<text>I wouldn't mind a change of scenery. How about we take the short way?</text>
+	</link>
+	<link>
+		<file>Downstream.xml</file>
+		<text>Better safe and late than early and dead. Want to just head downstream?</text>
+	</link>
+</tile>

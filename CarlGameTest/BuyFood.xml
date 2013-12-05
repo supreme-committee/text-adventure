@@ -1,0 +1,20 @@
+<tile>
+	<text>You consider your possesions and what you could do without.</text>
+	<image>village.jpg</image>
+	<if arg1="haveBreadKnife" arg2="true" comparison="eq">
+        <link>
+            <file>BreadKnifeOffer.xml</file>
+            <text>From your satchel you withdraw your newly forged bread knife and hand it over hilt first</text>
+        </link>
+    </if>
+	<if arg1="haveSmallLumpSilver" arg2="true" comparison="eq">
+        <link>
+            <file>SmallLumpSilverOffer.xml</file>
+            <text>From your satchel you withdraw a small lump of silver and hold it up for inspection</text>
+        </link>
+    </if>
+    <link>
+		<file>Market.xml</file>
+		<text>With a smile for the vendor you walk away from his stall</text>
+	</link>
+</tile>

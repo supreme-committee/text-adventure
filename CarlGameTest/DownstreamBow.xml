@@ -1,0 +1,10 @@
+<tile>
+	<text>Before you can even loose the arrow Ursala grabs your shoulder and pulls you down beside her, wagon in between you and the source of fire. Several more thuds are heard from the opposite side of the wagon. 
+"There's too many and they have the high ground. We need to get out of here." 
+A quick glance around the edge of your cover reveals the truth of her words. The raiders are entrenched halfway up a hillside overlooking the road. Luckily for you and your companion, the open ground that makes assault on their position impossible also works the opposite way. Each time someone attempts to advance on your position you lean out and send an arrow in their direction. It is no easy task while dodging arrows, but you manage to hold them off long enough for Ursala to get the cart turned around, keeping the wagon between you and your attackers. With agonizing slowness you retrace your steps, bolts fly both sides, but the distances are too great and the cover too good for either side to hit anything. You don't stop your retreat until you are well upstream of the destroyed ferry, and even then you keep a wary eye on your trail.</text>
+	<image>river.jpg</image>
+	<link>
+		<file>Swamp.xml</file>
+		<text>Soon the rolling hills give way to dense brush and bog.</text>
+	</link>
+</tile>

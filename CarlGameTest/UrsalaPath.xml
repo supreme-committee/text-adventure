@@ -1,0 +1,8 @@
+<tile>
+	<text>To your slight surprise, Ursala readily agrees to your suggestion. It would be impossible to share the journey the two of you undertook and not come out of it fast friends, however she never struck you as the type to make questionable business decisions based on personal feelings. However, several days later most of her books have found new homes, and yet she makes no mention of your leaving. If anything she seems to share your reluctance for moving on. When she offers you a stake in her new venture you leap at the chance. There is much money to be made navigating the unregulated markets of Javern, and Ursala is an expert at finding a way to profit on almost any good the two of you acquire. Your own skills are more useful than you had imagined they would be, the city is full of unsavory people just waiting for the chance to cheat or just outright steal. The two of you make an excellent team, one night after a particularly eventful and profitable day, you both pause while crossing a bridge. She looks up at you, and suddenly her reasons for not wanting you to leave seem far more obvious.</text>
+	<image>towers.jpg</image>
+	<link>
+		<file>JavernLife.xml</file>
+		<text>Kiss her.</text>
+	</link>
+</tile>
