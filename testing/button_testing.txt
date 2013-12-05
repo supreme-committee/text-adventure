@@ -1,0 +1,86 @@
+Button Tests
+Carl LaMaster
+The button class is responsible for creating buttons which contain links to other tiles, as well as text and possibly associated sounds. 
+
+Function: getLink
+================
+Description: Returns the link present in the specified button.
+================
+
+EC1: The link corresponds to an xml file present in the same game (.tar).
+EC2: The link does not correspond to an xml file in the same game.
+EC3: There is no link.
+
+Test Cases:
+
+EC1:    Input: A button which contains a link leading to another xml file. 	        
+        Expected Output: The button will be created with a link to the tile 	specified.
+
+EC1:    Input: A button which contains a link which does not correspond to an xml file. 	        
+        Expected Output: The button will be created without complaint.
+
+EC3:	Input: A link with nothing between the tags.
+	Expected Output: A blank button is created without complaint, selecting it causes the game to crash.
+
+
+            
+Function: getHeight
+================
+Description: Returns the height of the buttons rectangle coordinates.
+================
+EC1: The button is minimum height (no text present).
+EC2: The button has a height greater than the game window.
+EC3: The button has a height smaller than the game window. 
+
+Test Cases:
+
+EC1:    Input: A link with nothing between the text tags. 	        
+        Expected Output: The button is created and has the default minimum height of 10, it can be selected like normal.
+
+EC2:    Input: A link with more than 100 lines of text (separated by spaces).     
+        Expected Output: Button extends off the window, but still has expected height ((100*20)+10).
+
+EC3:	Input: A link with 10 lines of text (separated by spaces).
+	Expected Output: A button with a height of 210.
+
+
+Function: wordWrap
+================
+Description: Returns a string which has been broken up by newline characters whenever the character count for a line goes over a specified number.
+================
+EC1: The string contained by the text tags one word which is longer than the wrap length.
+EC2: The string contained by the text tags includes a linebreak character
+EC3: The string contained by the text tags is separated by spaces and is longer than the wrap length.
+
+Test Cases:
+
+EC1:    Input: A link with one word containing more than 80 characters.     
+        Expected Output: Crashes the game.
+
+EC2:    Input: A link with a linebreak character in the text tags.     
+        Expected Output: Crashes the game.
+
+EC3:	Input: A link with more than 80 characters between the text tags, broken up by spaces. 
+	Expected Output: A string broken by newline characters placed the word before they would go beyond the wrap length (80 in this test case). 
+
+
+Function: isMouseOver
+================
+Description: Returns a boolean based on whether the specified x,y coordinates are inside the rectangle coordinates.
+================
+
+EC1: Both X and Y coordinates passed in are contained in the rectangle's area.
+EC2: X coordinate is in the rectangle area but the Y coordinate is not.
+EC3: X coordinate is not in the rectangle area but the Y coordinate is.
+EC4: Both X and Y coordinates are not in the rectangle's area.
+
+Test Cases: 
+For these test cases the rectangle coordinates are considered to start (top left corner) at (0,0) and have x,y coordinates of (80,90)
+EC1:	Input: x = 45, y = 45
+	Expected Output: true
+EC2:	Input: x = 45, y = 100
+	Expected Output: false
+EC3:	Input: x = 100, y = 45
+	Expected Output: false
+EC4:	Input: x = 100, y = 100
+	Expected Output: false
