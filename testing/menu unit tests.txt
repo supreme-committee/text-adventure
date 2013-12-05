@@ -1,0 +1,107 @@
+The menu class creates the menu seen on screen. The menu is supposed to take up the the top 22 pixels of the screen and span the entire width of the screen when it is displayed. It has functions to render it on the screen, enable or disable certain options on the bar, and return whether or not the user has clicked on certain parts of the menu.
+
+Function: menu
+Description: Constructor for class. Takes in an SFML font object to initialize text objects. Also initializes other drawing objects for the menu.
+
+EC1: Constructor is passed a valid font object.
+EC2: Constructor is passed an invalid font object.
+
+Test Cases:
+1. Constructor is passed an SFML font object that has been properly loaded from a file.
+   Expected Output: Text objects in menu are properly initialized and can be rendered.
+   Covered: EC1
+2. Constructor is passed an SFML font object that has not been properly loaded from a file(either not loaded at all or loaded an invalid file)
+   Expected Output: Text objects are not initialized and can not be rendered properly.
+   Covered: EC2
+
+
+Function: Render
+Description: Paints all of the elements of the menu on the given window.
+
+EC1: Window object passed in has correct dimensions(1024 X 576)
+EC2: Window object passed in is too small width-wise(<1024).
+EC3: Window object passed in is too large width-wise(>1024).
+EC4: Window object passed in is less than 22 pixels high.
+
+Test Cases:
+1. Window passed in is 1024 X 576
+   Expected Output: Menu is properly rendered in the window.
+   Covers: EC1
+2. Window passed in is 800 X 600
+   Expected Output: The Menu's right side is cut off of the window
+   Covers: EC2
+3. Window passed in is 1920 X 1080
+   Expected Output: The Menu does not cover the entire width of the window.
+   Covers: EC3
+4. Window passed in is 1024 X 10
+   Expected Output: The menu's bottom half is cut off by the window.
+   Covers: EC4
+
+
+Function: isMouseOver
+Description: Takes two integer arugments that correspond to the x and y coordinates of the mouse and returns true or false depending on if those coordinates are contained in the menu bar's area(1024 X 22).
+
+EC1: Both X and Y coordinates passed in are contained in the menu bar's area.
+EC2: X coordinate is in the menu bar's area but the Y coordinate is not.
+EC3: X coordinate is not in the menu bar's area but the Y coordinate is.
+EC4: Both X and Y coordinates are not in the menu bar's area.
+
+Test Cases:
+1. X = 500,  Y = 10
+   Expected Output: true
+   Covered: EC1
+2. X = 500, y = 500
+   Expected Output: false
+   Covered: EC2
+3. X = -10 Y = 10
+   Expected Output: false
+   Covered: EC3
+4. X = -10, Y = -10
+   Expected Output: false
+   Covered: EC4
+
+
+Function: loadSelect
+Description: Takes two integer arugments that correspond to the X and Y coordinates of the mouse and returns true or false if the coordinates are contained in the rectangular area of the load button. The load button area is a rectangle that is 45 X 22 starting at (160,0).
+
+EC1: Both X and Y are contained in the load rectangle.
+EC2: X is contained but Y is not.
+EC3: X is not contained but Y is.
+EC4: Both X and Y are not contained.
+
+Test Cases:
+1. X = 170, Y = 2
+   Expected Output: true
+   Covered: EC1
+2. X = 170, Y = 50
+   Expected Output: false
+   Covered: EC2
+3. X = -10, Y = 20
+   Expected Output: false
+   Covered: EC3
+4. X = -10, Y = -10
+   Expected Output: false
+   Covered: EC4
+
+
+Function: saveSelect
+Description: Takes two integer arugments that correspond to the X and Y coordinates of the mouse and returns true or false depending on if the coordinates are contained in the rectangular area of the save button. The save button is a rectangle that is 45 X 22 starting at (100,0).
+
+EC1: Both X and Y are are contained in the save rectangle.
+EC2: X is contained but Y is not.
+EC3: X is not contained but Y is.
+EC4: Neither X or Y are contained.
+
+Test Cases:
+1. X = 101, Y = 1
+   Expected Output: true
+   Covered: EC1
+2. X = 101, Y = 200
+   Expected Output: false
+   Covered: EC2
+3. X = 80, Y = 1
+   Expected Output: false
+   Covered: EC3
+4. X = -1, Y = -1
+   Expected Output: false
+   Covered: EC4
