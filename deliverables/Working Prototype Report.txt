@@ -7,4 +7,3 @@ Known Problems:
 1. When loading a game, if there are no 'ints' or 'strings' lines, the program becomes unresponsive.
 2. Saving is still available in the menu even when parsing a file fails.
 3. Engine opens and immediately closes when given a non-tar file.
-4. Engine crashes when an XML file is missing a closing tag.
