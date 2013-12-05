@@ -105,3 +105,124 @@ Test Cases:
 4. X = -1, Y = -1
    Expected Output: false
    Covered: EC4
+
+
+Function: newSelect
+Description: Takes two integer arugments that correspond to the X and Y coordinates of the mouse and returns true or false depending on if the coordinates are contained in the rectangular area of the new game button. The new game button is a rectangle that is 95 X 22 starting at (0,0).
+
+EC1: Both X and Y are are contained in the new game rectangle.
+EC2: X is contained but Y is not.
+EC3: X is not contained but Y is.
+EC4: Neither X or Y are contained.
+
+Test Cases:
+1. X = 1, Y = 1
+   Expected Output: true
+   Covered: EC1
+2. X = 1, Y = 200
+   Expected Output: false
+   Covered: EC2
+3. X = 80, Y = 1
+   Expected Output: false
+   Covered: EC3
+4. X = -1, Y = -1
+   Expected Output: false
+   Covered: EC4
+
+
+
+Function: muteSelect
+Description: Takes two integer arugments that correspond to the X and Y coordinates of the mouse and returns true or false depending on if the coordinates are contained in the rectangular area of the mute button. The mute button is a rectangle that is 45 X 22 starting at (220,0).
+
+EC1: Both X and Y are are contained in the save rectangle.
+EC2: X is contained but Y is not.
+EC3: X is not contained but Y is.
+EC4: Neither X or Y are contained.
+
+Test Cases:
+1. X = 221, Y = 1
+   Expected Output: true
+   Covered: EC1
+2. X = 221, Y = 200
+   Expected Output: false
+   Covered: EC2
+3. X = 80, Y = 1
+   Expected Output: false
+   Covered: EC3
+4. X = -1, Y = -1
+   Expected Output: false
+   Covered: EC4
+
+
+Function: setTextColor
+Description: Takes three arguments: two integers that correspond to the X and Y coordinate of the mouse, and a boolean, called mute, is used to tell if sound is muted or not. Using those three arguments, the text color of all of the buttons are changed accordingly.
+
+EC1: X and Y are contained in the new game button.
+EC2: X and Y are contained in the load game button, and the load button is enabled.
+EC3: X and Y are contained in the load game button, and the load button is enabled. 
+EC4: X and Y are contained in the save game button, and the save button is enabled.
+EC5: X and Y are contained in the save game button, and the save button is enabled.
+EC6: X and Y are contained in the mute button, and the mute boolean is false.
+EC7: X and Y are contained in the mute button, and the mute boolean is true.
+EC8: X and Y are not contained in the mute button, and the mute boolean is true.
+EC9: X and Y are not contained in the mute button and the mute boolean is false.
+EC10: X and Y are not contained in any button.
+
+Test Cases:
+1. X = 1, Y = 1
+   Expected Output: All button text is black except for the new game button text, which is red.
+   Covered: EC1
+2. X = 170, Y = 1, load button is disabled
+   Expected Output: All button text is black except for the load button text, which is a slightly more transparent black.
+   Covered: EC2
+3. X = 170, Y = 1, load button is enabled
+   Expected Output: All button text is black except for the load button text, which is red.
+   Covered: EC3
+4. X = 101, Y = 1, save button is disabled
+   Expected Output: All button text is black except for the save button text, which is a slightly more transparent black.
+   Covered: EC4
+5. X = 101, Y = 1, save button is enabled
+   Expected Output: All button text is black except for the save button text, which is red.
+   Covered: EC5
+6. X = 221, Y = 1, mute = false
+   Expected Output: All button text is black, except for the mute button text, which is red.
+   Covered: EC6
+7. X = 221, Y = 1, mute = true
+   Expected Output: All button text is black, except for the mute button text, which is cyan.
+   Covered: EC7
+8. X = -1, Y = -1, mute = true
+   Expected Output: All button text is black, except for the mute button text, which is blue.
+   Covered: EC8
+9. X = -1, Y = -1, mute = false
+   Expected Output: All button text is black.
+   Covered: EC9, EC 10
+
+
+Function: enableSaving
+Description: Takes one boolean arugment, enable, that will either enable or disable the save game button.
+
+EC1: Boolean passed in is true.
+EC2: Boolean passed in is false.
+
+Test Cases:
+1. enable = true
+   Expected Output: The save button will stay or become inactive, will no longer be able to be clicked, and the button text will gray out.
+   Covered: EC1
+2. enable = false
+   Expected Output: The save button will stay or become active and be able to be clicked, and the button text will be black.
+   Covered: EC2
+
+
+Function: enableLoading
+Description: Takes one boolean arugment, enable, that will either enable or disable the load game button.
+
+EC1: Boolean passed in is true.
+EC2: Boolean passed in is false.
+
+Test Cases:
+1. enable = true
+   Expected Output: The load game button will stay or become inactive, will no longer be clickable, and the button text will gray out.
+   Covered: EC1
+2. enable = false
+   Expected Output: The load game button will stay or become active, be able to be clicked, and the button text will be black.
+   Covered: EC2
